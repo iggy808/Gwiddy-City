@@ -52,14 +52,15 @@ namespace DanceEvent
         {
             if (!TimerOn)
             {
+                // Quicktime event is over - do whatever then disable the object maybe?
                 return;
             }
+            
             HandleTimer();
             CheckGoalPositions();
             if (ArmRightInPlace && LegRightInPlace && ArmLeftInPlace && LegLeftInPlace)
             {
                 Debug.Log("All limbs in position with " + RemainingTime + " seconds to spare!!");
-                
                 InputController.enabled = false;
                 TimerOn = false;
             }
@@ -96,6 +97,7 @@ namespace DanceEvent
                 ArmRightInPlace = false;
             }
 
+            // need to tweak this goal check for the splits
             float legRightRotation = LegRightPivot.transform.rotation.eulerAngles.z;
             if (legRightRotation > GoalPose.Splits_LegRightGoal.eulerAngles.z - ErrorMargin
                 && legRightRotation < GoalPose.Splits_LegRightGoal.eulerAngles.z + ErrorMargin)
