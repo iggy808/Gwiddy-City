@@ -9,7 +9,7 @@ namespace DanceEvent
         Splits
     }
 
-    public class GoalPose : MonoBehaviour
+    public class GoalPose
     {
         public Quaternion Splits_ArmRightGoal;
         public Quaternion Splits_LegRightGoal;
