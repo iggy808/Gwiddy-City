@@ -122,7 +122,6 @@ namespace DanceEvent
                 default:
                     break;
             }
-            Debug.Log(CurrentLimb);
         }
     }
 }
