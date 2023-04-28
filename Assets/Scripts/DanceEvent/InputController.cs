@@ -20,8 +20,8 @@ namespace DanceEvent
         GameObject ArmLeftPivot;
         GameObject LegLeftPivot;
 
-        float RotationSpeed = 2f;
-        Limb CurrentLimb;
+        float RotationSpeed = 4.5f; // Breaks at 5 rotation speed lmao- need to implement clamp and see if that fixes
+        public Limb CurrentLimb;
 
         // Start is called before the first frame update
         void Start()
@@ -41,14 +41,11 @@ namespace DanceEvent
             {
                 SwitchLimbs();
             }
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                Debug.Log(LegRightPivot.transform.rotation.eulerAngles.z);
-            }
             
             HandleInput();
         }
 
+        // Spencer suggested mathf.clamp here- need to reimplement!
         void HandleInput()
         {
             float currentRotation;

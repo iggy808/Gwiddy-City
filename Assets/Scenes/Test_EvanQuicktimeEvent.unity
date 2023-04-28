@@ -288,8 +288,10 @@ GameObject:
   - component: {fileID: 269644622}
   - component: {fileID: 269644621}
   - component: {fileID: 269644620}
+  - component: {fileID: 269644624}
+  - component: {fileID: 269644623}
   m_Layer: 5
-  m_Name: DanceEventCanvas
+  m_Name: BattleDanceEvent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -377,6 +379,36 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &269644623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269644618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea663ab376eb344cdb4cf3a15e53c8b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DesiredMove: 0
+  ArmRightInPlace: 0
+  LegRightInPlace: 0
+  ArmLeftInPlace: 0
+  LegLeftInPlace: 0
+--- !u!114 &269644624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269644618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5846f55b50f124b48b799367df37fcf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentLimb: 0
 --- !u!1 &318526850
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,8 +751,6 @@ GameObject:
   - component: {fileID: 736536101}
   - component: {fileID: 736536104}
   - component: {fileID: 736536103}
-  - component: {fileID: 736536102}
-  - component: {fileID: 736536105}
   m_Layer: 5
   m_Name: DanceEventBackground
   m_TagString: Untagged
@@ -756,18 +786,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -400, y: -100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &736536102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 736536100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5846f55b50f124b48b799367df37fcf9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &736536103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -806,19 +824,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 736536100}
   m_CullTransparentMesh: 1
---- !u!114 &736536105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 736536100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea663ab376eb344cdb4cf3a15e53c8b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DesiredMove: 0
 --- !u!1 &957319661
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,7 +1140,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1704734133}
-  - component: {fileID: 1704734132}
   - component: {fileID: 1704734134}
   m_Layer: 0
   m_Name: DanceEventUI
@@ -1144,18 +1148,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1704734132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1704734131}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4163bb9d6220349b99bea76e80b125fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1704734133
 Transform:
   m_ObjectHideFlags: 0

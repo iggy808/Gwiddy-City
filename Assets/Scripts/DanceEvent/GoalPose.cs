@@ -11,10 +11,10 @@ namespace DanceEvent
 
     public class GoalPose
     {
-        public Quaternion Splits_ArmRightGoal;
-        public Quaternion Splits_LegRightGoal;
-        public Quaternion Splits_ArmLeftGoal;
-        public Quaternion Splits_LegLeftGoal;
+        public Quaternion ArmRightGoalRotation;
+        public Quaternion LegRightGoalRotation;
+        public Quaternion ArmLeftGoalRotation;
+        public Quaternion LegLeftGoalRotation;
 
         GameObject ArmRightGoal;
         GameObject LegRightGoal;
@@ -35,10 +35,10 @@ namespace DanceEvent
             switch (pose)
             {
                 case Pose.Splits:
-                    Splits_ArmRightGoal = Quaternion.Euler(0f, 0f, 30f);
-                    Splits_LegRightGoal = Quaternion.Euler(0f, 0f, 0f);
-                    Splits_ArmLeftGoal = Quaternion.Euler(0f, 0f, 210f);
-                    Splits_LegLeftGoal = Quaternion.Euler(0f, 0f, 180f);
+                    ArmRightGoalRotation = Quaternion.Euler(0f, 0f, 30f);   // ArmRightGoal for splits
+                    LegRightGoalRotation = Quaternion.Euler(0f, 0f, 359f);  // LegRightGoal for splits
+                    ArmLeftGoalRotation = Quaternion.Euler(0f, 0f, 210f);   // ArmLeftGoal for splits
+                    LegLeftGoalRotation = Quaternion.Euler(0f, 0f, 180f);   // LegLeftGoal for splits
                     break;
                 default:
                     break;
@@ -47,18 +47,10 @@ namespace DanceEvent
 
         public void DisplayGoals()
         {
-            switch (CurrentPose)
-            {
-                case Pose.Splits:
-                    ArmRightGoal.transform.rotation = Splits_ArmRightGoal;
-                    LegRightGoal.transform.rotation = Splits_LegRightGoal;
-                    ArmLeftGoal.transform.rotation = Splits_ArmLeftGoal;
-                    LegLeftGoal.transform.rotation = Splits_LegLeftGoal;
-                    break;
-                default:
-                    break;
-            }
-
+            ArmRightGoal.transform.rotation = ArmRightGoalRotation;
+            LegRightGoal.transform.rotation = LegRightGoalRotation;
+            ArmLeftGoal.transform.rotation = ArmLeftGoalRotation;
+            LegLeftGoal.transform.rotation = LegLeftGoalRotation;
         }
     }
 }
