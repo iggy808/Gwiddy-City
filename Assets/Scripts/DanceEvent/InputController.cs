@@ -30,7 +30,6 @@ namespace DanceEvent
             LegRightPivot = GameObject.Find("LegRightPivot");
             ArmLeftPivot = GameObject.Find("ArmLeftPivot");
             LegLeftPivot = GameObject.Find("LegLeftPivot");
-
             CurrentLimb = Limb.ArmRight;
         }
 

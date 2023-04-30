@@ -27,8 +27,9 @@ namespace DanceEvent
         bool LegLeftInPlace = false;
 
         bool TimerOn;
+        bool NoDice;
         float RemainingTime = 3f;
-
+        
         // Start is called before the first frame update
         void Start()
         {
@@ -37,9 +38,9 @@ namespace DanceEvent
             LegRightPivot = GameObject.Find("LegRightPivot");
             ArmLeftPivot = GameObject.Find("ArmLeftPivot");
             LegLeftPivot = GameObject.Find("LegLeftPivot");
-            InputController = GameObject.Find("BattleDanceEvent").GetComponent<InputController>(); // will need to address the names when the HUD dance event system is implemented
+            InputController = GameObject.Find("BattleDanceEvent").GetComponent<InputController>();
             DanceRequestHandler = GameObject.Find("DanceEventUI").GetComponent<DanceRequestHandler>();
-
+			
             switch(DesiredMove)
             {
                 case Pose.Splits:
@@ -49,19 +50,28 @@ namespace DanceEvent
                 default:
                     break;
             }
-
+	    
             Debug.Log("Timer started!! Remaining time: " + RemainingTime);
             TimerOn = true;
+			NoDice = false;
         }
+		
 
         // Update is called once per frame
         void Update()
         {
             if (!TimerOn)
             {
-                // Quicktime event is over - do whatever then disable the object maybe?
+				if (!NoDice)
+				{
+                	// Quicktime event is over - do whatever then disable the object maybe?
+					DanceRequestHandler.EndQuicktimeEvent();
+				}
+				// Lock so that the end event coroutine is not called multiple times
+				NoDice = true;
                 return;
             }
+
             // Track what limb is currently being rotated
             CurrentLimb = InputController.CurrentLimb;
             // Tell player what button to press for quicktime event

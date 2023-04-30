@@ -31,8 +31,12 @@ namespace DanceEvent
             LegRightGoal = GameObject.Find("LegRightGoal");
             ArmLeftGoal = GameObject.Find("ArmLeftGoal");
             LegLeftGoal = GameObject.Find("LegLeftGoal");
+            SetGoalRotations();
+        }
 
-            switch (pose)
+	void SetGoalRotations()
+	{ 
+            switch (CurrentPose)
             {
                 case Pose.Splits:
                     ArmRightGoalRotation = Quaternion.Euler(0f, 0f, 30f);   // ArmRightGoal for splits
@@ -43,7 +47,7 @@ namespace DanceEvent
                 default:
                     break;
             }
-        }
+	}
 
         public void DisplayGoals()
         {

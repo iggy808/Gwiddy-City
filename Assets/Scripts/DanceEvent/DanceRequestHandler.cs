@@ -24,7 +24,7 @@ namespace DanceEvent
                 BattleDanceEvent =  GameObject.Find("BattleDanceEvent");
                 EventManager = BattleDanceEvent.GetComponent<DanceEventManager>();
                 EventManager.enabled = false;
-                BattleDanceEvent.active = false;
+                BattleDanceEvent.SetActive(false);
                 // call on event manager to handle event and ui etc
                 //EventManager.DisplayUI();
             }
@@ -46,13 +46,13 @@ namespace DanceEvent
         {
             yield return new WaitForSeconds(2f);
             EventManager.enabled = false;
-            BattleDanceEvent.active = false;
+            BattleDanceEvent.SetActive(false);
         }
 
         IEnumerator DelayEnable()
         {
             yield return new WaitForSeconds(2f);
-            BattleDanceEvent.active = true;
+            BattleDanceEvent.SetActive(true);
             EventManager.enabled = true;
         }
     }
