@@ -4,14 +4,6 @@ using UnityEngine;
 
 namespace DanceEvent
 {
-    public enum Limb
-    {
-        ArmRight,
-        LegRight,
-        ArmLeft,
-        LegLeft
-    }
-
     public class InputController : MonoBehaviour
     {
         // Arm right pivot contains rotation constraints
@@ -27,12 +19,6 @@ namespace DanceEvent
         // Start is called before the first frame update
         void Start()
         {
-			/*
-            ArmRightPivot = GameObject.Find("ArmRightPivot");
-            LegRightPivot = GameObject.Find("LegRightPivot");
-            ArmLeftPivot = GameObject.Find("ArmLeftPivot");
-            LegLeftPivot = GameObject.Find("LegLeftPivot");
-			*/
             CurrentLimb = Limb.ArmRight;
         }
 

@@ -4,11 +4,6 @@ using UnityEngine;
 
 namespace DanceEvent
 {
-    public enum Pose
-    {
-        Splits
-    }
-
     public class GoalPose
     {
         public Quaternion ArmRightGoalRotation;

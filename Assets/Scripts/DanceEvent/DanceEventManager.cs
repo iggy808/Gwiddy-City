@@ -32,15 +32,6 @@ namespace DanceEvent
         bool NoDice;
         float RemainingTime = 3f;
 
-		void Awake()
-		{
-		}
-        
-        // Start is called before the first frame update
-        void Start()
-        {
-        }
-
 		public void ConfigureDanceEventInternal(DanceRequestContext context)
 		{
 			Context = context;
