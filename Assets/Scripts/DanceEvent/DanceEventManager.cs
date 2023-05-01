@@ -39,12 +39,20 @@ namespace DanceEvent
             ArmRightPivot = GameObject.Find("ArmRightPivot");
             LegRightPivot = GameObject.Find("LegRightPivot"); 
             ArmLeftPivot = GameObject.Find("ArmLeftPivot");
-            LegLeftPivot = GameObject.Find("LegLeftPivot");
-			
+            LegLeftPivot = GameObject.Find("LegLeftPivot");	
             DanceRequestHandler = GameObject.Find("BattleDanceEventUI").GetComponent<DanceRequestHandler>();
-			Context = DanceRequestHandler.Context;
+			Context = DanceRequestHandler.Context;	
 
+			ConfigureDanceEvent();
 
+            GoalPose.DisplayGoalRotations(); 
+            Debug.Log("Timer started!! Remaining time: " + RemainingTime);
+            TimerOn = true;
+			NoDice = false;
+        }
+
+		void ConfigureDanceEvent()
+		{
 			switch (Context.Environment)
 			{
 				case Environment.BattleDance:
@@ -65,15 +73,8 @@ namespace DanceEvent
                 default:
 					GoalPose = new GoalPose(Pose.Splits);
                     break;
-            }
-
-            GoalPose.DisplayGoalRotations();
-
-	    
-            Debug.Log("Timer started!! Remaining time: " + RemainingTime);
-            TimerOn = true;
-			NoDice = false;
-        }
+            }			
+		}
 		
 
         // Update is called once per frame
