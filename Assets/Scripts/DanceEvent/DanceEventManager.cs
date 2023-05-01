@@ -15,7 +15,7 @@ namespace DanceEvent
         GameObject ArmLeftPivot;
         GameObject LegLeftPivot;
         public InputController InputController;
-        DanceRequestHandler DanceRequestHandler;
+        public DanceRequestHandler DanceRequestHandler;
         Limb CurrentLimb;
 
 		DanceRequestContext Context;
@@ -23,10 +23,10 @@ namespace DanceEvent
         float ErrorMargin = 4f;
 
         // tweak these depending on desired move accordingly
-        bool ArmRightInPlace = false;
-        bool LegRightInPlace = false;
-        bool ArmLeftInPlace = false;
-        bool LegLeftInPlace = false;
+        public bool ArmRightInPlace = false;
+        public bool LegRightInPlace = false;
+        public bool ArmLeftInPlace = false;
+        public bool LegLeftInPlace = false;
 
         bool TimerOn;
         bool NoDice;
@@ -34,50 +34,39 @@ namespace DanceEvent
 
 		void Awake()
 		{
-            ArmRightPivot = GameObject.Find("ArmRightPivot");
-            LegRightPivot = GameObject.Find("LegRightPivot"); 
-            ArmLeftPivot = GameObject.Find("ArmLeftPivot");
-            LegLeftPivot = GameObject.Find("LegLeftPivot");	
-			// should handle these on fn call at run time
-            DanceRequestHandler = GameObject.Find("BattleDanceEventUI").GetComponent<DanceRequestHandler>();
 		}
         
         // Start is called before the first frame update
         void Start()
         {
-            Debug.Log("Timer started!! Remaining time: " + RemainingTime);
-            TimerOn = true;
-			NoDice = false;
         }
 
 		public void ConfigureDanceEventInternal(DanceRequestContext context)
 		{
 			Context = context;
+            DanceRequestHandler = GameObject.Find("BattleDanceEventUI").GetComponent<DanceRequestHandler>();
 
 			switch (Context.Environment)
 			{
 				case Environment.BattleDance:
-            		InputController = GameObject.Find("BattleDanceEvent").GetComponent<InputController>();
+            		ArmRightPivot = GameObject.Find("ArmRightPivotB");
+            		LegRightPivot = GameObject.Find("LegRightPivotB"); 
+            		ArmLeftPivot = GameObject.Find("ArmLeftPivotB");
+            		LegLeftPivot = GameObject.Find("LegLeftPivotB");	
 					break;
 				case Environment.EnvDance:
-            		InputController = GameObject.Find("EnvironmentalDanceEvent").GetComponent<InputController>();
-					break;
-				default:
+            		ArmRightPivot = GameObject.Find("ArmRightPivotE");
+            		LegRightPivot = GameObject.Find("LegRightPivotE"); 
+            		ArmLeftPivot = GameObject.Find("ArmLeftPivotE");
+            		LegLeftPivot = GameObject.Find("LegLeftPivotE");	
 					break;
 			}
-			
-            switch(Context.DesiredMove)
-            {
-                case Pose.Splits:
-                    GoalPose = new GoalPose(Pose.Splits);
-                    break;
-                default:
-					GoalPose = new GoalPose(Pose.Splits);
-                    break;
-            }			
+
+			GoalPose = new GoalPose(Context);
 
 			InitializeLimbPosition();
             GoalPose.DisplayGoalRotations(); 
+			InitializeEvent();
 		}
 
 		void InitializeLimbPosition()
@@ -86,6 +75,19 @@ namespace DanceEvent
 			LegRightPivot.transform.rotation = Quaternion.Euler(0f,0f,270f);
 			ArmLeftPivot.transform.rotation = Quaternion.Euler(0f,0f,180f);
 			LegLeftPivot.transform.rotation = Quaternion.Euler(0f,0f,270f);
+		}
+
+		void InitializeEvent()
+		{
+			Debug.Log("Initializing event");
+			RemainingTime = 3f;
+			NoDice = false;
+			ArmRightInPlace = false;
+			LegRightInPlace = false;
+			ArmLeftInPlace = false;
+			LegLeftInPlace = false;
+			Debug.Log("Timer On!");
+			TimerOn = true;
 		}
 		
 
@@ -103,6 +105,7 @@ namespace DanceEvent
 				}
 				// Lock so that the end event coroutine is not called multiple times
 				NoDice = true;
+				Debug.Log("Timer off");
                 return;
             }
 

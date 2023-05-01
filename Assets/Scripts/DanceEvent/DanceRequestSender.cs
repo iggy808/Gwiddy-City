@@ -14,12 +14,28 @@ namespace DanceEvent
 		void OnTriggerEnter(Collider collider)
 		{
 			Debug.Log("Trigger entered");
-			DanceHandler.ActivateDanceEvent(new DanceRequestContext
+			// test triggers to send new dance requests
+			switch (collider.gameObject.name)
 			{
-				Environment = Environment.BattleDance,
-				DesiredMove = Pose.Splits,
-				TargetUI = "BattleDanceEvent"
-			});
+				case "BattleDanceEventTrigger":
+					DanceHandler.ActivateDanceEvent(new DanceRequestContext
+					{
+						Environment = Environment.BattleDance,
+						DesiredMove = Pose.Splits,
+						TargetUI = "BattleDanceEvent"
+					});
+					break;
+				case "EnvironmentalDanceEventTrigger":
+					DanceHandler.ActivateDanceEvent(new DanceRequestContext
+					{
+						Environment = Environment.EnvDance,
+						DesiredMove = Pose.Splits,
+						TargetUI = "EnvironmentalDanceEvent"
+					});
+					break;
+				default:
+					break;
+			}
 		}
 	}
 }

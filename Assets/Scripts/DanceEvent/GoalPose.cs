@@ -23,14 +23,26 @@ namespace DanceEvent
 
         Pose CurrentPose;
 
-        public GoalPose(Pose pose)
+        public GoalPose(DanceRequestContext context)
         {
-            CurrentPose = pose;
-
-            ArmRightGoal = GameObject.Find("ArmRightGoal");
-            LegRightGoal = GameObject.Find("LegRightGoal");
-            ArmLeftGoal = GameObject.Find("ArmLeftGoal");
-            LegLeftGoal = GameObject.Find("LegLeftGoal");
+            CurrentPose = context.DesiredMove;
+			switch (context.Environment)
+			{
+				case Environment.BattleDance:
+            		ArmRightGoal = GameObject.Find("ArmRightGoalB");
+            		LegRightGoal = GameObject.Find("LegRightGoalB");
+            		ArmLeftGoal = GameObject.Find("ArmLeftGoalB");
+            		LegLeftGoal = GameObject.Find("LegLeftGoalB");
+					break;
+				case Environment.EnvDance:
+            		ArmRightGoal = GameObject.Find("ArmRightGoalE");
+            		LegRightGoal = GameObject.Find("LegRightGoalE");
+            		ArmLeftGoal = GameObject.Find("ArmLeftGoalE");
+            		LegLeftGoal = GameObject.Find("LegLeftGoalE");
+					break;
+				default:
+					break;
+			}
             SetGoalRotations();
         }
 

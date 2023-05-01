@@ -37,7 +37,6 @@ namespace DanceEvent
 			TriggerDanceEvent();
 		}
 
-
 		void ConfigureDanceEvent()
 		{	
 			// Configure dance event manager for the required ui
@@ -60,6 +59,24 @@ namespace DanceEvent
 			DanceEventManager = DanceEvent.GetComponent<DanceEventManager>();	
 			InputController = DanceEvent.GetComponent<InputController>();
 			DanceEventManager.InputController = InputController;
+
+			switch (Context.Environment)
+			{
+				case Environment.BattleDance:	
+            		InputController.ArmRightPivot = GameObject.Find("ArmRightPivotB");
+            		InputController.LegRightPivot = GameObject.Find("LegRightPivotB"); 
+            		InputController.ArmLeftPivot = GameObject.Find("ArmLeftPivotB");
+            		InputController.LegLeftPivot = GameObject.Find("LegLeftPivotB");	
+					break;
+				case Environment.EnvDance:
+            		InputController.ArmRightPivot = GameObject.Find("ArmRightPivotE");
+            		InputController.LegRightPivot = GameObject.Find("LegRightPivotE"); 
+            		InputController.ArmLeftPivot = GameObject.Find("ArmLeftPivotE");
+            		InputController.LegLeftPivot = GameObject.Find("LegLeftPivotE");	
+					break;
+				default:
+					break;
+			}
 			
 			DanceEventManager.ConfigureDanceEventInternal(Context);
 			
@@ -81,8 +98,6 @@ namespace DanceEvent
         		directChildren.Add(c);
  			}
 
-			Debug.Log("Children count:" + directChildren.Count);
-			
 			// disable unwanted children
 			foreach (var child in directChildren)
 			{
@@ -95,17 +110,8 @@ namespace DanceEvent
 
         public void TriggerDanceEvent()
         {
-            switch(Context.Environment)
-            {
-                case Environment.BattleDance:
-                    Debug.Log("BattleDance requested");
-                    StartCoroutine(DelayEnable());
-                    break;
-                case Environment.EnvDance:
-                    Debug.Log("EnvDance requested");
-                    StartCoroutine(DelayEnable());
-                    break;
-            }
+			Debug.Log("Dance event triggered");
+			StartCoroutine(DelayEnable());
         }
 
         IEnumerator DelayDisable()

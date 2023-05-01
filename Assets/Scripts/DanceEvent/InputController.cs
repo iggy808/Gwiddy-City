@@ -15,10 +15,11 @@ namespace DanceEvent
     public class InputController : MonoBehaviour
     {
         // Arm right pivot contains rotation constraints
-        GameObject ArmRightPivot;
-        GameObject LegRightPivot;
-        GameObject ArmLeftPivot;
-        GameObject LegLeftPivot;
+        public GameObject ArmRightPivot;
+        public GameObject LegRightPivot;
+        public GameObject ArmLeftPivot;
+        public GameObject LegLeftPivot;
+		public DanceRequestContext Context;
 
         float RotationSpeed = 4.5f; // Breaks at 5 rotation speed lmao- need to implement clamp and see if that fixes
         public Limb CurrentLimb;
@@ -26,10 +27,12 @@ namespace DanceEvent
         // Start is called before the first frame update
         void Start()
         {
+			/*
             ArmRightPivot = GameObject.Find("ArmRightPivot");
             LegRightPivot = GameObject.Find("LegRightPivot");
             ArmLeftPivot = GameObject.Find("ArmLeftPivot");
             LegLeftPivot = GameObject.Find("LegLeftPivot");
+			*/
             CurrentLimb = Limb.ArmRight;
         }
 
