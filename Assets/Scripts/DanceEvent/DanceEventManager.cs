@@ -18,6 +18,8 @@ namespace DanceEvent
         DanceRequestHandler DanceRequestHandler;
         Limb CurrentLimb;
 
+		DanceRequestContext Context;
+
         float ErrorMargin = 4f;
 
         // tweak these depending on desired move accordingly
@@ -35,21 +37,38 @@ namespace DanceEvent
         {
             // try to avoid using so many finds
             ArmRightPivot = GameObject.Find("ArmRightPivot");
-            LegRightPivot = GameObject.Find("LegRightPivot");
+            LegRightPivot = GameObject.Find("LegRightPivot"); 
             ArmLeftPivot = GameObject.Find("ArmLeftPivot");
             LegLeftPivot = GameObject.Find("LegLeftPivot");
-            InputController = GameObject.Find("BattleDanceEvent").GetComponent<InputController>();
-            DanceRequestHandler = GameObject.Find("DanceEventUI").GetComponent<DanceRequestHandler>();
 			
-            switch(DesiredMove)
+            DanceRequestHandler = GameObject.Find("BattleDanceEventUI").GetComponent<DanceRequestHandler>();
+			Context = DanceRequestHandler.Context;
+
+
+			switch (Context.Environment)
+			{
+				case Environment.BattleDance:
+            		InputController = GameObject.Find("BattleDanceEvent").GetComponent<InputController>();
+					break;
+				case Environment.EnvDance:
+            		InputController = GameObject.Find("EnvironmentalDanceEvent").GetComponent<InputController>();
+					break;
+				default:
+					break;
+			}
+			
+            switch(Context.DesiredMove)
             {
                 case Pose.Splits:
                     GoalPose = new GoalPose(Pose.Splits);
-                    GoalPose.DisplayGoals();
                     break;
                 default:
+					GoalPose = new GoalPose(Pose.Splits);
                     break;
             }
+
+            GoalPose.DisplayGoalRotations();
+
 	    
             Debug.Log("Timer started!! Remaining time: " + RemainingTime);
             TimerOn = true;
@@ -60,8 +79,10 @@ namespace DanceEvent
         // Update is called once per frame
         void Update()
         {
+
             if (!TimerOn)
             {
+				// Disable timer in event player loses the quicktime event
 				if (!NoDice)
 				{
                 	// Quicktime event is over - do whatever then disable the object maybe?
@@ -84,7 +105,6 @@ namespace DanceEvent
             if (ArmRightInPlace && LegRightInPlace && ArmLeftInPlace && LegLeftInPlace)
             {
                 Debug.Log("All limbs in position with " + RemainingTime + " seconds to spare!!");
-                InputController.enabled = false;
                 TimerOn = false;
                 DanceRequestHandler.EndQuicktimeEvent();
             }
@@ -237,6 +257,7 @@ namespace DanceEvent
             }
         }
 
+		// Not ideal implementation - need to think real hard ab this lmao
         void GoNext()
         {
             switch (CurrentLimb)

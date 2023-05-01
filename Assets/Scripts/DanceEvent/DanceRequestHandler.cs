@@ -6,54 +6,117 @@ namespace DanceEvent
 {
     // can disable the HUD/battle dance event canvases on and off from this script
     // i think it would be super cool to have the quick time event in worldspace lol - would be a little tricky, but could make it happen
-    // NOTE: MUST ENSURE THAT ONLY ONE DANCE UI IS PRESENT AT ANY GIVEN MOMENT
-    // CANNOT DO MORE THAN ONE DANCE UI AT A TIME LOL
     public class DanceRequestHandler : MonoBehaviour
     {
         // DanceRequest should contain a lil packet of info that allows us to configure the event for the appropriate scenario
-        //DanceRequest DanceRequest; 
+        public DanceRequestContext Context;
         bool DanceEventRequest = true;
-        GameObject BattleDanceEvent;
-        DanceEventManager EventManager;
-        
+        GameObject DanceEvent;
+        DanceEventManager DanceEventManager;
+        InputController InputController;
+
         void Awake()
         {
-            if (DanceEventRequest)
-            {
-                // Might need to get this from a different UI component
-                BattleDanceEvent =  GameObject.Find("BattleDanceEvent");
-                EventManager = BattleDanceEvent.GetComponent<DanceEventManager>();
-                EventManager.enabled = false;
-                BattleDanceEvent.SetActive(false);
-                // call on event manager to handle event and ui etc
-                //EventManager.DisplayUI();
-            }
+			// receive an object holding info describing type of ui required
+			Context = new DanceRequestContext()
+			{
+				Environment = Environment.BattleDance,
+				DesiredMove = Pose.Splits,
+                TargetUI = "BattleDanceEvent"
+			};
+			
+			DisableUnwantedChildren();
+			
+			ConfigureDanceEvent(Context);
         }
 
         void Start()
         {
-            StartCoroutine(DelayEnable());
+            TriggerDanceEvent(); 
+        }
+
+		void DisableUnwantedChildren()
+		{
+			// get children of the ui
+			List<Component> directChildren = new List<Component>();
+ 			foreach(Transform go in gameObject.transform)
+			{  
+        		Component c = go.gameObject.GetComponent<Component>();
+        		directChildren.Add(c);
+ 			}
+
+			Debug.Log("Children count:" + directChildren.Count);
+			
+			// disable unwanted children
+			foreach (var child in directChildren)
+			{
+				if (child.gameObject.name != Context.TargetUI)
+				{
+					child.gameObject.SetActive(false);
+				}
+			}	
+		}
+
+		void ConfigureDanceEvent(DanceRequestContext context)
+		{
+			// Configure dance event manager for the required ui
+			switch (context.Environment)
+			{
+                case Environment.BattleDance:
+                    DanceEvent =  GameObject.Find("BattleDanceEvent");
+                    break;
+				case Environment.EnvDance:
+					DanceEvent = GameObject.Find("EnvironmentalDanceEvent");
+					break;
+                default:
+                    break;
+			}
+
+			// Assign components to be handled throughout the course of the event		
+			DanceEventManager = DanceEvent.GetComponent<DanceEventManager>();	
+			InputController = DanceEvent.GetComponent<InputController>();
+			
+			// Initialize components and game object to off
+			DanceEventManager.enabled = false;
+			InputController.enabled = false;
+			DanceEvent.SetActive(false);
+		}
+
+        void TriggerDanceEvent()
+        {
+            switch(Context.Environment)
+            {
+                case Environment.BattleDance:
+                    Debug.Log("BattleDance requested");
+                    StartCoroutine(DelayEnable());
+                    break;
+                case Environment.EnvDance:
+                    Debug.Log("EnvDance requested");
+                    StartCoroutine(DelayEnable());
+                    break;
+            }
         }
 
         public void EndQuicktimeEvent()
         {
-            //BattleDanceEvent.active = false;
-            //EventManager.enabled = false;
+			InputController.enabled = false;
             StartCoroutine(DelayDisable());
         }
 
         IEnumerator DelayDisable()
         {
             yield return new WaitForSeconds(2f);
-            EventManager.enabled = false;
-            BattleDanceEvent.SetActive(false);
+            DanceEventManager.enabled = false;
+			InputController.enabled = false;
+            DanceEvent.SetActive(false);
         }
 
         IEnumerator DelayEnable()
         {
             yield return new WaitForSeconds(2f);
-            BattleDanceEvent.SetActive(true);
-            EventManager.enabled = true;
+            DanceEvent.SetActive(true);
+            DanceEventManager.enabled = true;
+			InputController.enabled = true;
         }
     }
 }
