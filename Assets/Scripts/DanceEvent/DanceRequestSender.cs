@@ -20,7 +20,6 @@ namespace DanceEvent
 				DesiredMove = Pose.Splits,
 				TargetUI = "BattleDanceEvent"
 			});
-			DanceHandler.TriggerDanceEvent();
 		}
 	}
 }

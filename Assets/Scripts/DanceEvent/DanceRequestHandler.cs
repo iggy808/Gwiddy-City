@@ -32,12 +32,16 @@ namespace DanceEvent
 		public void ActivateDanceEvent(DanceRequestContext context)
 		{
 			Context = context;
-			DisableUnwantedChildren();
-			
-			ConfigureDanceEvent();
+			DisableUnwantedChildren();	
+			ConfigureDanceEvent();	
+			TriggerDanceEvent();
+		}
 
+
+		void ConfigureDanceEvent()
+		{	
 			// Configure dance event manager for the required ui
-			switch (context.Environment)
+			switch (Context.Environment)
 			{
                 case Environment.BattleDance:
                     DanceEvent = BattleDanceUI;  
@@ -48,13 +52,7 @@ namespace DanceEvent
                 default:
                     break;
 			}
-			
-			TriggerDanceEvent();
-		}
 
-
-		void ConfigureDanceEvent()
-		{	
 			// Enable object for configuration
 			DanceEvent.SetActive(true);
 
