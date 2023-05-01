@@ -14,7 +14,7 @@ namespace DanceEvent
         GameObject LegRightPivot;
         GameObject ArmLeftPivot;
         GameObject LegLeftPivot;
-        InputController InputController;
+        public InputController InputController;
         DanceRequestHandler DanceRequestHandler;
         Limb CurrentLimb;
 
@@ -31,28 +31,29 @@ namespace DanceEvent
         bool TimerOn;
         bool NoDice;
         float RemainingTime = 3f;
-        
-        // Start is called before the first frame update
-        void Start()
-        {
-            // try to avoid using so many finds
+
+		void Awake()
+		{
             ArmRightPivot = GameObject.Find("ArmRightPivot");
             LegRightPivot = GameObject.Find("LegRightPivot"); 
             ArmLeftPivot = GameObject.Find("ArmLeftPivot");
             LegLeftPivot = GameObject.Find("LegLeftPivot");	
+			// should handle these on fn call at run time
             DanceRequestHandler = GameObject.Find("BattleDanceEventUI").GetComponent<DanceRequestHandler>();
-			Context = DanceRequestHandler.Context;	
-
-			ConfigureDanceEvent();
-
-            GoalPose.DisplayGoalRotations(); 
+		}
+        
+        // Start is called before the first frame update
+        void Start()
+        {
             Debug.Log("Timer started!! Remaining time: " + RemainingTime);
             TimerOn = true;
 			NoDice = false;
         }
 
-		void ConfigureDanceEvent()
+		public void ConfigureDanceEventInternal(DanceRequestContext context)
 		{
+			Context = context;
+
 			switch (Context.Environment)
 			{
 				case Environment.BattleDance:
@@ -74,6 +75,17 @@ namespace DanceEvent
 					GoalPose = new GoalPose(Pose.Splits);
                     break;
             }			
+
+			InitializeLimbPosition();
+            GoalPose.DisplayGoalRotations(); 
+		}
+
+		void InitializeLimbPosition()
+		{
+			ArmRightPivot.transform.rotation = Quaternion.Euler(0f,0f,0f);
+			LegRightPivot.transform.rotation = Quaternion.Euler(0f,0f,270f);
+			ArmLeftPivot.transform.rotation = Quaternion.Euler(0f,0f,180f);
+			LegLeftPivot.transform.rotation = Quaternion.Euler(0f,0f,270f);
 		}
 		
 

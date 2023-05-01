@@ -8,33 +8,71 @@ namespace DanceEvent
     // i think it would be super cool to have the quick time event in worldspace lol - would be a little tricky, but could make it happen
     public class DanceRequestHandler : MonoBehaviour
     {
-        // DanceRequest should contain a lil packet of info that allows us to configure the event for the appropriate scenario
         public DanceRequestContext Context;
-        bool DanceEventRequest = true;
         GameObject DanceEvent;
         DanceEventManager DanceEventManager;
         InputController InputController;
 
+		GameObject BattleDanceUI;
+		GameObject EnvDanceUI;
+
+		
         void Awake()
-        {
-			// receive an object holding info describing type of ui required
-			Context = new DanceRequestContext()
-			{
-				Environment = Environment.BattleDance,
-				DesiredMove = Pose.Splits,
-                TargetUI = "BattleDanceEvent"
-			};
-			
+        {	
+			BattleDanceUI = GameObject.Find("BattleDanceEvent");
+			EnvDanceUI = GameObject.Find("EnvironmentalDanceEvent");
+        }
+
+		void Start()
+		{
+			BattleDanceUI.SetActive(false);
+			EnvDanceUI.SetActive(false);
+		}
+
+		public void ActivateDanceEvent(DanceRequestContext context)
+		{
+			Context = context;
 			DisableUnwantedChildren();
 			
-			ConfigureDanceEvent(Context);
-        }
+			ConfigureDanceEvent();
 
-        void Start()
-        {
-            TriggerDanceEvent(); 
-        }
+			// Configure dance event manager for the required ui
+			switch (context.Environment)
+			{
+                case Environment.BattleDance:
+                    DanceEvent = BattleDanceUI;  
+                    break;
+				case Environment.EnvDance:
+					DanceEvent = EnvDanceUI; 
+					break;
+                default:
+                    break;
+			}
+			
+			TriggerDanceEvent();
+		}
 
+
+		void ConfigureDanceEvent()
+		{	
+			// Enable object for configuration
+			DanceEvent.SetActive(true);
+
+			// Assign components to be handled throughout the course of the event		
+			DanceEventManager = DanceEvent.GetComponent<DanceEventManager>();	
+			InputController = DanceEvent.GetComponent<InputController>();
+			DanceEventManager.InputController = InputController;
+			
+			DanceEventManager.ConfigureDanceEventInternal(Context);
+			
+			// Initialize components and game object to off
+			DanceEventManager.enabled = false;
+			InputController.enabled = false;
+
+			// Disable to allow for delayed start
+			DanceEvent.SetActive(false);
+		}
+		
 		void DisableUnwantedChildren()
 		{
 			// get children of the ui
@@ -57,32 +95,7 @@ namespace DanceEvent
 			}	
 		}
 
-		void ConfigureDanceEvent(DanceRequestContext context)
-		{
-			// Configure dance event manager for the required ui
-			switch (context.Environment)
-			{
-                case Environment.BattleDance:
-                    DanceEvent =  GameObject.Find("BattleDanceEvent");
-                    break;
-				case Environment.EnvDance:
-					DanceEvent = GameObject.Find("EnvironmentalDanceEvent");
-					break;
-                default:
-                    break;
-			}
-
-			// Assign components to be handled throughout the course of the event		
-			DanceEventManager = DanceEvent.GetComponent<DanceEventManager>();	
-			InputController = DanceEvent.GetComponent<InputController>();
-			
-			// Initialize components and game object to off
-			DanceEventManager.enabled = false;
-			InputController.enabled = false;
-			DanceEvent.SetActive(false);
-		}
-
-        void TriggerDanceEvent()
+        public void TriggerDanceEvent()
         {
             switch(Context.Environment)
             {
@@ -95,12 +108,6 @@ namespace DanceEvent
                     StartCoroutine(DelayEnable());
                     break;
             }
-        }
-
-        public void EndQuicktimeEvent()
-        {
-			InputController.enabled = false;
-            StartCoroutine(DelayDisable());
         }
 
         IEnumerator DelayDisable()
@@ -117,6 +124,12 @@ namespace DanceEvent
             DanceEvent.SetActive(true);
             DanceEventManager.enabled = true;
 			InputController.enabled = true;
+        }
+
+        public void EndQuicktimeEvent()
+        {
+			InputController.enabled = false;
+            StartCoroutine(DelayDisable());
         }
     }
 }
