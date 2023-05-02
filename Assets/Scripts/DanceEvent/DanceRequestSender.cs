@@ -31,6 +31,15 @@ namespace DanceEvent
 						TargetObject = collider.gameObject
 					});
 					break;
+				case "WalkablockaDanceEventTrigger":
+					DanceHandler.ActivateDanceEvent(new DanceRequestContext
+					{
+						Environment = Environment.EnvDance,
+						DesiredMove = Pose.Splits,
+						TargetUI = "EnvironmentalDanceEvent",
+						TargetObject = GameObject.Find("Walkablocka")
+					});
+					break;
 				default:
 					break;
 			}
