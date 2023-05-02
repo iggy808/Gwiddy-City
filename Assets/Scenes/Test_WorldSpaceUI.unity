@@ -504,6 +504,8 @@ MonoBehaviour:
   IsEventActive: 0
   BattleDanceUI: {fileID: 488282477}
   EnvDanceUI: {fileID: 194092131}
+  BattleDanceUIManager: {fileID: 866085908}
+  EnvDanceUIManager: {fileID: 1161375115}
 --- !u!4 &284884813
 Transform:
   m_ObjectHideFlags: 0

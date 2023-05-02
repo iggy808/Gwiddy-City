@@ -31,7 +31,8 @@ namespace DanceEvent
 		{
 			if (Context.Environment != Environment.BattleDance)
 			{
-				//UITransform.position = new Vector3(TargetTransform.position.x, TargetTransform.position.y+1f, TargetTransform.position.z-0.5f);
+				UITransform.position = new Vector3(TargetTransform.position.x, TargetTransform.position.y+2f, TargetTransform.position.z);
+				//UITransform.rotation = Quaternion.Euler(0f,0f,30f);
 				//UITransform.LookAt(PlayerTransform);
 			}
 		}
