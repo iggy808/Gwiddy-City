@@ -33,7 +33,7 @@ namespace DanceEvent
 		// QTE state variables
         bool TimerOn;
         bool NoDice;
-        float RemainingTime = 60f;
+        float RemainingTime;
 
 		public void ConfigureDanceEventInternal(DanceRequestContext context)
 		{
@@ -55,7 +55,7 @@ namespace DanceEvent
 		void InitializeEvent()
 		{
 			Debug.Log("Initializing event");
-			RemainingTime = 60f;
+			RemainingTime = 3f;
 			NoDice = false;
 			ArmRightInPlace = false;
 			LegRightInPlace = false;
