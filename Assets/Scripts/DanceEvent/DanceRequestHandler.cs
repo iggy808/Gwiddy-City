@@ -9,22 +9,23 @@ namespace DanceEvent
     public class DanceRequestHandler : MonoBehaviour
     {
         public DanceRequestContext Context;
-        GameObject DanceEvent;
-        DanceEventManager DanceEventManager;
-        InputController InputController;
 
+		[SerializeField]
 		GameObject BattleDanceUI;
+		[SerializeField]
 		GameObject EnvDanceUI;
 
+		GameObject DanceEventUI;
+        DanceEventManager DanceEventManager;
+        InputController InputController;	
 		
         void Awake()
         {	
-			BattleDanceUI = GameObject.Find("BattleDanceEvent");
-			EnvDanceUI = GameObject.Find("EnvironmentalDanceEvent");
         }
 
 		void Start()
 		{
+			// Maybe not necessary now that i am assigning objects in the inspector
 			BattleDanceUI.SetActive(false);
 			EnvDanceUI.SetActive(false);
 		}
@@ -32,6 +33,18 @@ namespace DanceEvent
 		public void ActivateDanceEvent(DanceRequestContext context)
 		{
 			Context = context;
+			if (Context.Environment == Environment.BattleDance)
+			{
+				DanceEventUI = BattleDanceUI;
+			}
+			else if (Context.Environment == Environment.EnvDance)
+			{
+				DanceEventUI = EnvDanceUI;
+			}
+
+			DanceEventManager = DanceEventUI.GetComponent<DanceEventManager>();
+			InputController = DanceEventUI.GetComponent<InputController>();
+
 			DisableUnwantedChildren();	
 			ConfigureDanceEvent();	
 			TriggerDanceEvent();
@@ -39,45 +52,9 @@ namespace DanceEvent
 
 		void ConfigureDanceEvent()
 		{	
-			// Configure dance event manager for the required ui
-			switch (Context.Environment)
-			{
-                case Environment.BattleDance:
-                    DanceEvent = BattleDanceUI;  
-                    break;
-				case Environment.EnvDance:
-					DanceEvent = EnvDanceUI; 
-					break;
-                default:
-                    break;
-			}
-
 			// Enable object for configuration
-			DanceEvent.SetActive(true);
+			DanceEventUI.SetActive(true);
 
-			// Assign components to be handled throughout the course of the event		
-			DanceEventManager = DanceEvent.GetComponent<DanceEventManager>();	
-			InputController = DanceEvent.GetComponent<InputController>();
-			DanceEventManager.InputController = InputController;
-
-			switch (Context.Environment)
-			{
-				case Environment.BattleDance:	
-            		InputController.ArmRightPivot = GameObject.Find("ArmRightPivotB");
-            		InputController.LegRightPivot = GameObject.Find("LegRightPivotB"); 
-            		InputController.ArmLeftPivot = GameObject.Find("ArmLeftPivotB");
-            		InputController.LegLeftPivot = GameObject.Find("LegLeftPivotB");	
-					break;
-				case Environment.EnvDance:
-            		InputController.ArmRightPivot = GameObject.Find("ArmRightPivotE");
-            		InputController.LegRightPivot = GameObject.Find("LegRightPivotE"); 
-            		InputController.ArmLeftPivot = GameObject.Find("ArmLeftPivotE");
-            		InputController.LegLeftPivot = GameObject.Find("LegLeftPivotE");	
-					break;
-				default:
-					break;
-			}
-			
 			DanceEventManager.ConfigureDanceEventInternal(Context);
 			
 			// Initialize components and game object to off
@@ -85,27 +62,19 @@ namespace DanceEvent
 			InputController.enabled = false;
 
 			// Disable to allow for delayed start
-			DanceEvent.SetActive(false);
+			DanceEventUI.SetActive(false);
 		}
 		
 		void DisableUnwantedChildren()
 		{
-			// get children of the ui
-			List<Component> directChildren = new List<Component>();
- 			foreach(Transform go in gameObject.transform)
-			{  
-        		Component c = go.gameObject.GetComponent<Component>();
-        		directChildren.Add(c);
- 			}
-
-			// disable unwanted children
-			foreach (var child in directChildren)
+			if (Context.Environment == Environment.BattleDance)
 			{
-				if (child.gameObject.name != Context.TargetUI)
-				{
-					child.gameObject.SetActive(false);
-				}
-			}	
+				EnvDanceUI.SetActive(false);
+			}
+			else if (Context.Environment == Environment.EnvDance)
+			{
+				BattleDanceUI.SetActive(false);
+			}
 		}
 
         public void TriggerDanceEvent()
@@ -119,13 +88,13 @@ namespace DanceEvent
             yield return new WaitForSeconds(2f);
             DanceEventManager.enabled = false;
 			InputController.enabled = false;
-            DanceEvent.SetActive(false);
+            DanceEventUI.SetActive(false);
         }
 
         IEnumerator DelayEnable()
         {
             yield return new WaitForSeconds(2f);
-            DanceEvent.SetActive(true);
+            DanceEventUI.SetActive(true);
             DanceEventManager.enabled = true;
 			InputController.enabled = true;
         }

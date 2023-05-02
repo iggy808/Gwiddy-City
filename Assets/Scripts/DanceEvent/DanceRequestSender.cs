@@ -4,12 +4,8 @@ namespace DanceEvent
 {
 	public class DanceRequestSender : MonoBehaviour
 	{
+		[SerializeField]
 		DanceRequestHandler DanceHandler;
-
-		void Awake()
-		{
-			DanceHandler = GameObject.Find("BattleDanceEventUI").GetComponent<DanceRequestHandler>();
-		}
 
 		void OnTriggerEnter(Collider collider)
 		{

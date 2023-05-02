@@ -4,46 +4,29 @@ using UnityEngine;
 
 namespace DanceEvent
 {
-    public class GoalPose
-    {
+    public class GoalPose : MonoBehaviour
+    {	
+		// Dance event manager uses these goal rotations to determine whether or not the
+		// player has accurately placed a limb
         public Quaternion ArmRightGoalRotation;
         public Quaternion LegRightGoalRotation;
         public Quaternion ArmLeftGoalRotation;
         public Quaternion LegLeftGoalRotation;
-
+        public Pose CurrentPose;
+		
+		// References to the game objects that display the goals on the UI
+		[SerializeField]
         GameObject ArmRightGoal;
+		[SerializeField]
         GameObject LegRightGoal;
+		[SerializeField]
         GameObject ArmLeftGoal;
+		[SerializeField]
         GameObject LegLeftGoal;
 
-        Pose CurrentPose;
-
-        public GoalPose(DanceRequestContext context)
-        {
-            CurrentPose = context.DesiredMove;
-			switch (context.Environment)
-			{
-				case Environment.BattleDance:
-            		ArmRightGoal = GameObject.Find("ArmRightGoalB");
-            		LegRightGoal = GameObject.Find("LegRightGoalB");
-            		ArmLeftGoal = GameObject.Find("ArmLeftGoalB");
-            		LegLeftGoal = GameObject.Find("LegLeftGoalB");
-					break;
-				case Environment.EnvDance:
-            		ArmRightGoal = GameObject.Find("ArmRightGoalE");
-            		LegRightGoal = GameObject.Find("LegRightGoalE");
-            		ArmLeftGoal = GameObject.Find("ArmLeftGoalE");
-            		LegLeftGoal = GameObject.Find("LegLeftGoalE");
-					break;
-				default:
-					break;
-			}
-            SetGoalRotations();
-        }
-
-	void SetGoalRotations()
-	{ 
-            switch (CurrentPose)
+		public void SetGoalRotations(Pose goalPose)
+		{ 
+            switch (goalPose)
             {
                 case Pose.Splits:
                     ArmRightGoalRotation = Quaternion.Euler(0f, 0f, 30f);   // ArmRightGoal for splits
@@ -54,7 +37,7 @@ namespace DanceEvent
                 default:
                     break;
             }
-	}
+		}
 
         public void DisplayGoalRotations()
         {

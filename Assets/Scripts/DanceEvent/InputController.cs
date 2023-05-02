@@ -6,12 +6,18 @@ namespace DanceEvent
 {
     public class InputController : MonoBehaviour
     {
-        // Arm right pivot contains rotation constraints
-        public GameObject ArmRightPivot;
-        public GameObject LegRightPivot;
-        public GameObject ArmLeftPivot;
-        public GameObject LegLeftPivot;
+		// dont think i need context here
 		public DanceRequestContext Context;
+        // Arm right pivot contains rotation constraints
+		[SerializeField]
+        public GameObject ArmRightPivot;
+		[SerializeField]
+        public GameObject LegRightPivot;
+		[SerializeField]
+        public GameObject ArmLeftPivot;
+		[SerializeField]
+        public GameObject LegLeftPivot;
+		
 
         float RotationSpeed = 4.5f; // Breaks at 5 rotation speed lmao- need to implement clamp and see if that fixes
         public Limb CurrentLimb;

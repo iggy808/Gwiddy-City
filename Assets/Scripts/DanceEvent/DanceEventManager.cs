@@ -8,26 +8,31 @@ namespace DanceEvent
     // potentially should be able to hand a list of moves to do in sequence?
     public class DanceEventManager : MonoBehaviour
     {
-        public Pose DesiredMove = Pose.Splits;
-        GoalPose GoalPose;
-        GameObject ArmRightPivot;
-        GameObject LegRightPivot;
-        GameObject ArmLeftPivot;
-        GameObject LegLeftPivot;
-        public InputController InputController;
-        public DanceRequestHandler DanceRequestHandler;
-        Limb CurrentLimb;
-
-		DanceRequestContext Context;
-
-        float ErrorMargin = 4f;
-
-        // tweak these depending on desired move accordingly
-        public bool ArmRightInPlace = false;
+		// tweak these depending on desired move accordingly public bool ArmRightInPlace = false;
         public bool LegRightInPlace = false;
         public bool ArmLeftInPlace = false;
         public bool LegLeftInPlace = false;
+		public bool ArmRightInPlace = false;
+        public InputController InputController;
+        public DanceRequestHandler DanceRequestHandler;
 
+		// Game object references for checking limbs for goal position
+		[SerializeField]
+        GameObject ArmRightPivot;
+		[SerializeField]
+        GameObject LegRightPivot;
+		[SerializeField]
+        GameObject ArmLeftPivot;
+		[SerializeField]
+        GameObject LegLeftPivot;
+		[SerializeField]
+		GoalPose GoalPose; 
+
+		// QTE control variables
+		Limb CurrentLimb; 
+		DanceRequestContext Context; 
+		float ErrorMargin = 4f;
+		// QTE state variables
         bool TimerOn;
         bool NoDice;
         float RemainingTime = 3f;
@@ -35,26 +40,7 @@ namespace DanceEvent
 		public void ConfigureDanceEventInternal(DanceRequestContext context)
 		{
 			Context = context;
-            DanceRequestHandler = GameObject.Find("BattleDanceEventUI").GetComponent<DanceRequestHandler>();
-
-			switch (Context.Environment)
-			{
-				case Environment.BattleDance:
-            		ArmRightPivot = GameObject.Find("ArmRightPivotB");
-            		LegRightPivot = GameObject.Find("LegRightPivotB"); 
-            		ArmLeftPivot = GameObject.Find("ArmLeftPivotB");
-            		LegLeftPivot = GameObject.Find("LegLeftPivotB");	
-					break;
-				case Environment.EnvDance:
-            		ArmRightPivot = GameObject.Find("ArmRightPivotE");
-            		LegRightPivot = GameObject.Find("LegRightPivotE"); 
-            		ArmLeftPivot = GameObject.Find("ArmLeftPivotE");
-            		LegLeftPivot = GameObject.Find("LegLeftPivotE");	
-					break;
-			}
-
-			GoalPose = new GoalPose(Context);
-
+			GoalPose.SetGoalRotations(context.DesiredMove);
 			InitializeLimbPosition();
             GoalPose.DisplayGoalRotations(); 
 			InitializeEvent();
