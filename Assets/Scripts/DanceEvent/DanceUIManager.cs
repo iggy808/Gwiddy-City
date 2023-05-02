@@ -31,9 +31,8 @@ namespace DanceEvent
 		{
 			if (Context.Environment != Environment.BattleDance)
 			{
-				Debug.Log("Look at called");
 				//UITransform.position = new Vector3(TargetTransform.position.x, TargetTransform.position.y+1f, TargetTransform.position.z-0.5f);
-				UITransform.LookAt(PlayerTransform);
+				//UITransform.LookAt(PlayerTransform);
 			}
 		}
 	}
