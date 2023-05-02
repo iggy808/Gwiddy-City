@@ -9,6 +9,7 @@ namespace DanceEvent
     public class DanceRequestHandler : MonoBehaviour
     {
         public DanceRequestContext Context;
+		public bool IsEventActive;
 
 		[SerializeField]
 		GameObject BattleDanceUI;
@@ -33,21 +34,32 @@ namespace DanceEvent
 		public void ActivateDanceEvent(DanceRequestContext context)
 		{
 			Context = context;
-			if (Context.Environment == Environment.BattleDance)
+			if (!IsEventActive)
 			{
-				DanceEventUI = BattleDanceUI;
+				switch (Context.Environment)
+				{
+					case Environment.BattleDance:
+						DanceEventUI = BattleDanceUI;
+						break;
+					case Environment.EnvDance:
+						DanceEventUI = EnvDanceUI;
+						break;
+					default:
+						break;
+				}
+				
+				// Assign references to appropriate UI
+				DanceEventManager = DanceEventUI.GetComponent<DanceEventManager>();
+				InputController = DanceEventUI.GetComponent<InputController>();
+
+				DisableUnwantedChildren();	
+				ConfigureDanceEvent();	
+				TriggerDanceEvent();
 			}
-			else if (Context.Environment == Environment.EnvDance)
+			else
 			{
-				DanceEventUI = EnvDanceUI;
+				Debug.Log("Dance event already active, dance request canceled.");
 			}
-
-			DanceEventManager = DanceEventUI.GetComponent<DanceEventManager>();
-			InputController = DanceEventUI.GetComponent<InputController>();
-
-			DisableUnwantedChildren();	
-			ConfigureDanceEvent();	
-			TriggerDanceEvent();
 		}
 
 		void ConfigureDanceEvent()
@@ -80,6 +92,7 @@ namespace DanceEvent
         public void TriggerDanceEvent()
         {
 			Debug.Log("Dance event triggered");
+			IsEventActive = true;
 			StartCoroutine(DelayEnable());
         }
 
@@ -89,6 +102,7 @@ namespace DanceEvent
             DanceEventManager.enabled = false;
 			InputController.enabled = false;
             DanceEventUI.SetActive(false);
+			IsEventActive = false;
         }
 
         IEnumerator DelayEnable()

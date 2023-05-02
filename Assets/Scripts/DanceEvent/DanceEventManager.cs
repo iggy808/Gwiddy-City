@@ -220,7 +220,6 @@ namespace DanceEvent
                 GoNext();
             }
 
-            // need to tweak this goal check for the splits
             float legRightRotation = LegRightPivot.transform.rotation.eulerAngles.z;
             if (legRightRotation > GoalPose.LegRightGoalRotation.eulerAngles.z - ErrorMargin
                 && legRightRotation < GoalPose.LegRightGoalRotation.eulerAngles.z + ErrorMargin
