@@ -36,6 +36,8 @@ namespace DanceEvent
 			Context = context;
 			if (!IsEventActive)
 			{
+				IsEventActive = true;
+
 				switch (Context.Environment)
 				{
 					case Environment.BattleDance:
@@ -92,7 +94,6 @@ namespace DanceEvent
         public void TriggerDanceEvent()
         {
 			Debug.Log("Dance event triggered");
-			IsEventActive = true;
 			StartCoroutine(DelayEnable());
         }
 
