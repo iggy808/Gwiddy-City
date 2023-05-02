@@ -46,10 +46,10 @@ namespace DanceEvent
 
 		void InitializeLimbPosition()
 		{
-			ArmRightPivot.transform.rotation = Quaternion.Euler(0f,0f,0f);
-			LegRightPivot.transform.rotation = Quaternion.Euler(0f,0f,270f);
-			ArmLeftPivot.transform.rotation = Quaternion.Euler(0f,0f,180f);
-			LegLeftPivot.transform.rotation = Quaternion.Euler(0f,0f,270f);
+			ArmRightPivot.transform.localRotation = Quaternion.Euler(0f,0f,0f);
+			LegRightPivot.transform.localRotation = Quaternion.Euler(0f,0f,270f);
+			ArmLeftPivot.transform.localRotation = Quaternion.Euler(0f,0f,180f);
+			LegLeftPivot.transform.localRotation = Quaternion.Euler(0f,0f,270f);
 		}
 
 		void InitializeEvent()

@@ -41,10 +41,10 @@ namespace DanceEvent
 
         public void DisplayGoalRotations()
         {
-            ArmRightGoal.transform.rotation = ArmRightGoalRotation;
-            LegRightGoal.transform.rotation = LegRightGoalRotation;
-            ArmLeftGoal.transform.rotation = ArmLeftGoalRotation;
-            LegLeftGoal.transform.rotation = LegLeftGoalRotation;
+            ArmRightGoal.transform.localRotation = ArmRightGoalRotation;
+            LegRightGoal.transform.localRotation = LegRightGoalRotation;
+            ArmLeftGoal.transform.localRotation = ArmLeftGoalRotation;
+            LegLeftGoal.transform.localRotation = LegLeftGoalRotation;
         }
     }
 }

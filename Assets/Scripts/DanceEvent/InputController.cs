@@ -46,47 +46,47 @@ namespace DanceEvent
             switch (CurrentLimb)
             {
                 case Limb.ArmRight:
-                    currentRotation = ArmRightPivot.transform.rotation.eulerAngles.z;
+                    currentRotation = ArmRightPivot.transform.localRotation.eulerAngles.z;
                     if (Input.GetKey(KeyCode.Q) && (currentRotation + RotationSpeed < 90f || currentRotation + RotationSpeed > 270f))
                     {
-                        ArmRightPivot.transform.rotation = Quaternion.Euler(0f,0f,currentRotation + RotationSpeed);
+                        ArmRightPivot.transform.localRotation = Quaternion.Euler(0f,0f,currentRotation + RotationSpeed);
                     }
                     if (Input.GetKey(KeyCode.E) && (currentRotation - RotationSpeed < 90f || currentRotation - RotationSpeed > 270f - RotationSpeed))
                     {
-                        ArmRightPivot.transform.rotation = Quaternion.Euler(0f,0f,currentRotation - RotationSpeed);
+                        ArmRightPivot.transform.localRotation = Quaternion.Euler(0f,0f,currentRotation - RotationSpeed);
                     }
                     break;
                 case Limb.LegRight:
-                    currentRotation = LegRightPivot.transform.rotation.eulerAngles.z;
+                    currentRotation = LegRightPivot.transform.localRotation.eulerAngles.z;
                     if (Input.GetKey(KeyCode.Q) && (currentRotation - RotationSpeed > 225f - RotationSpeed || currentRotation - RotationSpeed < 45f))
                     {
-                        LegRightPivot.transform.rotation = Quaternion.Euler(0f,0f, currentRotation - RotationSpeed);
+                        LegRightPivot.transform.localRotation = Quaternion.Euler(0f,0f, currentRotation - RotationSpeed);
                     }
                     if (Input.GetKey(KeyCode.E) && ((currentRotation + RotationSpeed < 360f && currentRotation + RotationSpeed > 225f) || (currentRotation + 2*RotationSpeed > 0f && currentRotation + RotationSpeed < 45f)))
                     {
-                        LegRightPivot.transform.rotation = Quaternion.Euler(0f,0f, currentRotation + RotationSpeed);
+                        LegRightPivot.transform.localRotation = Quaternion.Euler(0f,0f, currentRotation + RotationSpeed);
                     }
                     break;
                 case Limb.ArmLeft:
-                    currentRotation = ArmLeftPivot.transform.rotation.eulerAngles.z;
+                    currentRotation = ArmLeftPivot.transform.localRotation.eulerAngles.z;
                     if (Input.GetKey(KeyCode.Q) && (currentRotation + RotationSpeed < 270f))
                     {
-                        ArmLeftPivot.transform.rotation = Quaternion.Euler(0f,0f, currentRotation + RotationSpeed);
+                        ArmLeftPivot.transform.localRotation = Quaternion.Euler(0f,0f, currentRotation + RotationSpeed);
                     }
                     if (Input.GetKey(KeyCode.E) && (currentRotation - RotationSpeed > 90f - RotationSpeed))
                     {
-                        ArmLeftPivot.transform.rotation = Quaternion.Euler(0f,0f, currentRotation - RotationSpeed);
+                        ArmLeftPivot.transform.localRotation = Quaternion.Euler(0f,0f, currentRotation - RotationSpeed);
                     }
                     break;
                 case Limb.LegLeft:
-                    currentRotation = LegLeftPivot.transform.rotation.eulerAngles.z;
+                    currentRotation = LegLeftPivot.transform.localRotation.eulerAngles.z;
                     if (Input.GetKey(KeyCode.Q) && (currentRotation - RotationSpeed > 135f))
                     {
-                        LegLeftPivot.transform.rotation = Quaternion.Euler(0f,0f, currentRotation - RotationSpeed);
+                        LegLeftPivot.transform.localRotation = Quaternion.Euler(0f,0f, currentRotation - RotationSpeed);
                     }
                     if (Input.GetKey(KeyCode.E) && (currentRotation + RotationSpeed < 315f - RotationSpeed))
                     {
-                        LegLeftPivot.transform.rotation = Quaternion.Euler(0f,0f, currentRotation + RotationSpeed);
+                        LegLeftPivot.transform.localRotation = Quaternion.Euler(0f,0f, currentRotation + RotationSpeed);
                     }
                     break;
                 default:
