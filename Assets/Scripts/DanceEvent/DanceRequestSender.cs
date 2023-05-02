@@ -18,7 +18,8 @@ namespace DanceEvent
 					{
 						Environment = Environment.BattleDance,
 						DesiredMove = Pose.Splits,
-						TargetUI = "BattleDanceEvent"
+						TargetUI = "BattleDanceEvent",
+						TargetObject = null
 					});
 					break;
 				case "EnvironmentalDanceEventTrigger":
@@ -26,7 +27,8 @@ namespace DanceEvent
 					{
 						Environment = Environment.EnvDance,
 						DesiredMove = Pose.Splits,
-						TargetUI = "EnvironmentalDanceEvent"
+						TargetUI = "EnvironmentalDanceEvent",
+						TargetObject = collider.gameObject
 					});
 					break;
 				default:

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace DanceEvent 
@@ -35,7 +33,7 @@ namespace DanceEvent
 		// QTE state variables
         bool TimerOn;
         bool NoDice;
-        float RemainingTime = 3f;
+        float RemainingTime = 60f;
 
 		public void ConfigureDanceEventInternal(DanceRequestContext context)
 		{
@@ -57,7 +55,7 @@ namespace DanceEvent
 		void InitializeEvent()
 		{
 			Debug.Log("Initializing event");
-			RemainingTime = 3f;
+			RemainingTime = 60f;
 			NoDice = false;
 			ArmRightInPlace = false;
 			LegRightInPlace = false;

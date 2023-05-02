@@ -15,15 +15,16 @@ namespace DanceEvent
 		GameObject BattleDanceUI;
 		[SerializeField]
 		GameObject EnvDanceUI;
+		[SerializeField] // TEST CHANGE
+		DanceUIManager BattleDanceUIManager; // Unnecessary at the moment, but can do something with it later if needed
+		[SerializeField]
+		DanceUIManager EnvDanceUIManager;
 
 		GameObject DanceEventUI;
         DanceEventManager DanceEventManager;
         InputController InputController;	
+		DanceUIManager DanceUIManager;
 		
-        void Awake()
-        {	
-        }
-
 		void Start()
 		{
 			// Maybe not necessary now that i am assigning objects in the inspector
@@ -36,13 +37,17 @@ namespace DanceEvent
 			Context = context;
 			if (!IsEventActive)
 			{
+				IsEventActive = true;
+
 				switch (Context.Environment)
 				{
 					case Environment.BattleDance:
 						DanceEventUI = BattleDanceUI;
+						DanceUIManager = BattleDanceUIManager;
 						break;
 					case Environment.EnvDance:
 						DanceEventUI = EnvDanceUI;
+						DanceUIManager = EnvDanceUIManager;
 						break;
 					default:
 						break;
@@ -62,16 +67,50 @@ namespace DanceEvent
 			}
 		}
 
+        public void EndQuicktimeEvent()
+        {
+			InputController.enabled = false;
+            StartCoroutine(DelayDisable());
+        }
+
+        void TriggerDanceEvent()
+        {
+			Debug.Log("Dance event triggered");
+			StartCoroutine(DelayEnable());
+        }
+
+        IEnumerator DelayEnable()
+        {
+            yield return new WaitForSeconds(0.5f);
+            DanceEventUI.SetActive(true);
+            DanceEventManager.enabled = true;
+			InputController.enabled = true;
+			DanceUIManager.enabled = true;
+        }
+
+        IEnumerator DelayDisable()
+        {
+            yield return new WaitForSeconds(0.5f);
+            DanceEventManager.enabled = false;
+			InputController.enabled = false;
+			DanceUIManager.enabled = false;
+            DanceEventUI.SetActive(false);
+			IsEventActive = false;
+        }
+
 		void ConfigureDanceEvent()
 		{	
 			// Enable object for configuration
 			DanceEventUI.SetActive(true);
 
+			// Configure components to dance request context
+			DanceUIManager.SetUITransform(Context);			
 			DanceEventManager.ConfigureDanceEventInternal(Context);
 			
 			// Initialize components and game object to off
 			DanceEventManager.enabled = false;
 			InputController.enabled = false;
+			DanceUIManager.enabled = false;
 
 			// Disable to allow for delayed start
 			DanceEventUI.SetActive(false);
@@ -88,35 +127,5 @@ namespace DanceEvent
 				BattleDanceUI.SetActive(false);
 			}
 		}
-
-        public void TriggerDanceEvent()
-        {
-			Debug.Log("Dance event triggered");
-			IsEventActive = true;
-			StartCoroutine(DelayEnable());
-        }
-
-        IEnumerator DelayDisable()
-        {
-            yield return new WaitForSeconds(2f);
-            DanceEventManager.enabled = false;
-			InputController.enabled = false;
-            DanceEventUI.SetActive(false);
-			IsEventActive = false;
-        }
-
-        IEnumerator DelayEnable()
-        {
-            yield return new WaitForSeconds(2f);
-            DanceEventUI.SetActive(true);
-            DanceEventManager.enabled = true;
-			InputController.enabled = true;
-        }
-
-        public void EndQuicktimeEvent()
-        {
-			InputController.enabled = false;
-            StartCoroutine(DelayDisable());
-        }
     }
 }
