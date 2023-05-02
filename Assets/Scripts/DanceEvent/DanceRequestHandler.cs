@@ -127,5 +127,6 @@ namespace DanceEvent
 				BattleDanceUI.SetActive(false);
 			}
 		}
+
     }
 }
