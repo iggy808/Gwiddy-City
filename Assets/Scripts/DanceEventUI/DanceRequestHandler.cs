@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BattleEvent;
 
 namespace DanceEvent
 {
@@ -21,10 +22,12 @@ namespace DanceEvent
 		DanceUIManager EnvDanceUIManager;
 		[SerializeField]
 		GameObject BattleEventUI;
+		[SerializeField]
+		BattleEvent.InputController BattleInputController;
 
 		GameObject DanceEventUI;
         DanceEventManager DanceEventManager;
-        InputController InputController;	
+        DanceEvent.InputController DanceInputController;	
 		DanceUIManager DanceUIManager;
 		
 		void Start()
@@ -57,7 +60,7 @@ namespace DanceEvent
 				
 				// Assign references to appropriate UI
 				DanceEventManager = DanceEventUI.GetComponent<DanceEventManager>();
-				InputController = DanceEventUI.GetComponent<InputController>();
+				DanceInputController = DanceEventUI.GetComponent<InputController>();
 
 				DisableUnwantedChildren();	
 				ConfigureQuicktimeEvent();	
@@ -71,7 +74,7 @@ namespace DanceEvent
 
         public void EndQuicktimeEvent()
         {
-			InputController.enabled = false;
+			DanceInputController.enabled = false;
             StartCoroutine(DelayQuicktimeDisable());
         }
 
@@ -86,7 +89,7 @@ namespace DanceEvent
             yield return new WaitForSeconds(0.5f);
             DanceEventUI.SetActive(true);
             DanceEventManager.enabled = true;
-			InputController.enabled = true;
+			DanceInputController.enabled = true;
 			DanceUIManager.enabled = true;
         }
 
@@ -94,7 +97,7 @@ namespace DanceEvent
         {
             yield return new WaitForSeconds(0.5f);
             DanceEventManager.enabled = false;
-			InputController.enabled = false;
+			DanceInputController.enabled = false;
 			DanceUIManager.enabled = false;
             DanceEventUI.SetActive(false);
 			IsEventActive = false;
@@ -103,6 +106,7 @@ namespace DanceEvent
 				if (Context.Environment == Environment.BattleDance)
 				{
 					BattleEventUI.SetActive(true);
+					BattleInputController.ResetMenuState();
 				}
 			}
         }
@@ -118,7 +122,7 @@ namespace DanceEvent
 			
 			// Initialize components and game object to off
 			DanceEventManager.enabled = false;
-			InputController.enabled = false;
+			DanceInputController.enabled = false;
 			DanceUIManager.enabled = false;
 
 			// Disable to allow for delayed start

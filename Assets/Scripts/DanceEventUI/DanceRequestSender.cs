@@ -10,6 +10,8 @@ namespace DanceEvent
 		DanceRequestHandler DanceHandler;
 		[SerializeField]
 		BattleRequestHandler BattleHandler;
+		[SerializeField]
+		PlayerCam PlayerCam;
 		// For now, implement on dance request sender, but need to have a battle request sender ideally
 
 		void OnTriggerEnter(Collider collider)
@@ -19,6 +21,7 @@ namespace DanceEvent
 			switch (collider.gameObject.name)
 			{
 				case "BattleDanceEventTrigger":
+					PlayerCam.SwitchMouseControls();
 					BattleHandler.ActivateBattleEvent(new BattleRequestContext
 					{
 						Enemy = SpecialEnemy.CoolDancer
