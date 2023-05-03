@@ -1,4 +1,4 @@
-namespace BattleEventUI
+namespace BattleEvent
 {
 	public enum SpecialEnemy
 	{

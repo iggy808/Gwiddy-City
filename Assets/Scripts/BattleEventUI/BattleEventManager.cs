@@ -1,5 +1,6 @@
 using UnityEngine;
-namespace BattleEventUI
+
+namespace BattleEvent
 {
 	// Will control the turnbased battle game loop
 	public class BattleEventManager : MonoBehaviour

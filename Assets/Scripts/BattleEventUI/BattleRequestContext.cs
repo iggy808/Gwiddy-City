@@ -1,11 +1,11 @@
 using UnityEngine;
 
-namespace BattleEventUI
+namespace BattleEvent
 {
 	public class BattleRequestContext
 	{
-		// Prolly dont need
-		//public Environment Environment;
+		// Maybe things like enemy stats? max stamina, damage, etc?
+		// Anything that will configure the battle should probably go in here
 		public SpecialEnemy Enemy;
 	}
 }

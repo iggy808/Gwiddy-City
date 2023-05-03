@@ -7,7 +7,6 @@ namespace DanceEvent
 		// To be expanded as needed
 		public Environment Environment;		
 		public Pose DesiredMove;
-		public string TargetUI;
 		public GameObject TargetObject;
 	}
 }

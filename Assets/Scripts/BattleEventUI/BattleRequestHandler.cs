@@ -1,6 +1,7 @@
 using UnityEngine;
+using DanceEvent;
 
-namespace BattleEventUI
+namespace BattleEvent
 {
 	/* Battle event scene hierarchy:
 	 * 
@@ -17,6 +18,8 @@ namespace BattleEventUI
 		GameObject BattleEventUI;
 		[SerializeField]
 		GameObject BattleEventUIComponents;
+		[SerializeField]
+		DanceRequestHandler DanceHandler;
 
 		bool BattleIsActive = false;		 
 

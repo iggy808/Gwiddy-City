@@ -1,5 +1,5 @@
 using UnityEngine;
-using BattleEventUI;
+using BattleEvent;
 
 namespace DanceEvent
 {
@@ -29,7 +29,6 @@ namespace DanceEvent
 					{
 						Environment = Environment.EnvDance,
 						DesiredMove = Pose.Splits,
-						TargetUI = "EnvironmentalDanceEvent",
 						TargetObject = collider.gameObject
 					});
 					break;
@@ -38,7 +37,6 @@ namespace DanceEvent
 					{
 						Environment = Environment.EnvDance,
 						DesiredMove = Pose.Splits,
-						TargetUI = "EnvironmentalDanceEvent",
 						TargetObject = GameObject.Find("Walkablocka")
 					});
 					break;
