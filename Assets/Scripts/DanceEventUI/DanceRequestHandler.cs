@@ -19,6 +19,8 @@ namespace DanceEvent
 		DanceUIManager BattleDanceUIManager; // Unnecessary at the moment, but can do something with it later if needed
 		[SerializeField]
 		DanceUIManager EnvDanceUIManager;
+		[SerializeField]
+		GameObject BattleEventUI;
 
 		GameObject DanceEventUI;
         DanceEventManager DanceEventManager;
@@ -27,8 +29,8 @@ namespace DanceEvent
 		
 		void Start()
 		{
-			// Maybe not necessary now that i am assigning objects in the inspector
 			BattleDanceUI.SetActive(false);
+			//BattleEventUI.SetActive(false);
 			EnvDanceUI.SetActive(false);
 		}
 
@@ -58,8 +60,8 @@ namespace DanceEvent
 				InputController = DanceEventUI.GetComponent<InputController>();
 
 				DisableUnwantedChildren();	
-				ConfigureDanceEvent();	
-				TriggerDanceEvent();
+				ConfigureQuicktimeEvent();	
+				TriggerQuicktimeEvent();
 			}
 			else
 			{
@@ -70,16 +72,16 @@ namespace DanceEvent
         public void EndQuicktimeEvent()
         {
 			InputController.enabled = false;
-            StartCoroutine(DelayDisable());
+            StartCoroutine(DelayQuicktimeDisable());
         }
 
-        void TriggerDanceEvent()
+        void TriggerQuicktimeEvent()
         {
 			Debug.Log("Dance event triggered");
-			StartCoroutine(DelayEnable());
+			StartCoroutine(DelayQuicktimeEnable());
         }
 
-        IEnumerator DelayEnable()
+        IEnumerator DelayQuicktimeEnable()
         {
             yield return new WaitForSeconds(0.5f);
             DanceEventUI.SetActive(true);
@@ -88,7 +90,7 @@ namespace DanceEvent
 			DanceUIManager.enabled = true;
         }
 
-        IEnumerator DelayDisable()
+        IEnumerator DelayQuicktimeDisable()
         {
             yield return new WaitForSeconds(0.5f);
             DanceEventManager.enabled = false;
@@ -96,9 +98,16 @@ namespace DanceEvent
 			DanceUIManager.enabled = false;
             DanceEventUI.SetActive(false);
 			IsEventActive = false;
+			if (Context != null)
+			{
+				if (Context.Environment == Environment.BattleDance)
+				{
+					BattleEventUI.SetActive(true);
+				}
+			}
         }
 
-		void ConfigureDanceEvent()
+		void ConfigureQuicktimeEvent()
 		{	
 			// Enable object for configuration
 			DanceEventUI.SetActive(true);
@@ -114,6 +123,7 @@ namespace DanceEvent
 
 			// Disable to allow for delayed start
 			DanceEventUI.SetActive(false);
+			BattleDanceUI.SetActive(false);
 		}
 		
 		void DisableUnwantedChildren()
@@ -121,6 +131,9 @@ namespace DanceEvent
 			if (Context.Environment == Environment.BattleDance)
 			{
 				EnvDanceUI.SetActive(false);
+				BattleEventUI.SetActive(false);
+				
+
 			}
 			else if (Context.Environment == Environment.EnvDance)
 			{

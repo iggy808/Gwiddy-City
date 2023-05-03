@@ -8,7 +8,7 @@ public class beatitbub : MonoBehaviour
 	float UpperZBound = 10000f;
 	bool goup = true;
 	bool golow = false;
-	float velocity = 0.001f;
+	float velocity = 0.01f;
 
     // Start is called before the first frame update
     void Start()
