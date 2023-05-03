@@ -14,6 +14,8 @@ namespace BattleEvent
 		[SerializeField]
 		DanceRequestHandler DanceHandler;
 		[SerializeField]
+		BattleEventManager BattleManager;
+		[SerializeField]
 		GameObject MainMenuButtons;
 		[SerializeField]
 		GameObject DanceMenuButtons;
@@ -47,10 +49,18 @@ namespace BattleEvent
 			});	
 		}
 
-		public void ResetMenuState()
+		public void ResetMenuState(bool wasSuccessful)
 		{
 			DanceMenuButtons.SetActive(false);
 			MainMenuButtons.SetActive(true);
+			if (wasSuccessful)
+			{
+				BattleManager.InflictDamage();
+			}
+			else
+			{
+				Debug.Log("You missed! No damage!");
+			}
 			CurrentState = InputState.MainMenu;
 		}
 	}

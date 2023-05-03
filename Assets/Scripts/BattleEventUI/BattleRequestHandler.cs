@@ -13,14 +13,18 @@ namespace BattleEvent
 	 */
 	public class BattleRequestHandler : MonoBehaviour
 	{
-		BattleRequestContext Context;	
 		[SerializeField]
 		GameObject BattleEventUI;
 		[SerializeField]
 		GameObject BattleEventUIComponents;
 		[SerializeField]
 		DanceRequestHandler DanceHandler;
+		[SerializeField]
+		BattleEventManager BattleManager;
+		[SerializeField]
+		PlayerCam PlayerCam;
 
+		BattleRequestContext Context;	
 		bool BattleIsActive = false;		 
 
 		void Start()
@@ -39,18 +43,21 @@ namespace BattleEvent
 			}
 		}
 
+		public void EndBattleEvent()
+		{
+			PlayerCam.enabled = true;
+			PlayerCam.SwitchMouseControls();
+			BattleEventUIComponents.SetActive(false);
+			BattleEventUI.SetActive(false);
+			BattleIsActive = false;
+		}
+
 		void InitializeBattle()
 		{
-			/* potentially useful at some point
-			 * if we want to do stuff with UI based on boss/spacial enemy
-			switch (context.Enemy)
-			{
-				case SpecialEnemy.CoolDancer:
-					break;
-				default:
-					break;
-			}
-			*/
+			BattleManager.InitializeBattleEvent(Context);
+			// Restrict player motion, enable mouse menu input
+			PlayerCam.SwitchMouseControls();
+			// Set battle event UI to main input panel
 			BattleEventUI.SetActive(true);
 			BattleEventUIComponents.SetActive(true);
 		}

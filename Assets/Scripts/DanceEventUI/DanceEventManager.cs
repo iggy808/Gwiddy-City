@@ -32,7 +32,7 @@ namespace DanceEvent
 		float ErrorMargin = 4f;
 		// QTE state variables
         bool TimerOn;
-        bool NoDice;
+        bool WasSuccessful;
         float RemainingTime;
 
 		public void ConfigureDanceEventInternal(DanceRequestContext context)
@@ -56,7 +56,7 @@ namespace DanceEvent
 		{
 			Debug.Log("Initializing event");
 			RemainingTime = 3f;
-			NoDice = false;
+			WasSuccessful = false;
 			ArmRightInPlace = false;
 			LegRightInPlace = false;
 			ArmLeftInPlace = false;
@@ -73,13 +73,13 @@ namespace DanceEvent
             if (!TimerOn)
             {
 				// Disable timer in event player loses the quicktime event
-				if (!NoDice)
+				if (!WasSuccessful)
 				{
                 	// Quicktime event is over - do whatever then disable the object maybe?
-					DanceRequestHandler.EndQuicktimeEvent();
+					DanceRequestHandler.EndQuicktimeEvent(WasSuccessful);
 				}
-				// Lock so that the end event coroutine is not called multiple times
-				NoDice = true;
+				// Lock "WasSuccessful" when timer is not on to ensure that the end event coroutine is only called once
+				WasSuccessful = true;
 				Debug.Log("Timer off");
                 return;
             }
@@ -97,7 +97,8 @@ namespace DanceEvent
             {
                 Debug.Log("All limbs in position with " + RemainingTime + " seconds to spare!!");
                 TimerOn = false;
-                DanceRequestHandler.EndQuicktimeEvent();
+				WasSuccessful = true;
+                DanceRequestHandler.EndQuicktimeEvent(WasSuccessful);
             }
         }
 

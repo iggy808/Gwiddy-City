@@ -72,10 +72,10 @@ namespace DanceEvent
 			}
 		}
 
-        public void EndQuicktimeEvent()
+        public void EndQuicktimeEvent(bool wasSuccessful)
         {
 			DanceInputController.enabled = false;
-            StartCoroutine(DelayQuicktimeDisable());
+            StartCoroutine(DelayQuicktimeDisable(wasSuccessful));
         }
 
         void TriggerQuicktimeEvent()
@@ -93,7 +93,7 @@ namespace DanceEvent
 			DanceUIManager.enabled = true;
         }
 
-        IEnumerator DelayQuicktimeDisable()
+        IEnumerator DelayQuicktimeDisable(bool wasSuccessful)
         {
             yield return new WaitForSeconds(0.5f);
             DanceEventManager.enabled = false;
@@ -106,7 +106,7 @@ namespace DanceEvent
 				if (Context.Environment == Environment.BattleDance)
 				{
 					BattleEventUI.SetActive(true);
-					BattleInputController.ResetMenuState();
+					BattleInputController.ResetMenuState(wasSuccessful);
 				}
 			}
         }

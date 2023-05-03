@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum MouseState
+{
+	Environmetal,
+	BattleUI
+}
+
 public class PlayerCam : MonoBehaviour
 {
     public float sensX;
@@ -9,11 +15,14 @@ public class PlayerCam : MonoBehaviour
     public Transform orientation;
     private float xRotation;
     private float yRotation;
+	MouseState currentMouseState;
+
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+		currentMouseState = MouseState.Environmetal;
     }
 
     private void Update()
@@ -29,8 +38,21 @@ public class PlayerCam : MonoBehaviour
 
     public void SwitchMouseControls()
     {
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
-        this.enabled = false;
+		switch (currentMouseState)
+		{
+			case MouseState.Environmetal:
+        		Cursor.lockState = CursorLockMode.Confined;
+        		Cursor.visible = true;
+				currentMouseState = MouseState.BattleUI;
+        		this.enabled = false;
+				break;
+			case MouseState.BattleUI:
+				Cursor.lockState = CursorLockMode.Locked;
+				Cursor.visible = false;
+				currentMouseState = MouseState.Environmetal;
+				break;
+			default:
+				break;
+		}
     }
 }
