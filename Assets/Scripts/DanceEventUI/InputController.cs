@@ -19,7 +19,7 @@ namespace DanceEvent
         public GameObject LegLeftPivot;
 		
 
-        float RotationSpeed = 4.5f; // Breaks at 5 rotation speed lmao- need to implement clamp and see if that fixes
+        float RotationSpeed = 10f; // Breaks at 5 rotation speed lmao- need to implement clamp and see if that fixes
         public Limb CurrentLimb;
 
         // Start is called before the first frame update

@@ -30,9 +30,9 @@ namespace DanceEvent
             {
                 case Pose.Splits:
                     ArmRightGoalRotation = Quaternion.Euler(0f, 0f, 30f);   // ArmRightGoal for splits
-                    LegRightGoalRotation = Quaternion.Euler(0f, 0f, 359f);  // LegRightGoal for splits
+                    LegRightGoalRotation = Quaternion.Euler(0f, 0f, 350f);  // LegRightGoal for splits
                     ArmLeftGoalRotation = Quaternion.Euler(0f, 0f, 210f);   // ArmLeftGoal for splits
-                    LegLeftGoalRotation = Quaternion.Euler(0f, 0f, 180f);   // LegLeftGoal for splits
+                    LegLeftGoalRotation = Quaternion.Euler(0f, 0f, 190f);   // LegLeftGoal for splits
                     break;
                 default:
                     break;
