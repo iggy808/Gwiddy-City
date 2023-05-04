@@ -54,14 +54,14 @@ namespace DanceEvent
 
 		void InitializeEvent()
 		{
-			Debug.Log("Initializing event");
+			//Debug.Log("Initializing event");
 			RemainingTime = 3f;
 			WasSuccessful = false;
 			ArmRightInPlace = false;
 			LegRightInPlace = false;
 			ArmLeftInPlace = false;
 			LegLeftInPlace = false;
-			Debug.Log("Timer On!");
+			//Debug.Log("Timer On!");
 			TimerOn = true;
 		}
 		
@@ -80,7 +80,6 @@ namespace DanceEvent
 				}
 				// Lock "WasSuccessful" when timer is not on to ensure that the end event coroutine is only called once
 				WasSuccessful = true;
-				Debug.Log("Timer off");
                 return;
             }
 
@@ -273,7 +272,7 @@ namespace DanceEvent
         // TODO: Handle displaying the UI through here
         public void DisplayUI()
         {
-            Debug.Log("Dance event UI displayed");
+            //Debug.Log("Dance event UI displayed");
         }
     }
 }

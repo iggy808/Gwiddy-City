@@ -40,8 +40,8 @@ namespace BattleEvent
 			EnemyStaminaUI.text = EnemyCurrentStamina.ToString(); 
 			if (EnemyCurrentStamina <= 0)
 			{
-				Debug.Log(EnemyCurrentStamina);
-				Debug.Log("Gotem");
+				//Debug.Log(EnemyCurrentStamina);
+				//Debug.Log("Gotem");
 				BattleHandler.EndBattleEvent();
 			}			
 		}

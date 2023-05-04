@@ -68,7 +68,7 @@ namespace DanceEvent
 			}
 			else
 			{
-				Debug.Log("Dance event already active, dance request canceled.");
+				//Debug.Log("Dance event already active, dance request canceled.");
 			}
 		}
 
@@ -80,7 +80,7 @@ namespace DanceEvent
 
         void TriggerQuicktimeEvent()
         {
-			Debug.Log("Dance event triggered");
+			//Debug.Log("Dance event triggered");
 			StartCoroutine(DelayQuicktimeEnable());
         }
 
@@ -108,7 +108,7 @@ namespace DanceEvent
 					BattleEventUI.SetActive(true);
 					BattleInputController.ResetMenuState(wasSuccessful);
 				}
-				else if (Context.Environment == Environment.EnvDance && wasSuccessful)
+				else if (Context.Environment == Environment.EnvDance)
 				{
 					Context.TargetObject.SetActive(false);
 				}

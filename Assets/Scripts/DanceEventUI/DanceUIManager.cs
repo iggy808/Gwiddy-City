@@ -20,7 +20,7 @@ namespace DanceEvent
 			// Only need to configure UI transform for worldspace UI, battle UI is ignored
 			if (context.Environment == Environment.BattleDance)
 			{
-				Debug.Log("UI transform setup skipped for dance battle.");
+				//Debug.Log("UI transform setup skipped for dance battle.");
 				return;
 			}
 			TargetTransform = Context.TargetObject.GetComponent<Transform>();

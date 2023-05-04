@@ -9,7 +9,7 @@ namespace BattleEvent
 
 		void OnTriggerEnter(Collider collider)
 		{
-			Debug.Log("Trigger entered");
+			//Debug.Log("Trigger entered");
 			// test triggers to send new dance requests
 			switch (collider.gameObject.name)
 			{

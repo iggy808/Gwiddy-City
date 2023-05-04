@@ -17,6 +17,6 @@ public class PlayerDances : MonoBehaviour
     // Update is called once per frame
     void Update()
     { 
-		Debug.Log("Number of dances: " + Dances.Count);
+		//Debug.Log("Number of dances: " + Dances.Count);
     }
 }

@@ -65,13 +65,13 @@ namespace BattleEvent
 
 			if (PlayerDances.Contains(DanceEvent.Pose.Cool))
 			{
-				Debug.Log("Player has cool");
+				//Debug.Log("Player has cool");
 				// activate cool button
 				CoolButton.SetActive(true);
 			}
 			else
 			{
-				Debug.Log("Player does not have cool");
+				//Debug.Log("Player does not have cool");
 				CoolButton.SetActive(false);
 			}
 		}
