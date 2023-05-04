@@ -15,7 +15,7 @@ public class ParticleHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (oldManCall.transform.position.y <= -1)
+        if (oldManCall.transform.position.y <= -10)
         {
             print("AHHHHHHHHHHHHHHHHHHH");
             self.SetActive(true);

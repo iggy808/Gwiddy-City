@@ -95,7 +95,7 @@ public class OldManDialogue : MonoBehaviour
             gameObject.SetActive(false);
             textMeshProUGUI.text = string.Empty;
             
-            oldMan.transform.position = new Vector3(0,-3, 0);
+            oldMan.transform.position = new Vector3(0,-10, 0);
             
         }
     }
