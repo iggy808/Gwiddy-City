@@ -27,7 +27,7 @@ public class SphereBehavior : MonoBehaviour
         {
             importedTotalValue.total++;
 			// Unlock dance move
-			Dances.Add(DanceEvent.Pose.Cool);
+			//Dances.Add(DanceEvent.Pose.Cool);
 
             Destroy(gameObject);
         }
