@@ -27,7 +27,7 @@ namespace DanceEvent
 					{
 						Environment = Environment.EnvDance,
 						DesiredMove = Pose.Cool,
-						TargetObject = GameObject.Find("Walkablocka")
+						TargetObject = GameObject.Find("Walkablocka (1)")
 					});
 					break;
 				default:

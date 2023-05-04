@@ -23,11 +23,13 @@ public class SphereBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && importedTotalValue.total == 0)
+		Dances = Player.GetComponent<PlayerDances>().Dances;
+        if (other.tag == "Player")
         {
             importedTotalValue.total++;
 			// Unlock dance move
 			Dances.Add(DanceEvent.Pose.Cool);
+			Debug.Log("Dance added");
 
             Destroy(gameObject);
         }
