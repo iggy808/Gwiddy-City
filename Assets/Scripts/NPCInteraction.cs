@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,11 +10,13 @@ public class NPCInteraction : MonoBehaviour
     public Transform InteractedCameraPosition;
     public Camera DialogueCamera;
     public Camera MainCamera;
-
+    public OldManDialogue intro;
+    public GameObject dialogueCanvas;
+    public bool speaking;
     // Start is called before the first frame update
     void Start()
     {
-        
+        speaking = false;
     }
 
     // Update is called once per frame
@@ -35,11 +38,19 @@ public class NPCInteraction : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        // Sometimes this doesn't work immediately. Just spam 'F'
         if (other.tag == "Player" && Input.GetKeyDown(KeyCode.F))
         {
-            print("HELLO");
+            print("HELLO 2");
             DialogueCamera.enabled = true; MainCamera.enabled = false;
             DialogueCamera.transform.position = InteractedCameraPosition.position;
+            if (gameObject.tag == "OldMan" && speaking == false)
+            {
+                speaking=true;
+                dialogueCanvas.SetActive(true);
+                intro.StartDialogue();
+
+            }
         }
     }
 
@@ -48,7 +59,10 @@ public class NPCInteraction : MonoBehaviour
         if(other.tag == "Player" && DialogueCamera.enabled == true && MainCamera.enabled == false)
         {
             DialogueCamera.enabled = false;
-            MainCamera.enabled = true;  
+            MainCamera.enabled = true;
+            dialogueCanvas.SetActive(false);
+            speaking = false;
         }
+
     }
 }
