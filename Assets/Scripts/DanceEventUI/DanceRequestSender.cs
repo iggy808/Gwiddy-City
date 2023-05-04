@@ -22,12 +22,29 @@ namespace DanceEvent
 						TargetObject = collider.gameObject
 					});
 					break;
-				case "WalkablockaDanceEventTrigger":
+				case "WalkablockaDanceEventTriggerCool":
 					DanceHandler.ActivateDanceEvent(new DanceRequestContext
 					{
 						Environment = Environment.EnvDance,
 						DesiredMove = Pose.Cool,
-						TargetObject = GameObject.Find("Walkablocka (1)")
+						TargetObject = GameObject.Find("Walkablocka (1)") 
+						// Note: can probably grab gameobject from OnTriggerEnter, and store it in the dancerequest sender as TargetObject or something to avoid find
+					});
+					break;
+				case "WalkablockaDanceEventTriggerSplits":
+					DanceHandler.ActivateDanceEvent(new DanceRequestContext
+					{
+						Environment = Environment.EnvDance,
+						DesiredMove = Pose.Splits,
+						TargetObject = GameObject.Find("Walkablocka (2)")
+					});
+					break;
+				case "WalkablockaDanceEventTriggerSplitsAgain":
+					DanceHandler.ActivateDanceEvent(new DanceRequestContext
+					{
+						Environment = Environment.EnvDance,
+						DesiredMove = Pose.Splits,
+						TargetObject = GameObject.Find("Walkablocka (3)")
 					});
 					break;
 				default:

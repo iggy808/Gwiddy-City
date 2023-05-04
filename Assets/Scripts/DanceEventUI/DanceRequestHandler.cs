@@ -108,6 +108,10 @@ namespace DanceEvent
 					BattleEventUI.SetActive(true);
 					BattleInputController.ResetMenuState(wasSuccessful);
 				}
+				else if (Context.Environment == Environment.EnvDance && wasSuccessful)
+				{
+					Context.TargetObject.SetActive(false);
+				}
 			}
         }
 
@@ -135,9 +139,7 @@ namespace DanceEvent
 			if (Context.Environment == Environment.BattleDance)
 			{
 				EnvDanceUI.SetActive(false);
-				BattleEventUI.SetActive(false);
-				
-
+				BattleEventUI.SetActive(false);	
 			}
 			else if (Context.Environment == Environment.EnvDance)
 			{

@@ -23,9 +23,20 @@ namespace BattleEvent
 			EnemyStaminaUI.text = EnemyCurrentStamina.ToString(); 			
 		}
 
-		public void InflictDamage()
+		public void InflictDamage(DanceEvent.Pose pose)
 		{
-			EnemyCurrentStamina -= 1;
+			switch (pose)
+			{
+				case DanceEvent.Pose.Splits:
+					EnemyCurrentStamina -= 1;
+					break;
+				case DanceEvent.Pose.Cool:
+					EnemyCurrentStamina -= 2;
+					break;
+				default:
+					break;
+			}
+
 			EnemyStaminaUI.text = EnemyCurrentStamina.ToString(); 
 			if (EnemyCurrentStamina <= 0)
 			{

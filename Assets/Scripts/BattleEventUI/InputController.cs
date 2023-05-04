@@ -33,9 +33,11 @@ namespace BattleEvent
 		InputState CurrentState;
 
 
+		DanceEvent.Pose CurrentPose;
+
+
 		void Start()
 		{
-			PlayerDances = Player.GetComponent<PlayerDances>().Dances;
 			MainMenuButtons.SetActive(true);
 			DanceMenuButtons.SetActive(false);
 		}
@@ -76,6 +78,7 @@ namespace BattleEvent
 
 		public void SplitsAttackClicked()
 		{
+			CurrentPose = DanceEvent.Pose.Splits;
 			DanceHandler.ActivateDanceEvent(new DanceRequestContext()
 			{
 				Environment = Environment.BattleDance,
@@ -86,6 +89,7 @@ namespace BattleEvent
 
 		public void CoolAttackClicked()
 		{
+			CurrentPose = DanceEvent.Pose.Cool;
 			DanceHandler.ActivateDanceEvent(new DanceRequestContext()
 			{
 				Environment = Environment.BattleDance,
@@ -101,7 +105,7 @@ namespace BattleEvent
 			if (wasSuccessful)
 			{
 				Debug.Log("Dance successful! Inflicting damage...");
-				BattleManager.InflictDamage();
+				BattleManager.InflictDamage(CurrentPose);
 			}
 			else
 			{
