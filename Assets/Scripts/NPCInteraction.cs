@@ -30,7 +30,6 @@ public class NPCInteraction : MonoBehaviour
         if (other.tag == "Player")
         {
             Instantiate(interactionText, TextPosition.position, Quaternion.Euler(0,-90,0), transform);
-            print("Test Text Should Show");
 
         }
         
@@ -41,7 +40,6 @@ public class NPCInteraction : MonoBehaviour
         // Sometimes this doesn't work immediately. Just spam 'F'
         if (other.tag == "Player" && Input.GetKeyDown(KeyCode.F))
         {
-            print("HELLO 2");
             DialogueCamera.enabled = true; MainCamera.enabled = false;
             DialogueCamera.transform.position = InteractedCameraPosition.position;
             if (gameObject.tag == "OldMan" && speaking == false)

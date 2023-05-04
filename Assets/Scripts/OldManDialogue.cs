@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.UI;
 
 public class OldManDialogue : MonoBehaviour
 {
@@ -25,10 +26,14 @@ public class OldManDialogue : MonoBehaviour
     public string[] linesToBeTyped;
     public float textSpeed;
     private int index;
+    public Image mouseImage;
+    public GameObject oldMan;
+
     // Start is called before the first frame update
     public void Start()
     {
         textMeshProUGUI.text = string.Empty;
+        mouseImage.enabled = false;
     }
 
     // Update is called once per frame
@@ -40,12 +45,16 @@ public class OldManDialogue : MonoBehaviour
             if(textMeshProUGUI.text == linesToBeTyped[index])
             {
                 NextLine();
+                mouseImage.enabled = false;
             }
             // End typing coroutine and finish line 
             else
             {
                 StopAllCoroutines();
                 textMeshProUGUI.text = linesToBeTyped[index];
+                mouseImage.enabled = true;
+                mouseImage.transform.localScale = new Vector3(.9f, .9f, .9f);
+
             }
         }
     }
@@ -64,6 +73,10 @@ public class OldManDialogue : MonoBehaviour
             textMeshProUGUI.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
+        // show mouse?
+        mouseImage.enabled = true;
+        mouseImage.transform.localScale = new Vector3(.9f, .9f, .9f);
+
     }
     void NextLine()
     {
@@ -81,6 +94,9 @@ public class OldManDialogue : MonoBehaviour
         {
             gameObject.SetActive(false);
             textMeshProUGUI.text = string.Empty;
+            
+            oldMan.transform.position = new Vector3(0,-3, 0);
+            
         }
     }
 }
