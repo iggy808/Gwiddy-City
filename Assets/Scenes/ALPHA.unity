@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2321,6 +2321,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: -5538433125352920423, guid: ebde8f1dd8ee9ac4aa9c77005440f6b8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: -4129861539576954315, guid: ebde8f1dd8ee9ac4aa9c77005440f6b8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -2329,9 +2333,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: -3661505403685405902, guid: ebde8f1dd8ee9ac4aa9c77005440f6b8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: -1416451721147285875, guid: ebde8f1dd8ee9ac4aa9c77005440f6b8, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -1416451721147285875, guid: ebde8f1dd8ee9ac4aa9c77005440f6b8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: -1179073280972956304, guid: ebde8f1dd8ee9ac4aa9c77005440f6b8, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2365,6 +2377,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1745781175919168791, guid: ebde8f1dd8ee9ac4aa9c77005440f6b8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1822200912049282738, guid: ebde8f1dd8ee9ac4aa9c77005440f6b8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -2381,13 +2397,25 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2545476429612362381, guid: ebde8f1dd8ee9ac4aa9c77005440f6b8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2816458434664169085, guid: ebde8f1dd8ee9ac4aa9c77005440f6b8, type: 3}
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2816458434664169085, guid: ebde8f1dd8ee9ac4aa9c77005440f6b8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3424962970019980119, guid: ebde8f1dd8ee9ac4aa9c77005440f6b8, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3424962970019980119, guid: ebde8f1dd8ee9ac4aa9c77005440f6b8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4722668731669672826, guid: ebde8f1dd8ee9ac4aa9c77005440f6b8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2400,6 +2428,10 @@ PrefabInstance:
     - target: {fileID: 6040538632330596195, guid: ebde8f1dd8ee9ac4aa9c77005440f6b8, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6040538632330596195, guid: ebde8f1dd8ee9ac4aa9c77005440f6b8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7772769445505634234, guid: ebde8f1dd8ee9ac4aa9c77005440f6b8, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2416,6 +2448,10 @@ PrefabInstance:
     - target: {fileID: 9107410384208636186, guid: ebde8f1dd8ee9ac4aa9c77005440f6b8, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9107410384208636186, guid: ebde8f1dd8ee9ac4aa9c77005440f6b8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebde8f1dd8ee9ac4aa9c77005440f6b8, type: 3}
