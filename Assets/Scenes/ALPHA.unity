@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -481,6 +481,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &379054704 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1614173896236106788, guid: d27a9421b06610c4ba2fdc6b332c2991, type: 3}
+  m_PrefabInstance: {fileID: 1614173896527882305}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &400771932
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1618,6 +1623,10 @@ PrefabInstance:
       propertyPath: PlayerTransform
       value: 
       objectReference: {fileID: 1112603125}
+    - target: {fileID: 4294489454932197453, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 379054704}
     - target: {fileID: 8174404779358559084, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
       propertyPath: PlayerTransform
       value: 
@@ -2046,6 +2055,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84e397d54e6e68348b352e6e4da38908, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 379054704}
   importedTotalValue: {fileID: 1609560788}
 --- !u!135 &1855657405
 SphereCollider:
