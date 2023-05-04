@@ -143,6 +143,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8278847301886250667}
     m_Modifications:
+    - target: {fileID: 4834990524346086448, guid: e01c6bb250d4b4d6f83777304f5b4617, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8278847301886250670}
+    - target: {fileID: 4834990524346086448, guid: e01c6bb250d4b4d6f83777304f5b4617, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CoolAttackClicked
+      objectReference: {fileID: 0}
     - target: {fileID: 6908519157440802566, guid: e01c6bb250d4b4d6f83777304f5b4617, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -230,6 +238,22 @@ PrefabInstance:
     - target: {fileID: 6908519157440802569, guid: e01c6bb250d4b4d6f83777304f5b4617, type: 3}
       propertyPath: m_Name
       value: UIComponents
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908519157817590237, guid: e01c6bb250d4b4d6f83777304f5b4617, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8278847301886250670}
+    - target: {fileID: 6908519157817590237, guid: e01c6bb250d4b4d6f83777304f5b4617, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SplitsAttackClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908519158039232967, guid: e01c6bb250d4b4d6f83777304f5b4617, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8278847301886250670}
+    - target: {fileID: 6908519158039232967, guid: e01c6bb250d4b4d6f83777304f5b4617, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DanceMenuClicked
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e01c6bb250d4b4d6f83777304f5b4617, type: 3}
