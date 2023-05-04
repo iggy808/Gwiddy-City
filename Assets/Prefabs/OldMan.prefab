@@ -460,6 +460,9 @@ MonoBehaviour:
   InteractedCameraPosition: {fileID: 1778020336}
   DialogueCamera: {fileID: 0}
   MainCamera: {fileID: 0}
+  intro: {fileID: 0}
+  dialogueCanvas: {fileID: 0}
+  speaking: 0
 --- !u!1 &4461832288262232008
 GameObject:
   m_ObjectHideFlags: 0
