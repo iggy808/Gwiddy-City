@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 namespace BattleEvent
 {
@@ -7,25 +8,29 @@ namespace BattleEvent
 	{
 		[SerializeField]
 		BattleRequestHandler BattleHandler;
+		[SerializeField]
+		TextMeshProUGUI EnemyStaminaUI;
 
 		BattleRequestContext Context;
 		SpecialEnemies CurrentEnemy;
-		int CurrentStamina;
+		int EnemyCurrentStamina;
 
 		public void InitializeBattleEvent(BattleRequestContext context)
 		{
 			Context = context;
 			CurrentEnemy = context.Enemy.Name;
-			CurrentStamina = context.Enemy.MaxStamina;
+			EnemyCurrentStamina = context.Enemy.MaxStamina;
+			EnemyStaminaUI.text = EnemyCurrentStamina.ToString(); 			
 		}
 
 		public void InflictDamage()
 		{
-			CurrentStamina -= 1;
-			if (CurrentStamina<= 0)
+			EnemyCurrentStamina -= 1;
+			EnemyStaminaUI.text = EnemyCurrentStamina.ToString(); 
+			if (EnemyCurrentStamina <= 0)
 			{
+				Debug.Log(EnemyCurrentStamina);
 				Debug.Log("Gotem");
-				Debug.Log("Enemy health: " + CurrentStamina);
 				BattleHandler.EndBattleEvent();
 			}			
 		}

@@ -63,7 +63,7 @@ PrefabInstance:
     - target: {fileID: 4035061831180069674, guid: bff406d431498456bad926de6f047b9d, type: 3}
       propertyPath: BattleEventUIComponents
       value: 
-      objectReference: {fileID: 4294489453891266215}
+      objectReference: {fileID: 8351636116114882273}
     - target: {fileID: 4035061831180069675, guid: bff406d431498456bad926de6f047b9d, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -112,6 +112,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattleEventUI
       objectReference: {fileID: 0}
+    - target: {fileID: 5245989219457408930, guid: bff406d431498456bad926de6f047b9d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4294489454932197453}
+    - target: {fileID: 5245989219457408930, guid: bff406d431498456bad926de6f047b9d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DanceMenuClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 5245989220879933368, guid: bff406d431498456bad926de6f047b9d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4294489454932197453}
+    - target: {fileID: 5245989220879933368, guid: bff406d431498456bad926de6f047b9d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DanceAttackClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 9175229306802187483, guid: bff406d431498456bad926de6f047b9d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4294489454932197453}
+    - target: {fileID: 9175229306802187483, guid: bff406d431498456bad926de6f047b9d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DanceMenuClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 9175229307594255553, guid: bff406d431498456bad926de6f047b9d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4294489454932197453}
+    - target: {fileID: 9175229307594255553, guid: bff406d431498456bad926de6f047b9d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DanceAttackClicked
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bff406d431498456bad926de6f047b9d, type: 3}
 --- !u!1 &924624347123688608 stripped
@@ -135,11 +167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b14ff98d70f384414b9d3581581dbfe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &4294489453891266215 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 50261755999037738, guid: bff406d431498456bad926de6f047b9d, type: 3}
-  m_PrefabInstance: {fileID: 4263650639516897165}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4294489454932197447 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 50261757106622410, guid: bff406d431498456bad926de6f047b9d, type: 3}
@@ -167,6 +194,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e199a2467a9844cda615342866fee1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8351636116114882273 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5245989220452675948, guid: bff406d431498456bad926de6f047b9d, type: 3}
+  m_PrefabInstance: {fileID: 4263650639516897165}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4372968413520546363
 PrefabInstance:
   m_ObjectHideFlags: 0

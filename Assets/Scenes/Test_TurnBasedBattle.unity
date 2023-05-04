@@ -756,6 +756,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1198311566 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 15548805351217727, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+  m_PrefabInstance: {fileID: 924624347302240051}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1217864328
 GameObject:
   m_ObjectHideFlags: 0
@@ -1249,6 +1260,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1492190493 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8351636116114882273, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+  m_PrefabInstance: {fileID: 924624347302240051}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1617851966
 GameObject:
   m_ObjectHideFlags: 0
@@ -1477,6 +1493,28 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 15548805351217727, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+      propertyPath: m_text
+      value: '0
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 15548805351217727, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 15548805351217727, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 15548805351217727, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 15548805351217727, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
+      objectReference: {fileID: 0}
     - target: {fileID: 924624346278376120, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
       propertyPath: PlayerTransform
       value: 
@@ -1489,6 +1527,42 @@ PrefabInstance:
       propertyPath: PlayerCam
       value: 
       objectReference: {fileID: 1745637576}
+    - target: {fileID: 924624347123688615, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+      propertyPath: BattleEventUIComponents
+      value: 
+      objectReference: {fileID: 1492190493}
+    - target: {fileID: 2055435173914866115, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055435173914866115, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055435173914866115, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055435173914866115, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055435173914866115, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055435173914866115, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055435173914866115, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055435173914866115, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2478510767368754986, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
       propertyPath: m_Name
       value: UI
@@ -1501,10 +1575,46 @@ PrefabInstance:
       propertyPath: PlayerTransform
       value: 
       objectReference: {fileID: 1112603125}
+    - target: {fileID: 4294489454932197449, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+      propertyPath: EnemyStaminaUI
+      value: 
+      objectReference: {fileID: 1198311566}
     - target: {fileID: 5783327393910448460, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1745637574}
+    - target: {fileID: 6330870213150084052, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6330870213150084052, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6330870213150084052, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6330870213150084052, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 6330870213150084052, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6330870213150084052, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6330870213150084052, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6330870213150084052, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 7953433991732249062, guid: 8eed2c6a36d944b4db325d766dec4121, type: 3}
       propertyPath: DanceRequestHandler
       value: 
@@ -2463,6 +2573,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BattleHandler: {fileID: 2306235087813600662}
+  EnemyStaminaUI: {fileID: 0}
 --- !u!223 &2306235087448034270
 Canvas:
   m_ObjectHideFlags: 0

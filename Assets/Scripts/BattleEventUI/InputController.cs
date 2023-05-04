@@ -55,6 +55,7 @@ namespace BattleEvent
 			MainMenuButtons.SetActive(true);
 			if (wasSuccessful)
 			{
+				Debug.Log("Dance successful! Inflicting damage...");
 				BattleManager.InflictDamage();
 			}
 			else
