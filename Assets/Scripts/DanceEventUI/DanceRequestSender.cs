@@ -26,7 +26,7 @@ namespace DanceEvent
 					DanceHandler.ActivateDanceEvent(new DanceRequestContext
 					{
 						Environment = Environment.EnvDance,
-						DesiredMove = Pose.Splits,
+						DesiredMove = Pose.Cool,
 						TargetObject = GameObject.Find("Walkablocka")
 					});
 					break;

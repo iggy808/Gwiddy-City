@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 using DanceEvent;
 
 namespace BattleEvent
@@ -20,10 +21,21 @@ namespace BattleEvent
 		[SerializeField]
 		GameObject DanceMenuButtons;
 
+
+		// temp alpha implementation for adding dances to menu
+		[SerializeField]
+		GameObject Player;
+		[SerializeField]
+		GameObject SplitsButton;
+		[SerializeField]
+		GameObject CoolButton;
+		List<DanceEvent.Pose> PlayerDances;
 		InputState CurrentState;
+
 
 		void Start()
 		{
+			PlayerDances = Player.GetComponent<PlayerDances>().Dances;
 			MainMenuButtons.SetActive(true);
 			DanceMenuButtons.SetActive(false);
 		}
@@ -37,14 +49,47 @@ namespace BattleEvent
 		{
 			// turon on a different set of UI buttons
 			DanceMenuButtons.SetActive(true);
+			PlayerDances = Player.GetComponent<PlayerDances>().Dances;
+			if (PlayerDances.Contains(DanceEvent.Pose.Splits))
+			{
+				// activate splits button	
+				SplitsButton.SetActive(true);
+
+			}
+			else
+			{
+				SplitsButton.SetActive(false);
+			}
+
+			if (PlayerDances.Contains(DanceEvent.Pose.Cool))
+			{
+				Debug.Log("Player has cool");
+				// activate cool button
+				CoolButton.SetActive(true);
+			}
+			else
+			{
+				Debug.Log("Player does not have cool");
+				CoolButton.SetActive(false);
+			}
 		}
 
-		public void DanceAttackClicked()
+		public void SplitsAttackClicked()
 		{
 			DanceHandler.ActivateDanceEvent(new DanceRequestContext()
 			{
 				Environment = Environment.BattleDance,
 				DesiredMove = DanceEvent.Pose.Splits,
+				TargetObject = null
+			});	
+		}
+
+		public void CoolAttackClicked()
+		{
+			DanceHandler.ActivateDanceEvent(new DanceRequestContext()
+			{
+				Environment = Environment.BattleDance,
+				DesiredMove = DanceEvent.Pose.Cool,
 				TargetObject = null
 			});	
 		}
