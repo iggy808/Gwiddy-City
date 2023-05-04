@@ -2,6 +2,7 @@ namespace DanceEvent
 {
 	public enum Pose
 	{
-		Splits
+		Splits,
+		Cool
 	}
 }

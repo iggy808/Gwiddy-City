@@ -126,7 +126,15 @@ PrefabInstance:
       objectReference: {fileID: 4294489454932197453}
     - target: {fileID: 5245989220879933368, guid: bff406d431498456bad926de6f047b9d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DanceAttackClicked
+      value: SplitsAttackClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056168006569323093, guid: bff406d431498456bad926de6f047b9d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4294489454932197453}
+    - target: {fileID: 6056168006569323093, guid: bff406d431498456bad926de6f047b9d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CoolAttackClicked
       objectReference: {fileID: 0}
     - target: {fileID: 9175229306802187483, guid: bff406d431498456bad926de6f047b9d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

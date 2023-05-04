@@ -133,6 +133,9 @@ MonoBehaviour:
   BattleManager: {fileID: 8278847301886250666}
   MainMenuButtons: {fileID: 4223163044594450636}
   DanceMenuButtons: {fileID: 4223163044400182607}
+  Player: {fileID: 0}
+  SplitsButton: {fileID: 4223163043402653396}
+  CoolButton: {fileID: 322000896912685936}
 --- !u!1001 &7297043039147548427
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -230,9 +233,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e01c6bb250d4b4d6f83777304f5b4617, type: 3}
+--- !u!1 &322000896912685936 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7004144050520859771, guid: e01c6bb250d4b4d6f83777304f5b4617, type: 3}
+  m_PrefabInstance: {fileID: 7297043039147548427}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4223163042958749709 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6908519157440802566, guid: e01c6bb250d4b4d6f83777304f5b4617, type: 3}
+  m_PrefabInstance: {fileID: 7297043039147548427}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4223163043402653396 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6908519157817590239, guid: e01c6bb250d4b4d6f83777304f5b4617, type: 3}
   m_PrefabInstance: {fileID: 7297043039147548427}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &4223163044400182607 stripped
