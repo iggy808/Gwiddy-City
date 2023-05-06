@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace DanceEvent
@@ -22,22 +23,9 @@ namespace DanceEvent
         float RotationSpeed = 10f; // Breaks at 5 rotation speed lmao- need to implement clamp and see if that fixes
         public Limb CurrentLimb;
 
-        // Start is called before the first frame update
-        void Start()
-        {
-            CurrentLimb = Limb.ArmRight;
-        }
-
         // Update is called once per frame
         void Update()
-        {
-			/*	
-            if (Input.GetKeyDown(KeyCode.Tab))
-            {
-                SwitchLimbs();
-            }
-			*/
-            
+        {   
             HandleInput();
         }
 

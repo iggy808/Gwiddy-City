@@ -13,19 +13,20 @@ namespace BattleEvent
 	 */
 	public class BattleRequestHandler : MonoBehaviour
 	{
+		public bool BattleIsActive = false;		 
+		public BattleRequestContext Context;	
+		public DanceRequestHandler DanceHandler;
+
 		[SerializeField]
 		GameObject BattleEventUI;
 		[SerializeField]
 		GameObject BattleEventUIComponents;
 		[SerializeField]
-		DanceRequestHandler DanceHandler;
-		[SerializeField]
 		BattleEventManager BattleManager;
 		[SerializeField]
 		PlayerCam PlayerCam;
 
-		BattleRequestContext Context;	
-		bool BattleIsActive = false;		 
+		
 
 		void Start()
 		{
@@ -45,6 +46,7 @@ namespace BattleEvent
 
 		public void EndBattleEvent()
 		{
+			Debug.Log("EndBattleEvent called");
 			PlayerCam.enabled = true;
 			PlayerCam.SwitchMouseControls();
 			BattleEventUIComponents.SetActive(false);
@@ -54,12 +56,18 @@ namespace BattleEvent
 
 		void InitializeBattle()
 		{
+			// Let DanceHandler know the state of the battle
+			DanceHandler.CurrentBattleMoveCount = 0;
 			BattleManager.InitializeBattleEvent(Context);
 			// Restrict player motion, enable mouse menu input
 			PlayerCam.SwitchMouseControls();
 			// Set battle event UI to main input panel
 			BattleEventUI.SetActive(true);
 			BattleEventUIComponents.SetActive(true);
+		}
+
+		void SynchronizeDanceUI()
+		{
 		}
 	}
 }

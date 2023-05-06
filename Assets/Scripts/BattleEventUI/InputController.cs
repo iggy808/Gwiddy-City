@@ -13,6 +13,8 @@ namespace BattleEvent
 	public class InputController : MonoBehaviour
 	{
 		[SerializeField]
+		BattleRequestHandler BattleHandler;
+		[SerializeField]
 		DanceRequestHandler DanceHandler;
 		[SerializeField]
 		BattleEventManager BattleManager;
@@ -82,7 +84,10 @@ namespace BattleEvent
 			DanceHandler.ActivateDanceEvent(new DanceRequestContext()
 			{
 				Environment = Environment.BattleDance,
-				DesiredMove = DanceEvent.Pose.Splits,
+				DesiredMoves = new List<DanceEvent.Pose>() 
+				{
+					DanceEvent.Pose.Splits
+				},
 				TargetObject = null
 			});	
 		}
@@ -93,19 +98,39 @@ namespace BattleEvent
 			DanceHandler.ActivateDanceEvent(new DanceRequestContext()
 			{
 				Environment = Environment.BattleDance,
-				DesiredMove = DanceEvent.Pose.Cool,
+				DesiredMoves = new List<DanceEvent.Pose>() 
+				{
+					DanceEvent.Pose.Cool
+				},
 				TargetObject = null
 			});	
 		}
 
+		public void SequenceAttackClicked()
+		{
+			DanceHandler.ActivateDanceSequenceEvent(new DanceRequestContext()
+			{
+				Environment = Environment.BattleDance,
+				DesiredMoves = new List<DanceEvent.Pose>()
+				{
+					DanceEvent.Pose.Splits,
+					DanceEvent.Pose.Cool
+				}
+			});
+
+			//BattleManager.CurrentSequencePoseIndex = ;
+		}
+
 		public void ResetMenuState(bool wasSuccessful)
 		{
-			DanceMenuButtons.SetActive(false);
-			MainMenuButtons.SetActive(true);
-			if (wasSuccessful)
+			if (wasSuccessful && DanceHandler.CurrentSequencePoseIndex >= DanceHandler.Context.DesiredMoves.Count)
 			{
 				Debug.Log("Dance successful! Inflicting damage...");
-				BattleManager.InflictDamage(CurrentPose);
+				bool isLastInSequence = true;
+				BattleManager.InflictDamage(CurrentPose, isLastInSequence);
+				//BattleManager.CurrentSequencePoseIndex += 1;
+				DanceMenuButtons.SetActive(false);
+				MainMenuButtons.SetActive(true);
 			}
 			else
 			{

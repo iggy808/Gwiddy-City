@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 using BattleEvent;
 
 namespace DanceEvent
@@ -18,24 +19,36 @@ namespace DanceEvent
 					DanceHandler.ActivateDanceEvent(new DanceRequestContext
 					{
 						Environment = Environment.EnvDance,
-						DesiredMove = Pose.Splits,
+						DesiredMoves = new List<Pose>()
+						{
+							Pose.Splits,
+							Pose.Cool
+						},
 						TargetObject = collider.gameObject
 					});
 					break;
 				case "WalkablockaDanceEventTriggerCool":
+					Debug.Log("Cool walkablocka encountered");
 					DanceHandler.ActivateDanceEvent(new DanceRequestContext
 					{
 						Environment = Environment.EnvDance,
-						DesiredMove = Pose.Cool,
+						DesiredMoves = new List<Pose>
+						{
+							Pose.Cool
+						},
 						TargetObject = GameObject.Find("Walkablocka (1)") 
 						// Note: can probably grab gameobject from OnTriggerEnter, and store it in the dancerequest sender as TargetObject or something to avoid find
 					});
 					break;
 				case "WalkablockaDanceEventTriggerSplits":
+					Debug.Log("Splits walkablocka encountered");
 					DanceHandler.ActivateDanceEvent(new DanceRequestContext
 					{
 						Environment = Environment.EnvDance,
-						DesiredMove = Pose.Splits,
+						DesiredMoves = new List<Pose>
+						{
+							Pose.Splits
+						},
 						TargetObject = GameObject.Find("Walkablocka (2)")
 					});
 					break;
@@ -43,7 +56,10 @@ namespace DanceEvent
 					DanceHandler.ActivateDanceEvent(new DanceRequestContext
 					{
 						Environment = Environment.EnvDance,
-						DesiredMove = Pose.Splits,
+						DesiredMoves = new List<Pose>
+						{
+							Pose.Splits
+						},
 						TargetObject = GameObject.Find("Walkablocka (3)")
 					});
 					break;

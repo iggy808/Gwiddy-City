@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace DanceEvent
 {
@@ -6,7 +7,19 @@ namespace DanceEvent
 	{
 		// To be expanded as needed
 		public Environment Environment;		
-		public Pose DesiredMove;
+		public List<Pose> DesiredMoves;
+		public List<PoseOrdering> DesiredPoseOrders => ConvertDesiredMovesToPoseOrders();
 		public GameObject TargetObject;
+
+		List<PoseOrdering> ConvertDesiredMovesToPoseOrders()
+		{
+			List<PoseOrdering> poseOrders = new List<PoseOrdering>();
+			foreach (Pose pose in DesiredMoves)
+			{
+				poseOrders.Add(new PoseOrdering(pose));
+			}
+			return poseOrders;
+		}
 	}
+
 }

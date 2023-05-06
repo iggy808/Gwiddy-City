@@ -1,19 +1,16 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace DanceEvent
 {
-	public enum Pose
-	{
-		Splits,
-		Cool
-	}
-
-	public class PoseOrder
-	{
+	public class PoseOrdering
+	{	
+		public Pose Pose;
 		public List<Limb> LimbRotationOrder;
 
-		public PoseOrder(Pose pose)
+		public PoseOrdering(Pose pose)
 		{
+			Pose = pose;
 			switch(pose)
 			{
 				case Pose.Splits:

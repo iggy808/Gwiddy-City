@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DanceEvent 
 {
@@ -28,19 +30,26 @@ namespace DanceEvent
 
 		// QTE control variables
 		Limb CurrentLimb; 
+		int CurrentLimbCount;
 		DanceRequestContext Context; 
 		float ErrorMargin = 4f;
 		// QTE state variables
         bool TimerOn;
         bool WasSuccessful;
         float RemainingTime;
+		int CurrentSequencePoseIndex;
 
-		public void ConfigureDanceEventInternal(DanceRequestContext context)
+		public void ConfigureDanceEventInternal(DanceRequestContext context, int currentSequencePoseIndex, Limb startingLimb)
 		{
 			Context = context;
-			GoalPose.SetGoalRotations(context.DesiredMove);
+			CurrentSequencePoseIndex = currentSequencePoseIndex;
+			CurrentLimbCount = 0;
+
+			GoalPose.SetGoalRotations(context.DesiredMoves.ElementAt(currentSequencePoseIndex));
 			InitializeLimbPosition();
             GoalPose.DisplayGoalRotations(); 
+
+			InputController.CurrentLimb = startingLimb;
 			InitializeEvent();
 		}
 
@@ -57,6 +66,7 @@ namespace DanceEvent
 			//Debug.Log("Initializing event");
 			RemainingTime = 3f;
 			WasSuccessful = false;
+			CurrentLimbCount = 0;
 			ArmRightInPlace = false;
 			LegRightInPlace = false;
 			ArmLeftInPlace = false;
@@ -84,7 +94,15 @@ namespace DanceEvent
             }
 
             // Track what limb is currently being rotated
-            CurrentLimb = InputController.CurrentLimb;
+			/*
+			Debug.Log("DanceEventManager.cs: CurrentLimbCount: " + CurrentLimbCount );
+			Debug.Log("DanceEventManager.cs: Context.DesiredPoseOrders.ElementAt(CurrentSequencePoseIndex).LimbRotationOrder.Count - 1: "  + (Context.DesiredPoseOrders.ElementAt(CurrentSequencePoseIndex).LimbRotationOrder.Count - 1));
+			*/
+			
+			if (CurrentLimbCount < Context.DesiredPoseOrders.ElementAt(CurrentSequencePoseIndex).LimbRotationOrder.Count)
+			{
+            	InputController.CurrentLimb = Context.DesiredPoseOrders.ElementAt(CurrentSequencePoseIndex).LimbRotationOrder.ElementAt(CurrentLimbCount);
+			}
             // Tell player what button to press for quicktime event
             DisplayInstruction();
             // Decrement timer
@@ -247,26 +265,13 @@ namespace DanceEvent
             }
         }
 
-		// Not ideal implementation - need to think real hard ab this lmao
         void GoNext()
         {
-            switch (CurrentLimb)
-            {
-                case Limb.ArmRight:
-                    InputController.CurrentLimb = Limb.LegRight;
-                    break;
-                case Limb.LegRight:
-                    InputController.CurrentLimb = Limb.LegLeft;
-                    break;
-                case Limb.LegLeft:
-                    InputController.CurrentLimb = Limb.ArmLeft;
-                    break;
-                case Limb.ArmLeft:
-                    InputController.CurrentLimb = Limb.ArmRight;
-                    break;
-                default:
-                    break;
-            }
+			CurrentLimbCount += 1;
+			if (CurrentLimbCount < Context.DesiredPoseOrders.ElementAt(CurrentSequencePoseIndex).LimbRotationOrder.Count)
+			{
+				InputController.CurrentLimb = Context.DesiredPoseOrders.ElementAt(CurrentSequencePoseIndex).LimbRotationOrder.ElementAt(CurrentLimbCount);
+			}
         }
 
         // TODO: Handle displaying the UI through here
