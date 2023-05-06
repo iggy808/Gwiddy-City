@@ -15,7 +15,7 @@ namespace BattleEvent
 
 		BattleRequestContext Context;
 		SpecialEnemies CurrentEnemy;
-		int EnemyCurrentStamina;
+		public int EnemyCurrentStamina;
 
 		public int CurrentSequencePoseIndex;
 
@@ -31,7 +31,7 @@ namespace BattleEvent
 		{
 		}
 
-		public void InflictDamage(DanceEvent.Pose pose, bool isLastInSequence)
+		public void InflictDamage(DanceEvent.Pose pose)
 		{
 			switch (pose)
 			{
@@ -44,17 +44,17 @@ namespace BattleEvent
 				default:
 					break;
 			}
-			Debug.Log("OOh ouchy - took some damage: currenthp: " + EnemyCurrentStamina);
 
 			EnemyStaminaUI.text = EnemyCurrentStamina.ToString(); 
-			Debug.Log("Current sequence index: " + CurrentSequencePoseIndex);
-			Debug.Log("Current sequence length: " + BattleHandler.DanceHandler.Context.DesiredMoves.Count);
+
+		}
+
+		public void EndBattle()
+		{
 			if (EnemyCurrentStamina <= 0)
 			{
-				//Debug.Log(EnemyCurrentStamina);
-				//Debug.Log("Gotem");
 				BattleHandler.EndBattleEvent();
-			}			
+			}
 		}
 	}
 }

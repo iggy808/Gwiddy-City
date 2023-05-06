@@ -125,10 +125,7 @@ namespace BattleEvent
 		{
 			if (wasSuccessful && DanceHandler.CurrentSequencePoseIndex >= DanceHandler.Context.DesiredMoves.Count)
 			{
-				Debug.Log("Dance successful! Inflicting damage...");
-				bool isLastInSequence = true;
-				BattleManager.InflictDamage(CurrentPose, isLastInSequence);
-				//BattleManager.CurrentSequencePoseIndex += 1;
+				Debug.Log("Dance sequence over! Resetting menu state");
 				DanceMenuButtons.SetActive(false);
 				MainMenuButtons.SetActive(true);
 			}

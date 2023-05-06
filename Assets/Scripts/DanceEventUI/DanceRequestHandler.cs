@@ -167,7 +167,7 @@ namespace DanceEvent
 					if (wasSuccessful)
 					{	
 						Debug.Log("Dance event was successful, inflict damage called");
-						BattleManager.InflictDamage(Context.DesiredMoves.ElementAt(CurrentSequencePoseIndex), CurrentSequencePoseIndex == Context.DesiredMoves.Count - 1);
+						BattleManager.InflictDamage(Context.DesiredMoves.ElementAt(CurrentSequencePoseIndex));
 					}
 
 					CurrentSequencePoseIndex += 1;
@@ -180,9 +180,18 @@ namespace DanceEvent
 					// If there are remaining moves in the sequence, activate another dance event
 					else
 					{
-						Debug.Log("No more moves remain in the sequence, resetting battle menu state");
 						BattleInputController.ResetMenuState(wasSuccessful);
+            			DanceEventManager.enabled = false;
+						DanceInputController.enabled = false;
+						DanceUIManager.enabled = false;
+            			DanceEventUI.SetActive(false);
+						IsEventActive = false;
+						IsSequenceEvent = false;
 						BattleEventUI.SetActive(true);
+						if (BattleManager.EnemyCurrentStamina <= 0)
+						{
+							BattleHandler.EndBattleEvent();
+						}
 					}
 				}
 				else if (Context.Environment == Environment.EnvDance && wasSuccessful)
