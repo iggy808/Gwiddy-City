@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -26,12 +28,15 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 moveDirection;
     private Rigidbody rb;
 
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
     }
-    
+
+
+
     private void Update()
     {
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, groundLayer);
@@ -46,12 +51,17 @@ public class PlayerMovement : MonoBehaviour
         }
         else
             rb.drag = 0;
+
+
+
     }
 
+    
     private void FixedUpdate()
     {
         MovePlayer();
     }
+    
 
     private void PlayerInput()
     {
@@ -76,6 +86,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    
     private void MovePlayer()
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
@@ -84,6 +95,7 @@ public class PlayerMovement : MonoBehaviour
         else if (!grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
     }
+    
 
     private void SpeedControl()
     {

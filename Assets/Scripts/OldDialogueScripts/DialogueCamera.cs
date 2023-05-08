@@ -10,6 +10,7 @@ public class DialogueCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        /// COLIN: This makes sure that the camera is disabled from the get-go. No conflicting cameras 
         dialogCameraSelf.enabled = false;
     }
 

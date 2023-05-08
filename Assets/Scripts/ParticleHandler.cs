@@ -17,7 +17,6 @@ public class ParticleHandler : MonoBehaviour
     {
         if (oldManCall.transform.position.y <= -10)
         {
-            print("AHHHHHHHHHHHHHHHHHHH");
             self.SetActive(true);
         }
     }

@@ -34,7 +34,7 @@ public class NPCInteraction : MonoBehaviour
         }
         
     }
-
+    /*
     private void OnTriggerStay(Collider other)
     {
         // Sometimes this doesn't work immediately. Just spam 'F'
@@ -51,7 +51,7 @@ public class NPCInteraction : MonoBehaviour
             }
         }
     }
-
+    */
     private void OnTriggerExit(Collider other)
     {
         if(other.tag == "Player" && DialogueCamera.enabled == true && MainCamera.enabled == false)
