@@ -7,11 +7,14 @@ namespace BattleEvent
 {
 	public class BattleEventUIManager : MonoBehaviour
 	{
-		[SerializeField]
-		GameObject Player;
+		public InputState CurrentState;
 
 		[SerializeField]
+		GameObject Player;
+		[SerializeField]
 		GameObject UIComponents;
+		[SerializeField]
+		GameObject BackButton;
 		[SerializeField]
 		GameObject MainMenuButtons;
 		[SerializeField]
@@ -22,11 +25,13 @@ namespace BattleEvent
 		GameObject CoolButton;
 		[SerializeField]
 		GameObject SequenceButton;
-		
+
 		List<DanceEvent.Pose> PlayerAvailableDances;
 
 		public void ShowMainMenu()
 		{
+			CurrentState = InputState.MainMenu;
+			BackButton.SetActive(false);
 			UIComponents.SetActive(true);
 			DanceMenuButtons.SetActive(false);
 			MainMenuButtons.SetActive(true);
@@ -34,6 +39,8 @@ namespace BattleEvent
 				
 		public void ShowDanceMenu()
 		{
+			CurrentState = InputState.DanceMenu;
+			BackButton.SetActive(true);
 			Debug.Log("In show dance menu fn");
 
 			// Fetch updated list of dances

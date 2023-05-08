@@ -22,6 +22,8 @@ namespace BattleEvent
 		[SerializeField]
 		GameObject BattleEventUIComponents;
 		[SerializeField]
+		BattleEventUIManager BattleEventUIManager;
+		[SerializeField]
 		GameObject MainMenuButtons;
 		[SerializeField]
 		GameObject DanceMenuButtons;
@@ -73,8 +75,7 @@ namespace BattleEvent
 			// Set battle event UI to main input panel
 			BattleEventUI.SetActive(true);
 			BattleEventUIComponents.SetActive(true);
-			MainMenuButtons.SetActive(true);
-			DanceMenuButtons.SetActive(false);
+			BattleEventUIManager.ShowMainMenu();
 		}
 
 		void SynchronizeDanceUI()

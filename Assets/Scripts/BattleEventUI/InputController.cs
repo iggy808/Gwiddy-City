@@ -34,7 +34,6 @@ namespace BattleEvent
 		[SerializeField]
 		GameObject CoolButton;
 		List<DanceEvent.Pose> PlayerDances;
-		InputState CurrentState;
 
 
 		DanceEvent.Pose CurrentPose;
@@ -42,6 +41,16 @@ namespace BattleEvent
 
 		void Start()
 		{
+		}
+
+		public void BackButtonClicked()
+		{
+			Debug.Log("BackButton clicked");
+			if (BattleEventUIManager.CurrentState == InputState.DanceMenu)
+			{
+				Debug.Log("Show main menu called frim back button script");
+				BattleEventUIManager.ShowMainMenu();
+			}
 		}
 
 		public void FleeButtonClicked()
@@ -100,23 +109,6 @@ namespace BattleEvent
 					DanceEvent.Pose.Cool
 				}
 			});
-
-			//BattleManager.CurrentSequencePoseIndex = ;
-		}
-
-		public void ResetMenuState(bool wasSuccessful)
-		{
-			if (wasSuccessful && DanceHandler.CurrentSequencePoseIndex >= DanceHandler.Context.DesiredMoves.Count)
-			{
-				Debug.Log("Dance sequence over! Resetting menu state");
-				DanceMenuButtons.SetActive(false);
-				MainMenuButtons.SetActive(true);
-			}
-			else
-			{
-				Debug.Log("You missed! No damage!");
-			}
-			CurrentState = InputState.MainMenu;
 		}
 	}
 }
