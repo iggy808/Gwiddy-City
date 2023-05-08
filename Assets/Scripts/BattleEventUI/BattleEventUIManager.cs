@@ -79,9 +79,8 @@ namespace BattleEvent
 		public void InitializeCoolnessStats(BattleRequestContext context)
 		{
 			Debug.Log("Initializing coolness stats to 0");
-			// Set coolness to 0
-			EnemyUI_CurrentCoolness.text = 0.ToString();
-			PlayerUI_CurrentCoolness.text = 0.ToString();
+			EnemyUI_CurrentCoolness.text = BattleManager.EnemyCurrentCoolness.ToString();
+			PlayerUI_CurrentCoolness.text = BattleManager.PlayerCurrentCoolness.ToString();
 		}
 
 		public void InitializeStaminaStats(BattleRequestContext context)
@@ -99,20 +98,20 @@ namespace BattleEvent
 
 		public void UpdateBattleStats()
 		{
+			UpdateStaminaStats();
+			UpdateCoolnessStats();
 		}
 
-		public void UpdateStaminaStats(BattleRequestContext context)
+		public void UpdateStaminaStats()
 		{
-			//Context.Player = Player.GetComponent<PlayerStats>();
-			Debug.Log("Battle manager player current stamina : " + BattleManager.PlayerCurrentStamina.ToString());
 			PlayerUI_CurrentStamina.text = BattleManager.PlayerCurrentStamina.ToString();
 			EnemyUI_CurrentStamina.text = BattleManager.EnemyCurrentStamina.ToString();
 		}
 
-
 		public void UpdateCoolnessStats()
 		{
-
+			PlayerUI_CurrentCoolness.text = BattleManager.PlayerCurrentCoolness.ToString();
+			EnemyUI_CurrentCoolness.text = BattleManager.EnemyCurrentCoolness.ToString();
 		}
 
 		public void ShowMainMenu()

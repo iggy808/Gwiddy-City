@@ -11,6 +11,9 @@ namespace BattleEvent
 		public int EnemyCurrentCoolness;
 		public int PlayerCurrentStamina;
 		public int PlayerCurrentCoolness;
+		public int CurrentSequencePoseIndex;
+
+		public BattleTurn CurrentTurn;
 
 
 		[SerializeField]
@@ -23,10 +26,13 @@ namespace BattleEvent
 		BattleRequestContext Context;
 		SpecialEnemies CurrentEnemy;
 
-		public int CurrentSequencePoseIndex;
+		bool WasSuccessful;
+
 
 		public void InitializeBattleEvent(BattleRequestContext context)
 		{
+			WasSuccessful = false;
+			CurrentTurn = BattleTurn.Player;
 			// Assign battle context to the initial battle request context
 			Context = context;
 			CurrentEnemy = context.Enemy.Name;
@@ -36,59 +42,98 @@ namespace BattleEvent
 			Context.Player = PlayerController.GetComponent<PlayerStats>();
 			PlayerCurrentStamina = Context.Player.CurrentStamina;
 
+			EnemyCurrentCoolness = 0;
+			PlayerCurrentCoolness = 0;
+
 			// Initialize the battle stats with the freshly fetched stats
 			BattleUIManager.InitializeBattleUI(Context);
 			BattleUIManager.InitializeBattleStats(Context);
 		}
 
-		public void HandleSequenceStats(int sequenceDamage)
+		public void HandleSequenceStats(int sequenceCoolness, int sequenceStaminaCost)
 		{
-			// Need to handle coolness here as well
-			EnemyCurrentStamina -= sequenceDamage;
-			if (EnemyCurrentStamina <= 0)
+			if (CurrentTurn == BattleTurn.Player)
 			{
+				PlayerCurrentCoolness += sequenceCoolness;
+				PlayerCurrentStamina -= sequenceStaminaCost;
+			}
+			else if (CurrentTurn == BattleTurn.Enemy)
+			{	
+				EnemyCurrentCoolness += sequenceCoolness;
+				EnemyCurrentStamina -= sequenceStaminaCost;
+			}
+
+			// If either dancer runs out of stamina, the fight is over
+			if (EnemyCurrentStamina <= 0 || PlayerCurrentStamina <= 0)
+			{
+				if (PlayerCurrentCoolness > EnemyCurrentCoolness)
+				{
+					WasSuccessful = true;
+				}
+				else if (PlayerCurrentCoolness == EnemyCurrentCoolness)
+				{
+					Debug.Log("Tiebreaker! Dif minigame would be cool.");
+					Debug.Log("For now, default to player victory.");
+					WasSuccessful = true;
+				}
+				else
+				{
+					WasSuccessful = false;
+				}
+
+
 				EndBattle();
 			}
 			else
 			{
-				Debug.Log("Showing battle main menu");
 				BattleUIManager.ShowMainMenu();
-				UpdateBattleContext();
-				BattleUIManager.UpdateStaminaStats(Context);
+				BattleUIManager.UpdateBattleStats();
 			}
 		}
 
-		// Track changes to player stats separately from the component
-		// Track in the battle context, and update the player stats accordingly after battle
-		public void UpdateBattleContext()
+		public int GetPoseCoolness(DanceEvent.Pose pose)
 		{
-			Context.Enemy.CurrentStamina = EnemyCurrentStamina;
-			Context.Player.CurrentStamina = PlayerCurrentStamina;
-		}
-
-		public int GetPoseDamage(DanceEvent.Pose pose)
-		{
-			int poseDamage;
+			int poseCoolness;
 
 			switch (pose)
 			{
 				case DanceEvent.Pose.Splits:
-					poseDamage = 1;
+					poseCoolness = 5;
 					break;
 				case DanceEvent.Pose.Cool:
-					poseDamage = 2;
+					poseCoolness = 10;
 					break;
 				default:
-					poseDamage = 0;
+					poseCoolness = 0;
 					break;
 			}
 
-			return poseDamage;
+			return poseCoolness;
+		}
+
+		public int GetPoseStaminaCost(DanceEvent.Pose pose)
+		{
+			int poseStaminaCost;
+			
+			switch (pose)
+			{
+				case DanceEvent.Pose.Splits:
+					poseStaminaCost = 1;
+					break;
+				case DanceEvent.Pose.Cool:
+					poseStaminaCost = 2;
+					break;
+				default:
+					poseStaminaCost = 0;
+					break;
+			}
+
+			return poseStaminaCost;
 		}
 
 		public void EndBattle()
 		{
-				BattleHandler.EndBattleEvent();
+				BattleHandler.EndBattleEvent(WasSuccessful);
 		}
 	}
 }

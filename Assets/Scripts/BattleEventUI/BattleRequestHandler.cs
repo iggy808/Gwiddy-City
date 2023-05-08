@@ -52,9 +52,10 @@ namespace BattleEvent
 			}
 		}
 
-		public void EndBattleEvent()
+		public void EndBattleEvent(bool wasSuccessful)
 		{
 			Debug.Log("EndBattleEvent called");
+			Debug.Log("Battle event successful? : " + wasSuccessful);
 			PlayerCam.enabled = true;
 			PlayerCam.SwitchMouseControls();
 			BattleEventUIComponents.SetActive(false);

@@ -41,8 +41,9 @@ namespace DanceEvent
 		List<Pose> DanceSequence;
 		bool IsSequenceEvent;
 
-		int SequenceDamage;
-		
+		int SequenceCoolness;
+		int SequenceStaminaCost;
+
 		void Start()
 		{
 			BattleDanceUI.SetActive(false);
@@ -56,27 +57,10 @@ namespace DanceEvent
 			{
 				IsEventActive = true;
 				CurrentSequencePoseIndex = 0;
-				SequenceDamage = 0;
+				SequenceCoolness = 0;
+				SequenceStaminaCost = 0;
 
-				switch (Context.Environment)
-				{
-					case Environment.BattleDance:
-						DanceEventUI = BattleDanceUI;
-						DanceEventUITransformController = BattleDanceUITransformController;
-
-						break;
-					case Environment.EnvDance:
-						DanceEventUI = EnvDanceUI;
-						DanceEventUITransformController = EnvDanceUITransformController;
-						break;
-					default:
-						break;
-				}
-	
-				// Assign references to appropriate UI
-				DanceEventManager = DanceEventUI.GetComponent<DanceEventManager>();
-				DanceInputController = DanceEventUI.GetComponent<InputController>();
-				
+				AssignUIAndManagers();	
 				DisableUnwantedChildren();	
 				ConfigureQuicktimeEvent();	
 				TriggerQuicktimeEvent();
@@ -103,7 +87,8 @@ namespace DanceEvent
 			{
 				IsEventActive = true;	
 				CurrentSequencePoseIndex = 0;	
-				SequenceDamage = 0;
+				SequenceCoolness = 0;
+				SequenceStaminaCost = 0;
 
 				AssignUIAndManagers();
 				DisableUnwantedChildren();	
@@ -155,45 +140,51 @@ namespace DanceEvent
 				{
 					if (Context.Environment == Environment.BattleDance)
 					{
-						Debug.Log("Handled sequence stats. total damage: " + SequenceDamage);
-						SequenceDamage += BattleManager.GetPoseDamage(Context.DesiredMoves.ElementAt(CurrentSequencePoseIndex));		
-						BattleManager.HandleSequenceStats(SequenceDamage);
+						Debug.Log("Handled sequence stats. Sequence Coolness: " + SequenceCoolness);
+						if (wasSuccessful)
+						{
+							SequenceCoolness += BattleManager.GetPoseCoolness(Context.DesiredMoves.ElementAt(CurrentSequencePoseIndex));		
+						}
+						SequenceStaminaCost += BattleManager.GetPoseStaminaCost(Context.DesiredMoves.ElementAt(CurrentSequencePoseIndex));
+						BattleManager.HandleSequenceStats(SequenceCoolness, SequenceStaminaCost);
 					}
 				}
 			}
 
 			if (Context != null)
 			{
-				if (Context.Environment == Environment.BattleDance)
+				if (Context.Environment == Environment.BattleDance && IsSequenceEvent)
 				{
 					if (wasSuccessful)
 					{	
 						Debug.Log("Dance event was successful, inflict damage called");
 						// Increment sequence damage in batch and apply at the end
 						// Note: batch handling of sequence events allows for groove meter to increase coolness?
-						SequenceDamage += BattleManager.GetPoseDamage(Context.DesiredMoves.ElementAt(CurrentSequencePoseIndex));
-						// BattleManager.InflictDamage(Context.DesiredMoves.ElementAt(CurrentSequencePoseIndex));
+						SequenceCoolness += BattleManager.GetPoseCoolness(Context.DesiredMoves.ElementAt(CurrentSequencePoseIndex));
 					}
+
+					SequenceStaminaCost += BattleManager.GetPoseStaminaCost(Context.DesiredMoves.ElementAt(CurrentSequencePoseIndex));
 
 					CurrentSequencePoseIndex += 1;
 
-					if (IsSequenceEvent && IsEventActive && CurrentSequencePoseIndex < Context.DesiredMoves.Count)
+					if (IsEventActive && CurrentSequencePoseIndex < Context.DesiredMoves.Count)
 					{
 						Debug.Log("More Dances remain in the sequence, activating a dance sequence event");
 						ActivateDanceSequenceEvent(Context);
 					}
 					// If there are remaining moves in the sequence, activate another dance event
-					else if (IsSequenceEvent && CurrentSequencePoseIndex >= Context.DesiredMoves.Count)
+					else if (IsEventActive && CurrentSequencePoseIndex >= Context.DesiredMoves.Count)
 					{
-						Debug.Log("No remaining moves in the sequence");
+						Debug.Log("No remaining moves in the sequence. Ending Dance Event.");
             			DanceEventManager.enabled = false;
 						DanceInputController.enabled = false;
 						DanceEventUITransformController.enabled = false;
             			DanceEventUI.SetActive(false);
 						IsEventActive = false;
 						IsSequenceEvent = false;
-
-						BattleManager.HandleSequenceStats(SequenceDamage);
+						
+						Debug.Log("Handling Sequence Stats");
+						BattleManager.HandleSequenceStats(SequenceCoolness, SequenceStaminaCost);
 					}
 				}
 				else if (Context.Environment == Environment.EnvDance && wasSuccessful)
