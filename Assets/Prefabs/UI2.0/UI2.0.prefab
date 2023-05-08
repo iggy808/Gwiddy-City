@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.4862745
       objectReference: {fileID: 0}
+    - target: {fileID: 3639189196211391069, guid: 3585543cc16a54de7adcee38ddd80e70, type: 3}
+      propertyPath: DanceEventUIManager
+      value: 
+      objectReference: {fileID: 5557388788645058293}
     - target: {fileID: 4887448447520807054, guid: 3585543cc16a54de7adcee38ddd80e70, type: 3}
       propertyPath: m_Name
       value: DanceEventBackground
@@ -96,6 +100,14 @@ PrefabInstance:
       propertyPath: BattleEventUIComponents
       value: 
       objectReference: {fileID: 1636645589857405402}
+    - target: {fileID: 5779338404423740356, guid: 3585543cc16a54de7adcee38ddd80e70, type: 3}
+      propertyPath: EnvDanceUITransformController
+      value: 
+      objectReference: {fileID: 1615879931712461398}
+    - target: {fileID: 5779338404423740356, guid: 3585543cc16a54de7adcee38ddd80e70, type: 3}
+      propertyPath: BattleDanceUITransformController
+      value: 
+      objectReference: {fileID: 4660795120537824908}
     - target: {fileID: 5779338404423740357, guid: 3585543cc16a54de7adcee38ddd80e70, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -172,11 +184,22 @@ PrefabInstance:
       propertyPath: LegRightPivot
       value: 
       objectReference: {fileID: 990776605892027174}
-    m_RemovedComponents: []
+    - target: {fileID: 8144625654611101619, guid: 3585543cc16a54de7adcee38ddd80e70, type: 3}
+      propertyPath: DanceEventUIManager
+      value: 
+      objectReference: {fileID: 3927591184360350293}
+    m_RemovedComponents:
+    - {fileID: 3283661304757571799, guid: 3585543cc16a54de7adcee38ddd80e70, type: 3}
+    - {fileID: 7932688480563780008, guid: 3585543cc16a54de7adcee38ddd80e70, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3585543cc16a54de7adcee38ddd80e70, type: 3}
 --- !u!1 &990776605892027174 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5538689235340746652, guid: 3585543cc16a54de7adcee38ddd80e70, type: 3}
+  m_PrefabInstance: {fileID: 4711489313600568506}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1023785605765521638 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5717219692762504284, guid: 3585543cc16a54de7adcee38ddd80e70, type: 3}
   m_PrefabInstance: {fileID: 4711489313600568506}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1249404998233020286 stripped
@@ -210,6 +233,46 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7460203655541147703, guid: 3585543cc16a54de7adcee38ddd80e70, type: 3}
   m_PrefabInstance: {fileID: 4711489313600568506}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3487219256533531404 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8144625654611101622, guid: 3585543cc16a54de7adcee38ddd80e70, type: 3}
+  m_PrefabInstance: {fileID: 4711489313600568506}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4660795120537824908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3487219256533531404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f9b0ec4165604387abab4f392f3b060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UITransform: {fileID: 3487219256533531405}
+  PlayerTransform: {fileID: 0}
+--- !u!114 &3927591184360350293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3487219256533531404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13c7f29c7773b46c2805991c409ce8e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ArmRightGoal: {fileID: 6181240036964781751}
+  LegRightGoal: {fileID: 1023785605765521638}
+  ArmLeftGoal: {fileID: 2369766642950996125}
+  LegLeftGoal: {fileID: 6087749860508608732}
+--- !u!224 &3487219256533531405 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8144625654611101623, guid: 3585543cc16a54de7adcee38ddd80e70, type: 3}
+  m_PrefabInstance: {fileID: 4711489313600568506}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5192078268914388154 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 679873378011525120, guid: 3585543cc16a54de7adcee38ddd80e70, type: 3}
@@ -220,9 +283,69 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1521823800930948198, guid: 3585543cc16a54de7adcee38ddd80e70, type: 3}
   m_PrefabInstance: {fileID: 4711489313600568506}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6181240036964781751 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1489213187948589581, guid: 3585543cc16a54de7adcee38ddd80e70, type: 3}
+  m_PrefabInstance: {fileID: 4711489313600568506}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7852354581701943214 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3286423152878723860, guid: 3585543cc16a54de7adcee38ddd80e70, type: 3}
+  m_PrefabInstance: {fileID: 4711489313600568506}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8350357449058514658 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3639189196211391064, guid: 3585543cc16a54de7adcee38ddd80e70, type: 3}
+  m_PrefabInstance: {fileID: 4711489313600568506}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1615879931712461398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8350357449058514658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f9b0ec4165604387abab4f392f3b060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UITransform: {fileID: 8350357449058514659}
+  PlayerTransform: {fileID: 0}
+--- !u!114 &5557388788645058293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8350357449058514658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13c7f29c7773b46c2805991c409ce8e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ArmRightGoal: {fileID: 8350357450651646291}
+  LegRightGoal: {fileID: 8350357450676243418}
+  ArmLeftGoal: {fileID: 8350357450498638790}
+  LegLeftGoal: {fileID: 8350357450676243418}
+--- !u!224 &8350357449058514659 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3639189196211391065, guid: 3585543cc16a54de7adcee38ddd80e70, type: 3}
+  m_PrefabInstance: {fileID: 4711489313600568506}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8350357450498638790 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3639189194434674556, guid: 3585543cc16a54de7adcee38ddd80e70, type: 3}
+  m_PrefabInstance: {fileID: 4711489313600568506}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8350357450651646291 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3639189194583393769, guid: 3585543cc16a54de7adcee38ddd80e70, type: 3}
+  m_PrefabInstance: {fileID: 4711489313600568506}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8350357450676243418 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3639189194610177888, guid: 3585543cc16a54de7adcee38ddd80e70, type: 3}
   m_PrefabInstance: {fileID: 4711489313600568506}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8501097360640991422 stripped

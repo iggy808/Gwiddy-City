@@ -3,7 +3,7 @@ using UnityEngine;
 namespace DanceEvent
 {
 	// Need to set transform of worldspace UI canvas
-	public class DanceUIManager : MonoBehaviour
+	public class DanceEventUITransformController : MonoBehaviour
 	{
 		[SerializeField]
 		Transform UITransform; // set in insepector - Transform of canvas object, or gameObject.transform

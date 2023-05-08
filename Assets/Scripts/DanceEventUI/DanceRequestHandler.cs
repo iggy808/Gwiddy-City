@@ -24,9 +24,9 @@ namespace DanceEvent
 		[SerializeField]
 		GameObject EnvDanceUI;
 		[SerializeField] // TEST CHANGE
-		DanceUIManager BattleDanceUIManager; // Unnecessary at the moment, but can do something with it later if needed
+		DanceEventUITransformController BattleDanceUITransformController; // Unnecessary at the moment, but can do something with it later if needed
 		[SerializeField]
-		DanceUIManager EnvDanceUIManager;
+		DanceEventUITransformController EnvDanceUITransformController;
 		[SerializeField]
 		GameObject BattleEventUI;
 		[SerializeField]
@@ -37,7 +37,7 @@ namespace DanceEvent
 		GameObject DanceEventUI;
         DanceEventManager DanceEventManager;
         DanceEvent.InputController DanceInputController;	
-		DanceUIManager DanceUIManager;
+		DanceEventUITransformController DanceEventUITransformController;
 		List<Pose> DanceSequence;
 		bool IsSequenceEvent;
 
@@ -62,12 +62,12 @@ namespace DanceEvent
 				{
 					case Environment.BattleDance:
 						DanceEventUI = BattleDanceUI;
-						DanceUIManager = BattleDanceUIManager;
+						DanceEventUITransformController = BattleDanceUITransformController;
 
 						break;
 					case Environment.EnvDance:
 						DanceEventUI = EnvDanceUI;
-						DanceUIManager = EnvDanceUIManager;
+						DanceEventUITransformController = EnvDanceUITransformController;
 						break;
 					default:
 						break;
@@ -135,7 +135,7 @@ namespace DanceEvent
             DanceEventUI.SetActive(true);
             DanceEventManager.enabled = true;
 			DanceInputController.enabled = true;
-			DanceUIManager.enabled = true;
+			DanceEventUITransformController.enabled = true;
 			Debug.Log("Dance event enabled.");
         }
 
@@ -147,7 +147,7 @@ namespace DanceEvent
 				Debug.Log("WEnt through !IsSequenceEvent blovk");
             	DanceEventManager.enabled = false;
 				DanceInputController.enabled = false;
-				DanceUIManager.enabled = false;
+				DanceEventUITransformController.enabled = false;
             	DanceEventUI.SetActive(false);
 				IsEventActive = false;
 				IsSequenceEvent = false;
@@ -188,7 +188,7 @@ namespace DanceEvent
 						Debug.Log("No remaining moves in the sequence");
             			DanceEventManager.enabled = false;
 						DanceInputController.enabled = false;
-						DanceUIManager.enabled = false;
+						DanceEventUITransformController.enabled = false;
             			DanceEventUI.SetActive(false);
 						IsEventActive = false;
 						IsSequenceEvent = false;
@@ -209,11 +209,11 @@ namespace DanceEvent
 			{
 				case Environment.BattleDance:
 					DanceEventUI = BattleDanceUI;
-					DanceUIManager = BattleDanceUIManager;
+					DanceEventUITransformController = BattleDanceUITransformController;
 					break;
 				case Environment.EnvDance:
 					DanceEventUI = EnvDanceUI;
-					DanceUIManager = EnvDanceUIManager;
+					DanceEventUITransformController = EnvDanceUITransformController;
 					break;
 				default:
 					break;
@@ -229,7 +229,7 @@ namespace DanceEvent
 			DanceEventUI.SetActive(true);
 
 			// Configure components to dance request context
-			DanceUIManager.SetUITransform(Context);			
+			DanceEventUITransformController.SetUITransform(Context);			
 
 			// RequestContext, Number of pose in sequence, Staritng limb for input controller
 			DanceEventManager.ConfigureDanceEventInternal(
@@ -240,7 +240,7 @@ namespace DanceEvent
 			// Initialize components and game object to off
 			DanceEventManager.enabled = false;
 			DanceInputController.enabled = false;
-			DanceUIManager.enabled = false;
+			DanceEventUITransformController.enabled = false;
 
 			// if this is a battle, disable the UI components
 			if (Context.Environment == Environment.BattleDance)

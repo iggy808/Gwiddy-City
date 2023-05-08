@@ -27,6 +27,8 @@ namespace DanceEvent
         GameObject LegLeftPivot;
 		[SerializeField]
 		GoalPose GoalPose; 
+		[SerializeField]
+		DanceEventUIManager DanceEventUIManager;
 
 		// QTE control variables
 		Limb CurrentLimb; 
@@ -98,11 +100,16 @@ namespace DanceEvent
 			Debug.Log("DanceEventManager.cs: CurrentLimbCount: " + CurrentLimbCount );
 			Debug.Log("DanceEventManager.cs: Context.DesiredPoseOrders.ElementAt(CurrentSequencePoseIndex).LimbRotationOrder.Count - 1: "  + (Context.DesiredPoseOrders.ElementAt(CurrentSequencePoseIndex).LimbRotationOrder.Count - 1));
 			*/
+
 			
 			if (CurrentLimbCount < Context.DesiredPoseOrders.ElementAt(CurrentSequencePoseIndex).LimbRotationOrder.Count)
 			{
             	InputController.CurrentLimb = Context.DesiredPoseOrders.ElementAt(CurrentSequencePoseIndex).LimbRotationOrder.ElementAt(CurrentLimbCount);
+				//Highlight currently controlled limb
+				DanceEventUIManager.HighlightGoalLimb(InputController.CurrentLimb);
 			}
+
+
             // Tell player what button to press for quicktime event
             DisplayInstruction();
             // Decrement timer
