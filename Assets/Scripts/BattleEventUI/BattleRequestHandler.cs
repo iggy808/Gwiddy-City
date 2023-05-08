@@ -29,6 +29,8 @@ namespace BattleEvent
 		BattleEventManager BattleManager;
 		[SerializeField]
 		PlayerCam PlayerCam;
+		[SerializeField]
+		PlayerMovement PlayerMovement;
 
 		
 
@@ -56,10 +58,13 @@ namespace BattleEvent
 			BattleEventUIComponents.SetActive(false);
 			BattleEventUI.SetActive(false);
 			BattleIsActive = false;
+			PlayerMovement.enabled = true;
 		}
 
 		void InitializeBattle()
 		{
+			// Disable player movement
+			PlayerMovement.enabled = false;			
 			// Let DanceHandler know the state of the battle
 			DanceHandler.CurrentBattleMoveCount = 0;
 			BattleManager.InitializeBattleEvent(Context);
