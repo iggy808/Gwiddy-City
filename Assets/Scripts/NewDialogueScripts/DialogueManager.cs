@@ -8,7 +8,6 @@ public class DialogueManager : MonoBehaviour
 {
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI dialogueText;
-    public Image charImage;
     public Animator animator;
     public Camera DialogueCamera;
     public Camera MainCamera;
