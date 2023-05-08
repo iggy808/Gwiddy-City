@@ -11,6 +11,8 @@ namespace BattleEvent
 		[SerializeField]
 		BattleRequestHandler BattleHandler;
 		[SerializeField]
+		BattleEventUIManager BattleUIManager;
+		[SerializeField]
 		TextMeshProUGUI EnemyStaminaUI;
 
 		BattleRequestContext Context;
@@ -27,8 +29,19 @@ namespace BattleEvent
 			EnemyStaminaUI.text = EnemyCurrentStamina.ToString();
 		}
 
-		public void ManagePoses()
+		public void HandleSequenceStats(int sequenceDamage)
 		{
+			EnemyCurrentStamina -= sequenceDamage;
+			if (EnemyCurrentStamina <= 0)
+			{
+				EndBattle();
+			}
+			else
+			{
+				Debug.Log("Showing battle main menu");
+				BattleUIManager.ShowMainMenu();
+				EnemyStaminaUI.text = EnemyCurrentStamina.ToString(); 
+			}
 		}
 
 		public void InflictDamage(DanceEvent.Pose pose)
@@ -46,15 +59,31 @@ namespace BattleEvent
 			}
 
 			EnemyStaminaUI.text = EnemyCurrentStamina.ToString(); 
+		}
 
+		public int GetPoseDamage(DanceEvent.Pose pose)
+		{
+			int poseDamage;
+
+			switch (pose)
+			{
+				case DanceEvent.Pose.Splits:
+					poseDamage = 1;
+					break;
+				case DanceEvent.Pose.Cool:
+					poseDamage = 2;
+					break;
+				default:
+					poseDamage = 0;
+					break;
+			}
+
+			return poseDamage;
 		}
 
 		public void EndBattle()
 		{
-			if (EnemyCurrentStamina <= 0)
-			{
 				BattleHandler.EndBattleEvent();
-			}
 		}
 	}
 }

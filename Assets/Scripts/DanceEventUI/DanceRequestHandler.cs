@@ -14,13 +14,7 @@ namespace DanceEvent
 		public bool IsEventActive;
 		public int CurrentBattleMoveCount;
 		public int CurrentSequencePoseIndex;
-		/*
-		if (WasSuccessful)
-		{
-			CurrentPoseIndex += 1;
-		};
-		*/
-		
+
 		[SerializeField]
 		BattleRequestHandler BattleHandler;
 		[SerializeField]
@@ -36,6 +30,8 @@ namespace DanceEvent
 		[SerializeField]
 		GameObject BattleEventUI;
 		[SerializeField]
+		GameObject BattleEventUIComponents;
+		[SerializeField]
 		BattleEvent.InputController BattleInputController;
 
 		GameObject DanceEventUI;
@@ -44,12 +40,12 @@ namespace DanceEvent
 		DanceUIManager DanceUIManager;
 		List<Pose> DanceSequence;
 		bool IsSequenceEvent;
-		bool TerminateSequence;
+
+		int SequenceDamage;
 		
 		void Start()
 		{
 			BattleDanceUI.SetActive(false);
-			//BattleEventUI.SetActive(false);
 			EnvDanceUI.SetActive(false);
 		}
 
@@ -60,6 +56,7 @@ namespace DanceEvent
 			{
 				IsEventActive = true;
 				CurrentSequencePoseIndex = 0;
+				SequenceDamage = 0;
 
 				switch (Context.Environment)
 				{
@@ -75,13 +72,11 @@ namespace DanceEvent
 					default:
 						break;
 				}
-
-				
+	
 				// Assign references to appropriate UI
 				DanceEventManager = DanceEventUI.GetComponent<DanceEventManager>();
 				DanceInputController = DanceEventUI.GetComponent<InputController>();
 				
-
 				DisableUnwantedChildren();	
 				ConfigureQuicktimeEvent();	
 				TriggerQuicktimeEvent();
@@ -98,12 +93,18 @@ namespace DanceEvent
 			Context = context;
 			DanceSequence = context.DesiredMoves;
 
-			// First go in the sequence, initialize sequence pose index to 0
+			// First go in the sequence, initialize sequence tracking variables
+			// CurrentSequencePoseIndex tracks the current index of the current pose in the list of poses required in the sequence
+			//     Note: DanceEventManager handles the internal configuration for dance events and poses
+			//
+			// TotalSequenceCoolness tracks the total coolness successfully obtained from the entire sequence
+			//     Note: Total stamina cost / net coolness gain computed at the end of sequence
 			if (!IsEventActive)
 			{
-				Debug.Log("First pose activated");
 				IsEventActive = true;	
 				CurrentSequencePoseIndex = 0;	
+				SequenceDamage = 0;
+
 				AssignUIAndManagers();
 				DisableUnwantedChildren();	
 				ConfigureQuicktimeEvent();
@@ -113,14 +114,6 @@ namespace DanceEvent
 			{
 				ConfigureQuicktimeEvent();
 				TriggerQuicktimeEvent();	
-			}
-			else if (IsEventActive && CurrentSequencePoseIndex > context.DesiredMoves.Count - 1)
-			{
-				Debug.Log("No more poses left in sequence.");
-				IsEventActive = false;
-				Debug.Log("KILL IT");
-				TerminateSequence = true;
-				// do whateva
 			}
 		}
 
@@ -149,15 +142,24 @@ namespace DanceEvent
         IEnumerator DelayQuicktimeDisable(bool wasSuccessful)
         {
             yield return new WaitForSeconds(0.5f);
-			if (!IsSequenceEvent || CurrentSequencePoseIndex >= Context.DesiredMoves.Count)
+			if (!IsSequenceEvent)//|| CurrentSequencePoseIndex >= Context.DesiredMoves.Count)
 			{
-				Debug.Log("Quicktime disabled (wasSuccessful, IsSequenceEvent) : " + wasSuccessful + ", " +IsSequenceEvent);
+				Debug.Log("WEnt through !IsSequenceEvent blovk");
             	DanceEventManager.enabled = false;
 				DanceInputController.enabled = false;
 				DanceUIManager.enabled = false;
             	DanceEventUI.SetActive(false);
 				IsEventActive = false;
 				IsSequenceEvent = false;
+				if (Context != null)
+				{
+					if (Context.Environment == Environment.BattleDance)
+					{
+						Debug.Log("Handled sequence stats. total damage: " + SequenceDamage);
+						SequenceDamage += BattleManager.GetPoseDamage(Context.DesiredMoves.ElementAt(CurrentSequencePoseIndex));		
+						BattleManager.HandleSequenceStats(SequenceDamage);
+					}
+				}
 			}
 
 			if (Context != null)
@@ -167,31 +169,31 @@ namespace DanceEvent
 					if (wasSuccessful)
 					{	
 						Debug.Log("Dance event was successful, inflict damage called");
-						BattleManager.InflictDamage(Context.DesiredMoves.ElementAt(CurrentSequencePoseIndex));
+						// Increment sequence damage in batch and apply at the end
+						// Note: batch handling of sequence events allows for groove meter to increase coolness?
+						SequenceDamage += BattleManager.GetPoseDamage(Context.DesiredMoves.ElementAt(CurrentSequencePoseIndex));
+						// BattleManager.InflictDamage(Context.DesiredMoves.ElementAt(CurrentSequencePoseIndex));
 					}
 
 					CurrentSequencePoseIndex += 1;
 
-					if (IsSequenceEvent && CurrentSequencePoseIndex < Context.DesiredMoves.Count)
+					if (IsSequenceEvent && IsEventActive && CurrentSequencePoseIndex < Context.DesiredMoves.Count)
 					{
 						Debug.Log("More Dances remain in the sequence, activating a dance sequence event");
 						ActivateDanceSequenceEvent(Context);
 					}
 					// If there are remaining moves in the sequence, activate another dance event
-					else
+					else if (IsSequenceEvent && CurrentSequencePoseIndex >= Context.DesiredMoves.Count)
 					{
-						BattleInputController.ResetMenuState(wasSuccessful);
+						Debug.Log("No remaining moves in the sequence");
             			DanceEventManager.enabled = false;
 						DanceInputController.enabled = false;
 						DanceUIManager.enabled = false;
             			DanceEventUI.SetActive(false);
 						IsEventActive = false;
 						IsSequenceEvent = false;
-						BattleEventUI.SetActive(true);
-						if (BattleManager.EnemyCurrentStamina <= 0)
-						{
-							BattleHandler.EndBattleEvent();
-						}
+
+						BattleManager.HandleSequenceStats(SequenceDamage);
 					}
 				}
 				else if (Context.Environment == Environment.EnvDance && wasSuccessful)
@@ -240,9 +242,14 @@ namespace DanceEvent
 			DanceInputController.enabled = false;
 			DanceUIManager.enabled = false;
 
-			// Disable to allow for delayed start
+			// if this is a battle, disable the UI components
+			if (Context.Environment == Environment.BattleDance)
+			{
+				BattleEventUIComponents.SetActive(false);
+			}
+
+			// Disable dance event ui to allow for delayed start
 			DanceEventUI.SetActive(false);
-			BattleDanceUI.SetActive(false);
 		}
 		
 		void DisableUnwantedChildren()
@@ -250,13 +257,13 @@ namespace DanceEvent
 			if (Context.Environment == Environment.BattleDance)
 			{
 				EnvDanceUI.SetActive(false);
-				BattleEventUI.SetActive(false);	
+				// Turn off battle dance UI components, but do not diable battle dance UI canvas - canvas holds logic for the battle
+				BattleEventUIComponents.SetActive(false);	
 			}
 			else if (Context.Environment == Environment.EnvDance)
 			{
 				BattleDanceUI.SetActive(false);
 			}
 		}
-
     }
 }

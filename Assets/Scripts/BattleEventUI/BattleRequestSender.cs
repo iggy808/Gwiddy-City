@@ -16,7 +16,8 @@ namespace BattleEvent
 				case "LameDanceEventTrigger (1)":
 					BattleHandler.ActivateBattleEvent(new BattleRequestContext
 					{
-						Enemy = new Enemy(SpecialEnemies.LameDancer)
+						Enemy = new Enemy(SpecialEnemies.LameDancer),
+						
 					});
 					break;
 				case "SickDanceEventTrigger (1)":

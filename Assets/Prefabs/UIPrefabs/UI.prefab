@@ -317,6 +317,10 @@ PrefabInstance:
       propertyPath: BattleInputController
       value: 
       objectReference: {fileID: 4294489454932197453}
+    - target: {fileID: 3493398492808686148, guid: 1a25573fd3c604ff7851611c9d729ff9, type: 3}
+      propertyPath: BattleEventUIComponents
+      value: 
+      objectReference: {fileID: 8351636116114882273}
     - target: {fileID: 3493398492808686149, guid: 1a25573fd3c604ff7851611c9d729ff9, type: 3}
       propertyPath: m_RootOrder
       value: 0

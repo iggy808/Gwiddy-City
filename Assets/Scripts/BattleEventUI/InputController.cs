@@ -19,6 +19,8 @@ namespace BattleEvent
 		[SerializeField]
 		BattleEventManager BattleManager;
 		[SerializeField]
+		BattleEventUIManager BattleEventUIManager;
+		[SerializeField]
 		GameObject MainMenuButtons;
 		[SerializeField]
 		GameObject DanceMenuButtons;
@@ -40,8 +42,11 @@ namespace BattleEvent
 
 		void Start()
 		{
-			MainMenuButtons.SetActive(true);
-			DanceMenuButtons.SetActive(false);
+		}
+
+		public void FleeButtonClicked()
+		{
+			BattleManager.EndBattle();
 		}
 
 		// Will need to find a way to accept poses as input from the panel
@@ -51,35 +56,13 @@ namespace BattleEvent
 		// because this does not work currently
 		public void DanceMenuClicked()
 		{
-			// turon on a different set of UI buttons
-			DanceMenuButtons.SetActive(true);
-			PlayerDances = Player.GetComponent<PlayerDances>().Dances;
-			if (PlayerDances.Contains(DanceEvent.Pose.Splits))
-			{
-				// activate splits button	
-				SplitsButton.SetActive(true);
-
-			}
-			else
-			{
-				SplitsButton.SetActive(false);
-			}
-
-			if (PlayerDances.Contains(DanceEvent.Pose.Cool))
-			{
-				//Debug.Log("Player has cool");
-				// activate cool button
-				CoolButton.SetActive(true);
-			}
-			else
-			{
-				//Debug.Log("Player does not have cool");
-				CoolButton.SetActive(false);
-			}
+			Debug.Log("Dance button clicked");
+			BattleEventUIManager.ShowDanceMenu();
 		}
 
 		public void SplitsAttackClicked()
 		{
+			Debug.Log("Splits attack clicked");
 			CurrentPose = DanceEvent.Pose.Splits;
 			DanceHandler.ActivateDanceEvent(new DanceRequestContext()
 			{
