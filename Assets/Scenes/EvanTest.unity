@@ -413,7 +413,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-482976
+  m_Name: pb_Mesh-4546
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1627,6 +1627,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &801914436 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9183060682317211258, guid: f2b8acdcf165f4377a19990e8778c65b, type: 3}
+  m_PrefabInstance: {fileID: 1636645590109442377}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d247e9a8e002644e09896c74634635d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &947321219
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2773,7 +2784,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-482962
+  m_Name: pb_Mesh-4532
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3072,7 +3083,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh194140
+  m_Name: pb_Mesh33394
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4143,7 +4154,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-482948
+  m_Name: pb_Mesh-4518
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5086,6 +5097,10 @@ PrefabInstance:
       propertyPath: EnemyStaminaUI
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 9183060682317211258, guid: f2b8acdcf165f4377a19990e8778c65b, type: 3}
+      propertyPath: PlayerController
+      value: 
+      objectReference: {fileID: 379054704}
     - target: {fileID: 9183060682317211259, guid: f2b8acdcf165f4377a19990e8778c65b, type: 3}
       propertyPath: Player
       value: 
@@ -5094,6 +5109,10 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 379054704}
+    - target: {fileID: 9183060682317211261, guid: f2b8acdcf165f4377a19990e8778c65b, type: 3}
+      propertyPath: BattleManager
+      value: 
+      objectReference: {fileID: 801914436}
     - target: {fileID: 9183060682317211261, guid: f2b8acdcf165f4377a19990e8778c65b, type: 3}
       propertyPath: PlayerUI_MaxStamina
       value: 

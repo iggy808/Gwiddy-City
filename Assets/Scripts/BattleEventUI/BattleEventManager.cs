@@ -8,8 +8,13 @@ namespace BattleEvent
 	{
 		public int CurrentPoseIndex;
 		public int EnemyCurrentStamina;
+		public int EnemyCurrentCoolness;
 		public int PlayerCurrentStamina;
+		public int PlayerCurrentCoolness;
 
+
+		[SerializeField]
+		GameObject PlayerController;
 		[SerializeField]
 		BattleRequestHandler BattleHandler;
 		[SerializeField]
@@ -22,16 +27,23 @@ namespace BattleEvent
 
 		public void InitializeBattleEvent(BattleRequestContext context)
 		{
+			// Assign battle context to the initial battle request context
 			Context = context;
 			CurrentEnemy = context.Enemy.Name;
 			EnemyCurrentStamina = context.Enemy.MaxStamina;
 
-			// Might need to take in a player object
-			BattleUIManager.InitializeStaminaStats(context.Player, context.Enemy);
+			// Fetch the current player stats from the player controller
+			Context.Player = PlayerController.GetComponent<PlayerStats>();
+			PlayerCurrentStamina = Context.Player.CurrentStamina;
+
+			// Initialize the battle stats with the freshly fetched stats
+			BattleUIManager.InitializeBattleUI(Context);
+			BattleUIManager.InitializeBattleStats(Context);
 		}
 
 		public void HandleSequenceStats(int sequenceDamage)
 		{
+			// Need to handle coolness here as well
 			EnemyCurrentStamina -= sequenceDamage;
 			if (EnemyCurrentStamina <= 0)
 			{
@@ -41,8 +53,17 @@ namespace BattleEvent
 			{
 				Debug.Log("Showing battle main menu");
 				BattleUIManager.ShowMainMenu();
-				BattleUIManager.UpdateStaminaStats(PlayerCurrentStamina, EnemyCurrentStamina);
+				UpdateBattleContext();
+				BattleUIManager.UpdateStaminaStats(Context);
 			}
+		}
+
+		// Track changes to player stats separately from the component
+		// Track in the battle context, and update the player stats accordingly after battle
+		public void UpdateBattleContext()
+		{
+			Context.Enemy.CurrentStamina = EnemyCurrentStamina;
+			Context.Player.CurrentStamina = PlayerCurrentStamina;
 		}
 
 		public int GetPoseDamage(DanceEvent.Pose pose)

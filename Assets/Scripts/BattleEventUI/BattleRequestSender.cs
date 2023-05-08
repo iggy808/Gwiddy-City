@@ -18,14 +18,14 @@ namespace BattleEvent
 				case "LameDanceEventTrigger (1)":
 					BattleHandler.ActivateBattleEvent(new BattleRequestContext
 					{
-						Enemy = new Enemy(SpecialEnemies.LameDancer),
+						Enemy = new Enemy(SpecialEnemies.FunkMaster),
 						Player = PlayerStats
 					});
 					break;
 				case "SickDanceEventTrigger (1)":
 					BattleHandler.ActivateBattleEvent(new BattleRequestContext
 					{
-						Enemy = new Enemy(SpecialEnemies.SickDancer),
+						Enemy = new Enemy(SpecialEnemies.Smoothness),
 						Player = PlayerStats
 					});
 					break;

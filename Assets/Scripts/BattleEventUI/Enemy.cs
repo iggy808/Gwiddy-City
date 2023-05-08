@@ -10,8 +10,8 @@ namespace BattleEvent
 
 	public enum SpecialEnemies
 	{
-		LameDancer,
-		SickDancer
+		FunkMaster,
+		Smoothness	
 	}
 
 	public class Enemy
@@ -20,12 +20,13 @@ namespace BattleEvent
 		public EnemyType Type;
 		public DanceEvent.Pose[] DanceMoves;
 		public int MaxStamina;
+		public int CurrentStamina;
 
 		public Enemy(SpecialEnemies enemy)
 		{
 			switch (enemy)
 			{
-				case SpecialEnemies.LameDancer:
+				case SpecialEnemies.FunkMaster:
 					Name = enemy;
 					Type = EnemyType.Special;
 					DanceMoves = new DanceEvent.Pose[]
@@ -33,8 +34,9 @@ namespace BattleEvent
 						Pose.Splits	
 					};
 					MaxStamina = 1;
+					CurrentStamina = MaxStamina;
 					break;
-				case SpecialEnemies.SickDancer:
+				case SpecialEnemies.Smoothness:
 					Name = enemy;
 					Type = EnemyType.Special;
 					DanceMoves = new DanceEvent.Pose[]
@@ -42,6 +44,7 @@ namespace BattleEvent
 						Pose.Splits
 					};
 					MaxStamina = 5;
+					CurrentStamina = MaxStamina;
 					break;
 				default:
 					break;

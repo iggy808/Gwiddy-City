@@ -9,23 +9,42 @@ namespace BattleEvent
 	public class BattleEventUIManager : MonoBehaviour
 	{
 		public InputState CurrentState;
-
+		[SerializeField]
+		BattleEventManager BattleManager;
+		
+		// References to player controller needed to get updated versions of player stats
 		[SerializeField]
 		GameObject Player;
+		// UI Components may be shut off, allowing the battle logic to persist, but the UI elements to not be displayed
 		[SerializeField]
 		GameObject UIComponents;
+
+		// Handy button for going back a layer in the battle menu system
 		[SerializeField]
 		GameObject BackButton;
+
+
+		// Main button categories - hold all buttons for a particular menu
+		// Note: DanceMenuButtons should start empty, and generate buttons dynamically according to player's currently available moves
 		[SerializeField]
 		GameObject MainMenuButtons;
 		[SerializeField]
 		GameObject DanceMenuButtons;
+
+		// Temporary hardcoded button references
+		// Need to find a way to dynamically generate these with prefab Instantiate()
 		[SerializeField]
 		GameObject SplitsButton;
 		[SerializeField]
 		GameObject CoolButton;
 		[SerializeField]
 		GameObject SequenceButton;
+
+		// Enemy UI name text
+		[SerializeField]
+		TextMeshProUGUI EnemyUI_Name;
+	
+		// Stamina UI text
 		[SerializeField]
 		TextMeshProUGUI EnemyUI_CurrentStamina;
 		[SerializeField]
@@ -35,21 +54,65 @@ namespace BattleEvent
 		[SerializeField]
 		TextMeshProUGUI	PlayerUI_MaxStamina;
 
+		// Coolness UI text
+		[SerializeField]
+		TextMeshProUGUI EnemyUI_CurrentCoolness;
+		[SerializeField]
+		TextMeshProUGUI	PlayerUI_CurrentCoolness;
+
+
 		List<DanceEvent.Pose> PlayerAvailableDances;
 
-		public void InitializeStaminaStats(PlayerStats player, Enemy enemy)
+		public void InitializeBattleUI(BattleRequestContext context)
 		{
-			PlayerUI_CurrentStamina.text = player.CurrentStamina.ToString();
-			PlayerUI_MaxStamina.text = player.MaxStamina.ToString();
-
-			EnemyUI_CurrentStamina.text = enemy.MaxStamina.ToString();
-			EnemyUI_MaxStamina.text = enemy.MaxStamina.ToString();
+			EnemyUI_Name.text = context.Enemy.Name.ToString();
+			InitializeBattleStats(context);
 		}
 
-		public void UpdateStaminaStats(int playerStamina, int enemyStamina)
+		public void InitializeBattleStats(BattleRequestContext context)
 		{
-			PlayerUI_CurrentStamina.text = playerStamina.ToString();
-			EnemyUI_CurrentStamina.text = enemyStamina.ToString();
+			// Fetch updated player stats, update context accordingly
+			InitializeStaminaStats(context);	
+			InitializeCoolnessStats(context);
+		}
+
+		public void InitializeCoolnessStats(BattleRequestContext context)
+		{
+			Debug.Log("Initializing coolness stats to 0");
+			// Set coolness to 0
+			EnemyUI_CurrentCoolness.text = 0.ToString();
+			PlayerUI_CurrentCoolness.text = 0.ToString();
+		}
+
+		public void InitializeStaminaStats(BattleRequestContext context)
+		{
+			Debug.Log("Initializing stamina stats");
+			PlayerUI_CurrentStamina.text = BattleManager.PlayerCurrentStamina.ToString();
+			PlayerUI_MaxStamina.text = context.Player.MaxStamina.ToString();
+			Debug.Log("Current Player stamina: " + context.Player.CurrentStamina.ToString());
+			Debug.Log("Player max stamina: " + context.Player.MaxStamina.ToString());
+
+
+			EnemyUI_CurrentStamina.text = context.Enemy.MaxStamina.ToString();
+			EnemyUI_MaxStamina.text = context.Enemy.MaxStamina.ToString();
+		}
+
+		public void UpdateBattleStats()
+		{
+		}
+
+		public void UpdateStaminaStats(BattleRequestContext context)
+		{
+			//Context.Player = Player.GetComponent<PlayerStats>();
+			Debug.Log("Battle manager player current stamina : " + BattleManager.PlayerCurrentStamina.ToString());
+			PlayerUI_CurrentStamina.text = BattleManager.PlayerCurrentStamina.ToString();
+			EnemyUI_CurrentStamina.text = BattleManager.EnemyCurrentStamina.ToString();
+		}
+
+
+		public void UpdateCoolnessStats()
+		{
+
 		}
 
 		public void ShowMainMenu()
