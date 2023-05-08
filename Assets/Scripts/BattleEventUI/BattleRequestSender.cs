@@ -6,6 +6,8 @@ namespace BattleEvent
 	{
 		[SerializeField]
 		BattleRequestHandler BattleHandler;
+		[SerializeField]
+		PlayerStats PlayerStats;
 
 		void OnTriggerEnter(Collider collider)
 		{
@@ -17,13 +19,14 @@ namespace BattleEvent
 					BattleHandler.ActivateBattleEvent(new BattleRequestContext
 					{
 						Enemy = new Enemy(SpecialEnemies.LameDancer),
-						
+						Player = PlayerStats
 					});
 					break;
 				case "SickDanceEventTrigger (1)":
 					BattleHandler.ActivateBattleEvent(new BattleRequestContext
 					{
-						Enemy = new Enemy(SpecialEnemies.SickDancer)
+						Enemy = new Enemy(SpecialEnemies.SickDancer),
+						Player = PlayerStats
 					});
 					break;
 				default:

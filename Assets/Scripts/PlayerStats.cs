@@ -1,0 +1,22 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerStats : MonoBehaviour
+{
+	public int MaxStamina;
+	public int CurrentStamina;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+		MaxStamina = 10;    
+		CurrentStamina = 10;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}

@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using DanceEvent;
+using TMPro;
 
 namespace BattleEvent
 {
@@ -25,8 +26,31 @@ namespace BattleEvent
 		GameObject CoolButton;
 		[SerializeField]
 		GameObject SequenceButton;
+		[SerializeField]
+		TextMeshProUGUI EnemyUI_CurrentStamina;
+		[SerializeField]
+		TextMeshProUGUI EnemyUI_MaxStamina;
+		[SerializeField]
+		TextMeshProUGUI PlayerUI_CurrentStamina;
+		[SerializeField]
+		TextMeshProUGUI	PlayerUI_MaxStamina;
 
 		List<DanceEvent.Pose> PlayerAvailableDances;
+
+		public void InitializeStaminaStats(PlayerStats player, Enemy enemy)
+		{
+			PlayerUI_CurrentStamina.text = player.CurrentStamina.ToString();
+			PlayerUI_MaxStamina.text = player.MaxStamina.ToString();
+
+			EnemyUI_CurrentStamina.text = enemy.MaxStamina.ToString();
+			EnemyUI_MaxStamina.text = enemy.MaxStamina.ToString();
+		}
+
+		public void UpdateStaminaStats(int playerStamina, int enemyStamina)
+		{
+			PlayerUI_CurrentStamina.text = playerStamina.ToString();
+			EnemyUI_CurrentStamina.text = enemyStamina.ToString();
+		}
 
 		public void ShowMainMenu()
 		{

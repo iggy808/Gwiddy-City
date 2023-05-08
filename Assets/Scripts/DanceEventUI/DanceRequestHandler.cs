@@ -227,7 +227,8 @@ namespace DanceEvent
 		{	
 			// Enable object for configuration
 			DanceEventUI.SetActive(true);
-
+			
+			//
 			// Configure components to dance request context
 			DanceEventUITransformController.SetUITransform(Context);			
 
