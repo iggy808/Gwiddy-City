@@ -7,11 +7,13 @@ using UnityEngine;
 public class DialogueTrigger : MonoBehaviour
 {
     // Access Dialogue.cs
+    // Pulls NPC name and sentences Holder
     public Dialogue dialogue;
 
+    
     public void TriggerDialogueManager()
     {
-        // Call the StartDialogue
+        // Call the StartDialogue function
         FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
     }
 }

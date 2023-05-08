@@ -9,16 +9,6 @@ public class NPCInteractable : MonoBehaviour
     public Camera MainCamera;
     public GameObject dialogueCanvas;
 
-
-    // Let's do something with this
-    public bool speaking;
-
-    private void Start()
-    {
-        {
-            speaking = false;
-        }
-    }
     public void Interact()
     {
         // If the target is an NPC...
@@ -27,6 +17,8 @@ public class NPCInteractable : MonoBehaviour
             // Check if it has a DialogueTrigger script...
             // If it does...
             if (gameObject.TryGetComponent(out DialogueTrigger dialogue)){
+                
+                Debug.Log("Dialogue started");
                 // Begin dialogue 
                 dialogue.TriggerDialogueManager();
                 // Disable Cameras
@@ -35,6 +27,12 @@ public class NPCInteractable : MonoBehaviour
                 DialogueCamera.transform.position = InteractedCameraPosition.position;
                 // Enable the Dialogue HUD 
                 dialogueCanvas.SetActive(true);
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true;
+                // Enable the speaking boolean?
+                // How to disable?
+                // The dialogue Manager takes in the name text and dialogue text, why not the boolean as well
+                // because we need this to be generalized. We cannot have a tie to NPC interactable because that's very specific
             }
         }
 

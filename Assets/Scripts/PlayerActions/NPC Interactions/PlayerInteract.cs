@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PlayerInteract : MonoBehaviour
 {
@@ -18,8 +19,14 @@ public class PlayerInteract : MonoBehaviour
                 // If the collider has the NPCInteractable script...
                 if(collider.TryGetComponent(out NPCInteractable npc))
                 {
-                    // Call the interact function
-                    npc.Interact();
+                    Debug.Log(npc);
+                  
+                    if(npc.DialogueCamera.enabled == false)
+                    {
+                        // Call the interact function
+                        npc.Interact();
+                    }
+                    
                 }
             }
         }
