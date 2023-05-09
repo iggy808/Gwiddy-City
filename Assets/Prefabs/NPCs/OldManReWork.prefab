@@ -320,7 +320,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2551
+  m_VersionIndex: 2563
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -475,6 +475,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
     name: Old Man
+    characterSprite: {fileID: 21300000, guid: d6f13cdfb63079b4d96404be3c773c31, type: 3}
     sentencesHolder:
     - '"Hello There!"'
     - '"I am Old Man"'
@@ -740,7 +741,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 976
+  m_VersionIndex: 988
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1084,7 +1085,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 661
+  m_VersionIndex: 673
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1428,7 +1429,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 664
+  m_VersionIndex: 679
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

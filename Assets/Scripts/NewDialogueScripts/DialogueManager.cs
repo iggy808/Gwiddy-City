@@ -8,11 +8,12 @@ public class DialogueManager : MonoBehaviour
 {
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI dialogueText;
+    public Image characterImage;
     public Animator animator;
     public Camera DialogueCamera;
     public Camera MainCamera;
     public GameObject dialogueCanvas;
-
+    public GameObject playerCharacter;
     // Keep track of sentences for dialogue
     // We might turn this into arrays for each "character"
     private Queue<string> sentences;
@@ -29,6 +30,7 @@ public class DialogueManager : MonoBehaviour
         animator.SetBool("IsOpen", true);
         Debug.Log("Starting conversation with" + dialogue.name);
         nameText.text = dialogue.name;
+        characterImage.sprite = dialogue.characterSprite;
         // Clear the sentences queue
         sentences.Clear();
 
@@ -74,6 +76,10 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
+        
+        playerCharacter.GetComponent<PlayerMovement>().horitontalEnable = true;
+        playerCharacter.GetComponent<PlayerMovement>().verticalEnable = true;
+        
         //gameObject.GetComponent<DialogueTrigger>().speaking = false;
         animator.SetBool("IsOpen", true);
         DialogueCamera.enabled = false; MainCamera.enabled = true;
