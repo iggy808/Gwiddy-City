@@ -36,7 +36,7 @@ namespace BattleEvent
 					};
 					MaxStamina = 1;
 					CurrentStamina = MaxStamina;
-					CoolnessThreshhold = 5;
+					CoolnessThreshhold = 10;
 					break;
 				case SpecialEnemies.Smoothness:
 					Name = enemy;
@@ -47,7 +47,7 @@ namespace BattleEvent
 					};
 					MaxStamina = 3;
 					CurrentStamina = MaxStamina;
-					CoolnessThreshhold = 10;
+					CoolnessThreshhold = 20;
 					break;
 				default:
 					break;

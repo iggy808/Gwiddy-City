@@ -31,14 +31,18 @@ namespace BattleEvent
 		[SerializeField]
 		GameObject DanceMenuButtons;
 
+		// UI elements for the sequence menu
+		[SerializeField]
+		GameObject SequenceMenuButton;
+		[SerializeField]
+		GameObject SequenceMenu;
+
 		// Temporary hardcoded button references
 		// Need to find a way to dynamically generate these with prefab Instantiate()
 		[SerializeField]
 		GameObject SplitsButton;
 		[SerializeField]
 		GameObject CoolButton;
-		[SerializeField]
-		GameObject SequenceButton;
 
 		// Enemy UI name text
 		[SerializeField]
@@ -71,7 +75,6 @@ namespace BattleEvent
 
 		public void InitializeBattleStats(BattleRequestContext context)
 		{
-			// Fetch updated player stats, update context accordingly
 			InitializeStaminaStats(context);	
 			InitializeCoolnessStats(context);
 		}
@@ -121,12 +124,12 @@ namespace BattleEvent
 			UIComponents.SetActive(true);
 			DanceMenuButtons.SetActive(false);
 			MainMenuButtons.SetActive(true);
+			SequenceMenu.SetActive(false);
 		}
 				
 		public void ShowDanceMenu()
 		{
 			CurrentState = InputState.DanceMenu;
-			BackButton.SetActive(true);
 			Debug.Log("In show dance menu fn");
 
 			// Fetch updated list of dances
@@ -139,7 +142,9 @@ namespace BattleEvent
 
 			// Turn on the dance menu buttons according to the player's currently available dances
 			MainMenuButtons.SetActive(false);
+			SequenceMenu.SetActive(false);
 			DanceMenuButtons.SetActive(true);
+			BackButton.SetActive(true);
 
 			if (PlayerAvailableDances.Contains(DanceEvent.Pose.Splits))
 			{
@@ -159,7 +164,7 @@ namespace BattleEvent
 				CoolButton.SetActive(false);
 			}
 
-			SequenceButton.SetActive(true);
+			SequenceMenuButton.SetActive(true);
 		}
 
 
@@ -170,6 +175,17 @@ namespace BattleEvent
 				// instantiate and position a prefab dance button	
 				Debug.Log("Generating a dance button!");
 			}
+		}
+
+		public void ShowSequenceMenu()
+		{
+			CurrentState = InputState.SequenceMenu;
+			DanceMenuButtons.SetActive(false);	
+			BackButton.SetActive(true);
+
+			// Same problem as show dance menu:
+			// Need to dynamically generate buttons according to player available dances
+			SequenceMenu.SetActive(true);
 		}
 	}
 }

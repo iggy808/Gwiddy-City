@@ -49,7 +49,6 @@ namespace BattleEvent
 
 			// Initialize the battle stats with the freshly fetched stats
 			BattleUIManager.InitializeBattleUI(Context);
-			BattleUIManager.InitializeBattleStats(Context);
 		}
 
 		public void HandleSequenceStats(int sequenceCoolness, int sequenceStaminaCost)

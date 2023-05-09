@@ -7,7 +7,8 @@ namespace BattleEvent
 	public enum InputState
 	{
 		MainMenu,
-		DanceMenu
+		DanceMenu,
+		SequenceMenu
 	}
 
 	public class InputController : MonoBehaviour
@@ -51,6 +52,11 @@ namespace BattleEvent
 				Debug.Log("Show main menu called frim back button script");
 				BattleEventUIManager.ShowMainMenu();
 			}
+			else if (BattleEventUIManager.CurrentState == InputState.SequenceMenu)
+			{
+				Debug.Log("Going back from sequence menu to dance menu.");
+				BattleEventUIManager.ShowDanceMenu();
+			}
 		}
 
 		public void FleeButtonClicked()
@@ -67,6 +73,22 @@ namespace BattleEvent
 		{
 			Debug.Log("Dance button clicked");
 			BattleEventUIManager.ShowDanceMenu();
+		}
+
+		public void SequenceMenuClicked()
+		{
+			BattleEventUIManager.ShowSequenceMenu();
+			/*
+			DanceHandler.ActivateDanceSequenceEvent(new DanceRequestContext()
+			{
+				Environment = Environment.BattleDance,
+				DesiredMoves = new List<DanceEvent.Pose>()
+				{
+					DanceEvent.Pose.Splits,
+					DanceEvent.Pose.Cool
+				}
+			});
+			*/
 		}
 
 		public void SplitsAttackClicked()
@@ -98,17 +120,5 @@ namespace BattleEvent
 			});	
 		}
 
-		public void SequenceAttackClicked()
-		{
-			DanceHandler.ActivateDanceSequenceEvent(new DanceRequestContext()
-			{
-				Environment = Environment.BattleDance,
-				DesiredMoves = new List<DanceEvent.Pose>()
-				{
-					DanceEvent.Pose.Splits,
-					DanceEvent.Pose.Cool
-				}
-			});
-		}
 	}
 }
