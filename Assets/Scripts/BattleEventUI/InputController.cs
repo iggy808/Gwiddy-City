@@ -78,7 +78,10 @@ namespace BattleEvent
 		public void SequenceMenuClicked()
 		{
 			BattleEventUIManager.ShowSequenceMenu();
-			/*
+		}
+
+		public void DemoSequenceEvent()
+		{
 			DanceHandler.ActivateDanceSequenceEvent(new DanceRequestContext()
 			{
 				Environment = Environment.BattleDance,
@@ -88,7 +91,6 @@ namespace BattleEvent
 					DanceEvent.Pose.Cool
 				}
 			});
-			*/
 		}
 
 		public void SplitsAttackClicked()
