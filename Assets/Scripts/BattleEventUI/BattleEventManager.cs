@@ -56,16 +56,19 @@ namespace BattleEvent
 			{
 				PlayerCurrentCoolness += sequenceCoolness;
 				PlayerCurrentStamina -= sequenceStaminaCost;
+				CurrentTurn = BattleTurn.Enemy;
 			}
 			else if (CurrentTurn == BattleTurn.Enemy)
 			{	
 				EnemyCurrentCoolness += sequenceCoolness;
 				EnemyCurrentStamina -= sequenceStaminaCost;
-			}
+				CurrentTurn = BattleTurn.Player;
+			}	
 
 			// If either dancer runs out of stamina, the fight is over
 			if (EnemyCurrentStamina <= 0 || PlayerCurrentStamina <= 0)
 			{
+				// If player is cooler, player wins
 				if (PlayerCurrentCoolness > EnemyCurrentCoolness)
 				{
 					WasSuccessful = true;
@@ -81,13 +84,22 @@ namespace BattleEvent
 					WasSuccessful = false;
 				}
 
-
 				EndBattle();
 			}
 			else
 			{
-				BattleUIManager.ShowMainMenu();
-				BattleUIManager.UpdateBattleStats();
+				if (CurrentTurn == BattleTurn.Player)
+				{
+					Debug.Log("Player turn, displaying UI for player");
+					BattleUIManager.ShowMainMenu();
+					BattleUIManager.UpdateBattleStats();
+				}
+				else if (CurrentTurn == BattleTurn.Enemy)
+				{
+					Debug.Log("Enemy turn, displaying UI for enemy");
+					BattleUIManager.ShowMainMenu();
+					BattleUIManager.UpdateBattleStats();
+				}
 			}
 		}
 
