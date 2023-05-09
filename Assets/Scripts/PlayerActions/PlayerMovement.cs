@@ -35,11 +35,9 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
     }
 
-
-
     private void Update()
     {
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, groundLayer);
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.8f, groundLayer);
         PlayerInput();
         SpeedControl();
         if (grounded)
@@ -51,9 +49,6 @@ public class PlayerMovement : MonoBehaviour
         }
         else
             rb.drag = 0;
-
-
-
     }
 
     
