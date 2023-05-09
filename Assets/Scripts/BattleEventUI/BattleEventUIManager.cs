@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 using DanceEvent;
@@ -11,6 +12,8 @@ namespace BattleEvent
 		public InputState CurrentState;
 		[SerializeField]
 		BattleEventManager BattleManager;
+		[SerializeField]
+		InputController InputController;
 		
 		// References to player controller needed to get updated versions of player stats
 		[SerializeField]
@@ -156,8 +159,8 @@ namespace BattleEvent
 					Destroy(button);
 				}
 			}
+
 			CurrentState = InputState.DanceMenu;
-			Debug.Log("In show dance menu fn");
 
 			if (BattleManager.CurrentTurn == BattleTurn.Player)
 			{
@@ -177,58 +180,14 @@ namespace BattleEvent
 			DanceMenuButtons.SetActive(true);
 			BackButton.SetActive(true);
 
-			// Need to dynamically generate a button for every dance in the player's dance list
-			GenerateDanceButtons();
-
-			/*
-			if (BattleManager.CurrentTurn == BattleTurn.Player)
-			{
-				if (PlayerAvailableDances.Contains(DanceEvent.Pose.Splits))
-				{
-					Debug.Log("Player has enough stamina to use the splits.");
-					SplitsButton.SetActive(true);
-				}
-				else
-				{
-					SplitsButton.SetActive(false);
-				}
-
-				if (PlayerAvailableDances.Contains(DanceEvent.Pose.Cool))
-				{
-					Debug.Log("Player has enough stamina to use the splits.");
-					CoolButton.SetActive(true);
-				}
-				else
-				{
-					CoolButton.SetActive(false);
-				}
-			}
-			else if (BattleManager.CurrentTurn == BattleTurn.Enemy)
-			{
-				if (EnemyAvailableDances.Contains(DanceEvent.Pose.Splits))	
-				{
-					SplitsButton.SetActive(true); }
-				else
-				{
-					SplitsButton.SetActive(false);
-				}
-				if (EnemyAvailableDances.Contains(DanceEvent.Pose.Cool))
-				{
-					Debug.Log("Player has enough stamina to use the splits.");
-					CoolButton.SetActive(true);
-				}
-				else
-				{
-					CoolButton.SetActive(false);
-				}
-			}
-			*/
+			// Dynamically generate a button for every dance in the player's dance list
+			GenerateDanceMenuButtons();
 
 			SequenceMenuButton.SetActive(true);
 		}
 
 
-		public void GenerateDanceButtons()
+		public void GenerateDanceMenuButtons()
 		{
 			DanceMenuDanceButtons = new List<GameObject>();
 
@@ -278,7 +237,6 @@ namespace BattleEvent
 					rowAnchors_Y = new Vector2(rowAnchors_Y.x, rowAnchors_Y.y);
 				}
 
-
 				// Even/odd positioning logic:
 				// Dances displayed like this
 				// 0 | 1  y-anchors: (0.8, 1)
@@ -303,12 +261,26 @@ namespace BattleEvent
 				rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, 0f);
 				rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, 0f);
 
-
 				// Label button with appropriate dance name
 				Debug.Log("First child of sequence dances panel (Sequence button) : " + DanceMenuButtons.transform.GetChild(0).name);
 				Debug.Log("Second child of dance menu buttons object (Dance button container) : " + DanceMenuButtons.transform.GetChild(1).name);
 				Debug.Log("Ideally 'text': " + DanceMenuButtons.transform.GetChild(i+1).transform.GetChild(0).transform.GetChild(0).name);
 				DanceMenuButtons.transform.GetChild(i+1).transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = pose.ToString().ToUpper() + "!";
+
+				Debug.Log("DanceMenuButtons.transform.GetChild(i+1).transform.GetChild(0).name : " + DanceMenuButtons.transform.GetChild(i+1).transform.GetChild(0).name);
+				Button danceButtonComponent = DanceMenuButtons.transform.GetChild(i+1).transform.GetChild(0).GetComponent<Button>();
+				// Assign onclick event to button
+				switch (pose)
+				{
+					case DanceEvent.Pose.Splits:
+						danceButtonComponent.onClick.AddListener(InputController.SplitsAttackClicked);
+						break;
+					case DanceEvent.Pose.Cool:
+						danceButtonComponent.onClick.AddListener(InputController.CoolAttackClicked);
+						break;
+					default:
+						break;
+				}
 
 				i++;
 			}

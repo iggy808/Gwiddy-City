@@ -30,10 +30,6 @@ namespace BattleEvent
 		// temp alpha implementation for adding dances to menu
 		[SerializeField]
 		GameObject Player;
-		[SerializeField]
-		GameObject SplitsButton;
-		[SerializeField]
-		GameObject CoolButton;
 		List<DanceEvent.Pose> PlayerDances;
 
 
