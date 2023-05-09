@@ -1,4 +1,5 @@
 using DanceEvent;
+using System.Collections.Generic;
 
 namespace BattleEvent
 {
@@ -18,7 +19,7 @@ namespace BattleEvent
 	{
 		public SpecialEnemies Name;
 		public EnemyType Type;
-		public DanceEvent.Pose[] DanceMoves;
+		public List<DanceEvent.Pose> DanceMoves;
 		public int MaxStamina;
 		public int CurrentStamina;
 		public int CoolnessThreshhold;
@@ -30,7 +31,7 @@ namespace BattleEvent
 				case SpecialEnemies.FunkMaster:
 					Name = enemy;
 					Type = EnemyType.Special;
-					DanceMoves = new DanceEvent.Pose[]
+					DanceMoves = new List<DanceEvent.Pose>()
 					{
 						Pose.Splits	
 					};
@@ -41,13 +42,13 @@ namespace BattleEvent
 				case SpecialEnemies.Smoothness:
 					Name = enemy;
 					Type = EnemyType.Special;
-					DanceMoves = new DanceEvent.Pose[]
+					DanceMoves = new List<DanceEvent.Pose>()
 					{
 						Pose.Splits
 					};
 					MaxStamina = 3;
 					CurrentStamina = MaxStamina;
-					CoolnessThreshhold = 20;
+					CoolnessThreshhold = 100;
 					break;
 				default:
 					break;

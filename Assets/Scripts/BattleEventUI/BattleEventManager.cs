@@ -12,7 +12,7 @@ namespace BattleEvent
 		public int PlayerCurrentStamina;
 		public int PlayerCurrentCoolness;
 		public int CurrentSequencePoseIndex;
-
+		public BattleRequestContext Context;
 		public BattleTurn CurrentTurn;
 
 
@@ -23,7 +23,6 @@ namespace BattleEvent
 		[SerializeField]
 		BattleEventUIManager BattleUIManager;
 
-		BattleRequestContext Context;
 		SpecialEnemies CurrentEnemy;
 
 		bool WasSuccessful;

@@ -66,6 +66,7 @@ namespace BattleEvent
 
 
 		List<DanceEvent.Pose> PlayerAvailableDances;
+		List<DanceEvent.Pose> EnemyAvailableDances;
 
 		public void InitializeBattleUI(BattleRequestContext context)
 		{
@@ -132,11 +133,18 @@ namespace BattleEvent
 			CurrentState = InputState.DanceMenu;
 			Debug.Log("In show dance menu fn");
 
-			// Fetch updated list of dances
-			PlayerAvailableDances = Player.GetComponent<PlayerDances>().Dances;
-			// Remove dances where the stamina cost is higher than the available stamina
-			PlayerAvailableDances = PlayerAvailableDances.Where(x => BattleManager.GetPoseStaminaCost(x) < BattleManager.PlayerCurrentStamina).ToList();
-			
+			if (BattleManager.CurrentTurn == BattleTurn.Player)
+			{
+				// Fetch updated list of dances
+				PlayerAvailableDances = Player.GetComponent<PlayerDances>().Dances;
+				// Remove dances where the stamina cost is higher than the available stamina
+				PlayerAvailableDances = PlayerAvailableDances.Where(x => BattleManager.GetPoseStaminaCost(x) <= BattleManager.PlayerCurrentStamina).ToList();
+			}
+			else if (BattleManager.CurrentTurn == BattleTurn.Enemy)
+			{	
+				EnemyAvailableDances = BattleManager.Context.Enemy.DanceMoves.Where(x => BattleManager.GetPoseStaminaCost(x) <= BattleManager.EnemyCurrentStamina).ToList();
+			}
+	
 			// Need to dynamically generate a button for every dance in the player's dance list
 			//GenerateDanceButtons();
 
@@ -145,23 +153,46 @@ namespace BattleEvent
 			SequenceMenu.SetActive(false);
 			DanceMenuButtons.SetActive(true);
 			BackButton.SetActive(true);
+			if (BattleManager.CurrentTurn == BattleTurn.Player)
+			{
+				if (PlayerAvailableDances.Contains(DanceEvent.Pose.Splits))
+				{
+					Debug.Log("Player has enough stamina to use the splits.");
+					SplitsButton.SetActive(true);
+				}
+				else
+				{
+					SplitsButton.SetActive(false);
+				}
 
-			if (PlayerAvailableDances.Contains(DanceEvent.Pose.Splits))
-			{
-				SplitsButton.SetActive(true);
+				if (PlayerAvailableDances.Contains(DanceEvent.Pose.Cool))
+				{
+					Debug.Log("Player has enough stamina to use the splits.");
+					CoolButton.SetActive(true);
+				}
+				else
+				{
+					CoolButton.SetActive(false);
+				}
 			}
-			else
+			else if (BattleManager.CurrentTurn == BattleTurn.Enemy)
 			{
-				SplitsButton.SetActive(false);
-			}
-
-			if (PlayerAvailableDances.Contains(DanceEvent.Pose.Cool))
-			{
-				CoolButton.SetActive(true);
-			}
-			else
-			{
-				CoolButton.SetActive(false);
+				if (EnemyAvailableDances.Contains(DanceEvent.Pose.Splits))	
+				{
+					SplitsButton.SetActive(true); }
+				else
+				{
+					SplitsButton.SetActive(false);
+				}
+				if (EnemyAvailableDances.Contains(DanceEvent.Pose.Cool))
+				{
+					Debug.Log("Player has enough stamina to use the splits.");
+					CoolButton.SetActive(true);
+				}
+				else
+				{
+					CoolButton.SetActive(false);
+				}
 			}
 
 			SequenceMenuButton.SetActive(true);
