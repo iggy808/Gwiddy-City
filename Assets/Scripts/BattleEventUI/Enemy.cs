@@ -21,6 +21,7 @@ namespace BattleEvent
 		public DanceEvent.Pose[] DanceMoves;
 		public int MaxStamina;
 		public int CurrentStamina;
+		public int CoolnessThreshhold;
 
 		public Enemy(SpecialEnemies enemy)
 		{
@@ -35,6 +36,7 @@ namespace BattleEvent
 					};
 					MaxStamina = 1;
 					CurrentStamina = MaxStamina;
+					CoolnessThreshhold = 5;
 					break;
 				case SpecialEnemies.Smoothness:
 					Name = enemy;
@@ -43,8 +45,9 @@ namespace BattleEvent
 					{
 						Pose.Splits
 					};
-					MaxStamina = 5;
+					MaxStamina = 3;
 					CurrentStamina = MaxStamina;
+					CoolnessThreshhold = 10;
 					break;
 				default:
 					break;

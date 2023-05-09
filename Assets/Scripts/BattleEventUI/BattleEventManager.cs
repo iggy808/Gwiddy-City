@@ -27,6 +27,7 @@ namespace BattleEvent
 		SpecialEnemies CurrentEnemy;
 
 		bool WasSuccessful;
+		int CoolnessLeadWinThreshhold;
 
 
 		public void InitializeBattleEvent(BattleRequestContext context)
@@ -44,6 +45,7 @@ namespace BattleEvent
 
 			EnemyCurrentCoolness = 0;
 			PlayerCurrentCoolness = 0;
+			CoolnessLeadWinThreshhold = context.Enemy.CoolnessThreshhold;
 
 			// Initialize the battle stats with the freshly fetched stats
 			BattleUIManager.InitializeBattleUI(Context);
@@ -65,8 +67,11 @@ namespace BattleEvent
 				CurrentTurn = BattleTurn.Player;
 			}	
 
-			// If either dancer runs out of stamina, the fight is over
-			if (EnemyCurrentStamina <= 0 || PlayerCurrentStamina <= 0)
+			// If both dancers run out of stamina, or if one dancer leads the other by 30 coolness,
+			// end the battle
+			if ((PlayerCurrentCoolness >= EnemyCurrentCoolness + CoolnessLeadWinThreshhold 
+				 || EnemyCurrentCoolness >= PlayerCurrentCoolness + CoolnessLeadWinThreshhold) 
+				 || (EnemyCurrentStamina <= 0 && PlayerCurrentStamina <= 0))
 			{
 				// If player is cooler, player wins
 				if (PlayerCurrentCoolness > EnemyCurrentCoolness)
@@ -145,7 +150,7 @@ namespace BattleEvent
 
 		public void EndBattle()
 		{
-				BattleHandler.EndBattleEvent(WasSuccessful);
+			BattleHandler.EndBattleEvent(WasSuccessful);
 		}
 	}
 }

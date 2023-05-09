@@ -131,6 +131,8 @@ namespace BattleEvent
 
 			// Fetch updated list of dances
 			PlayerAvailableDances = Player.GetComponent<PlayerDances>().Dances;
+			// Remove dances where the stamina cost is higher than the available stamina
+			PlayerAvailableDances = PlayerAvailableDances.Where(x => BattleManager.GetPoseStaminaCost(x) < BattleManager.PlayerCurrentStamina).ToList();
 			
 			// Need to dynamically generate a button for every dance in the player's dance list
 			//GenerateDanceButtons();
