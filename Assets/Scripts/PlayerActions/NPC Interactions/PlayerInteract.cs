@@ -21,9 +21,8 @@ public class PlayerInteract : MonoBehaviour
                 {
                     Debug.Log(npc);
                     // COLIN: Find a way to get the add force to be disabled. Or to teleport the player to the NPC dialog area
-                    gameObject.GetComponent<PlayerMovement>().horitontalEnable = false;
-                    gameObject.GetComponent<PlayerMovement>().verticalEnable = false;
-                    gameObject.GetComponent<PlayerMovement>().rb.velocity = Vector3.zero;
+                    //gameObject.GetComponent<PlayerMovement>().rb.velocity = Vector3.zero;
+                    gameObject.GetComponent<PlayerMovement>().enabled = false;
                     if(npc.DialogueCamera.enabled == false)
                     {
                         // Call the interact function

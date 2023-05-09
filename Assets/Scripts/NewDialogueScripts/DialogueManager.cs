@@ -76,10 +76,7 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
-        
-        playerCharacter.GetComponent<PlayerMovement>().horitontalEnable = true;
-        playerCharacter.GetComponent<PlayerMovement>().verticalEnable = true;
-        
+        playerCharacter.GetComponent<PlayerMovement>().enabled = true;        
         //gameObject.GetComponent<DialogueTrigger>().speaking = false;
         animator.SetBool("IsOpen", true);
         DialogueCamera.enabled = false; MainCamera.enabled = true;

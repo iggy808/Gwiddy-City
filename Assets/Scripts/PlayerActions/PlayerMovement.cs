@@ -22,8 +22,6 @@ public class PlayerMovement : MonoBehaviour
     private bool jumpReady = true;
     private bool dashReady = true;
     private bool dashCD = true;
-    public bool horitontalEnable = true;
-    public bool verticalEnable = true;
     private int jumps;
     private float horizontalInput;
     private float verticalInput;
@@ -62,16 +60,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void PlayerInput()
     {
-        if (horitontalEnable)
-        {
-            horizontalInput = Input.GetAxisRaw("Horizontal");
 
-        }
-        if (verticalEnable)
-        {
+            horizontalInput = Input.GetAxisRaw("Horizontal");
             verticalInput = Input.GetAxisRaw("Vertical");
 
-        }
+
         if (Input.GetKey(jumpKey) && jumpReady)
         {
             if (jumps != 1)
