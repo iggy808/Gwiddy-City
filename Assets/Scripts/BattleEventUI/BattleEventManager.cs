@@ -132,8 +132,8 @@ namespace BattleEvent
 				{
 					Debug.Log("Enemy turn, temporarily displaying manual UI.");
 					PlayEnemyTurn();
-					//BattleUIManager.ShowMainMenu();
-					//BattleUIManager.UpdateBattleStats();
+					BattleUIManager.ShowMainMenu();
+					BattleUIManager.UpdateBattleStats();
 				}
 			}
 		}

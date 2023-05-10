@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using DanceEvent;
 using TMPro;
@@ -129,7 +130,7 @@ namespace BattleEvent
 			EnemyUI_CurrentCoolness.text = BattleManager.EnemyCurrentCoolness.ToString();
 		}
 
-		public void ShowMainMenu()
+		public void ShowMainMenu(bool IsEnemyTurn = false)
 		{
 			// Delete generated buttons from dance menu if previous menu was dance menu
 			if (CurrentState == InputState.DanceMenu)
@@ -140,12 +141,25 @@ namespace BattleEvent
 				}
 			}
 
+			if (IsEnemyTurn)
+			{
+				StartCoroutine(DelayBeginEnemyTurn());
+			}
+
 			CurrentState = InputState.MainMenu;
 			BackButton.SetActive(false);
 			UIComponents.SetActive(true);
 			DanceMenuButtons.SetActive(false);
 			MainMenuButtons.SetActive(true);
 			SequenceMenu.SetActive(false);
+		}
+
+		IEnumerator DelayBeginEnemyTurn()
+		{
+			// Disable menu buttons
+			Debug.Log("About to begin enemy turn!");
+			yield return new WaitForSeconds(1f);
+			BattleManager.PlayEnemyTurn();
 		}
 				
 		public void ShowDanceMenu()
@@ -180,7 +194,7 @@ namespace BattleEvent
 			else if (BattleManager.CurrentTurn == BattleTurn.Enemy)
 			{	
 				// will figure out enemy stuff later
-				EnemyAvailableDances = BattleManager.Context.Enemy.DanceMoves.Where(x => BattleManager.GetPoseStaminaCost(x) <= BattleManager.EnemyCurrentStamina).ToList();
+				//EnemyAvailableDances = BattleManager.Context.Enemy.DanceMoves.Where(x => BattleManager.GetPoseStaminaCost(x) <= BattleManager.EnemyCurrentStamina).ToList();
 			}
 	
 			// Turn on the dance menu buttons according to the player's currently available dances
