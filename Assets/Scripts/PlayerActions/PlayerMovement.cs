@@ -31,8 +31,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
     }
