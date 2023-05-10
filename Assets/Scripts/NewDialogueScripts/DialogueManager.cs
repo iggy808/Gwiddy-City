@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class DialogueManager : MonoBehaviour
 {
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI dialogueText;
     public Image characterImage;
+    public Button mouseButton;
     public Animator animator;
     public Camera DialogueCamera;
     public Camera MainCamera;
@@ -17,11 +19,13 @@ public class DialogueManager : MonoBehaviour
     // Keep track of sentences for dialogue
     // We might turn this into arrays for each "character"
     private Queue<string> sentences;
-
+    string sentence;
+    bool clicked;
     // Start is called before the first frame update
     void Start()
     {
-        
+        clicked = false;
+        mouseButton.gameObject.SetActive(false);
         animator.SetBool("IsOpen", false);
         sentences = new Queue<string>();
     }
@@ -44,7 +48,6 @@ public class DialogueManager : MonoBehaviour
         DisplayNextSentence();
     }
 
-
     // Trigger this when the player hits the mouse 
     public void DisplayNextSentence()
     {
@@ -57,20 +60,43 @@ public class DialogueManager : MonoBehaviour
 
         // If sentences remain
         // Dequeue the next sentence
-        string sentence = sentences.Dequeue();
-        StopAllCoroutines();
+        sentence = sentences.Dequeue();
+        
+        
         // Display the next sentence
         StartCoroutine(TypeSentence(sentence));
     }
 
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (dialogueText.text != sentence)
+            {
+                clicked = true;
+                StopAllCoroutines();
+                dialogueText.text = sentence;
+                mouseButton.gameObject.SetActive(true);
 
+            }
+
+        }
+        if (dialogueText.text == sentence)
+        {
+            mouseButton.gameObject.SetActive(true); 
+        }
+        if (dialogueText.text != sentence)
+        {
+            mouseButton.gameObject.SetActive(false);
+        }
+    }
     IEnumerator TypeSentence(string sentence)
     {
         dialogueText.text = "";
         foreach (char letter in sentence.ToCharArray())
         {
             dialogueText.text += letter;
-            yield return null; // wait a single frame
+            yield return new WaitForSeconds(.05f); 
         }
     }
 
