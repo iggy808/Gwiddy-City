@@ -165,12 +165,20 @@ namespace BattleEvent
 			if (BattleManager.CurrentTurn == BattleTurn.Player)
 			{
 				// Fetch updated list of dances
-				PlayerAvailableDances = Player.GetComponent<PlayerDances>().Dances;
+				List<DanceEvent.Pose> playerDances = Player.GetComponent<PlayerDances>().Dances;
 				// Remove dances where the stamina cost is higher than the available stamina
-				PlayerAvailableDances = PlayerAvailableDances.Where(x => BattleManager.GetPoseStaminaCost(x) <= BattleManager.PlayerCurrentStamina).ToList();
+				PlayerAvailableDances = new List<DanceEvent.Pose>();
+				foreach (DanceEvent.Pose pose in playerDances)
+				{
+					if (BattleManager.GetPoseStaminaCost(pose) < BattleManager.PlayerCurrentStamina)
+					{
+						PlayerAvailableDances.Add(pose);
+					}
+				}
 			}
 			else if (BattleManager.CurrentTurn == BattleTurn.Enemy)
 			{	
+				// will figure out enemy stuff later
 				EnemyAvailableDances = BattleManager.Context.Enemy.DanceMoves.Where(x => BattleManager.GetPoseStaminaCost(x) <= BattleManager.EnemyCurrentStamina).ToList();
 			}
 	
