@@ -165,14 +165,15 @@ namespace BattleEvent
 			if (BattleManager.CurrentTurn == BattleTurn.Player)
 			{
 				// Fetch updated list of dances
-				List<DanceEvent.Pose> playerDances = Player.GetComponent<PlayerDances>().Dances;
+				//List<DanceEvent.Pose> playerDances = Player.GetComponent<PlayerDances>().Dances;
 				// Remove dances where the stamina cost is higher than the available stamina
-				PlayerAvailableDances = new List<DanceEvent.Pose>();
-				foreach (DanceEvent.Pose pose in playerDances)
+				PlayerAvailableDances = Player.GetComponent<PlayerDances>().Dances;
+
+				foreach (DanceEvent.Pose pose in PlayerAvailableDances)
 				{
-					if (BattleManager.GetPoseStaminaCost(pose) < BattleManager.PlayerCurrentStamina)
+					if (BattleManager.GetPoseStaminaCost(pose) <= BattleManager.PlayerCurrentStamina)
 					{
-						PlayerAvailableDances.Add(pose);
+						//PlayerAvailableDances.Add(pose);
 					}
 				}
 			}
@@ -190,9 +191,10 @@ namespace BattleEvent
 
 			// Dynamically generate a button for every dance in the player's dance list
 			GenerateDanceMenuButtons();
-
+			
 			SequenceMenuButton.SetActive(true);
 		}
+
 
 
 		public void GenerateDanceMenuButtons()
@@ -264,6 +266,12 @@ namespace BattleEvent
 				// Assign OnClick functions to generated buttons
 				Button danceButtonComponent = DanceMenuButtons.transform.GetChild(i+1).transform.GetChild(0).GetComponent<Button>();
 				danceButtonComponent.onClick.AddListener(delegate{InputController.DanceMenuDanceButtonClicked(pose);});
+
+				if (BattleManager.GetPoseStaminaCost(pose) > BattleManager.PlayerCurrentStamina)
+				{
+					// Disable button if stamina too costly (hoping this dims the button a lil)
+					danceButtonComponent.interactable = false;
+				}
 
 				i++;
 			}
