@@ -68,6 +68,13 @@ namespace BattleEvent
 			CurrentSequencerIndex = 0;
 		}
 
+		public void PlayEnemyTurn()
+		{
+			Debug.Log("Playing enemy turn.");
+			bool IsEnemyTurn = true;
+			TriggerOneOffDanceEvent(DanceEvent.Pose.Splits, IsEnemyTurn);
+		}
+
 		public void HandleSequenceStats(int sequenceCoolness, int sequenceStaminaCost)
 		{
 			// Track correct stats according to current turn, switch turns afterwards
@@ -124,8 +131,9 @@ namespace BattleEvent
 				else if (CurrentTurn == BattleTurn.Enemy)
 				{
 					Debug.Log("Enemy turn, temporarily displaying manual UI.");
-					BattleUIManager.ShowMainMenu();
-					BattleUIManager.UpdateBattleStats();
+					PlayEnemyTurn();
+					//BattleUIManager.ShowMainMenu();
+					//BattleUIManager.UpdateBattleStats();
 				}
 			}
 		}
@@ -187,7 +195,6 @@ namespace BattleEvent
 
 		public void TriggerSequenceEvent()
 		{
-
 			if (SequencerPoses.Count > 0)
 			{
 				// Disable icons here
@@ -207,7 +214,7 @@ namespace BattleEvent
 			}
 		}
 
-		public void TriggerOneOffDanceEvent(DanceEvent.Pose pose)
+		public void TriggerOneOffDanceEvent(DanceEvent.Pose pose, bool IsEnemyTurn = false)
 		{
 			DanceHandler.ActivateDanceEvent(new DanceRequestContext()
 			{
@@ -216,7 +223,8 @@ namespace BattleEvent
 				{
 					pose
 				}
-			});
+			},
+			IsEnemyTurn);
 		}
 
 		public void EndBattle()

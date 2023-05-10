@@ -15,6 +15,7 @@ namespace DanceEvent
 		public bool ArmRightInPlace = false;
         public InputController InputController;
         public DanceRequestHandler DanceRequestHandler;
+		public GoalPose GoalPose; 
 
 		// Game object references for checking limbs for goal position
 		[SerializeField]
@@ -25,8 +26,6 @@ namespace DanceEvent
         GameObject ArmLeftPivot;
 		[SerializeField]
         GameObject LegLeftPivot;
-		[SerializeField]
-		GoalPose GoalPose; 
 		[SerializeField]
 		DanceEventUIManager DanceEventUIManager;
 
@@ -41,8 +40,11 @@ namespace DanceEvent
         float RemainingTime;
 		int CurrentSequencePoseIndex;
 
-		public void ConfigureDanceEventInternal(DanceRequestContext context, int currentSequencePoseIndex, Limb startingLimb)
+		bool IsEnemyQuicktimeEvent;
+
+		public void ConfigureDanceEventInternal(DanceRequestContext context, int currentSequencePoseIndex, Limb startingLimb, bool IsEnemyTurn = false)
 		{
+			IsEnemyQuicktimeEvent = IsEnemyTurn;
 			Context = context;
 			CurrentSequencePoseIndex = currentSequencePoseIndex;
 			CurrentLimbCount = 0;
@@ -52,6 +54,7 @@ namespace DanceEvent
             GoalPose.DisplayGoalRotations(); 
 
 			InputController.CurrentLimb = startingLimb;
+			InputController.InitializeInputController(IsEnemyTurn);
 			InitializeEvent();
 		}
 
@@ -65,7 +68,6 @@ namespace DanceEvent
 
 		void InitializeEvent()
 		{
-			//Debug.Log("Initializing event");
 			RemainingTime = 3f;
 			WasSuccessful = false;
 			CurrentLimbCount = 0;
@@ -73,7 +75,6 @@ namespace DanceEvent
 			LegRightInPlace = false;
 			ArmLeftInPlace = false;
 			LegLeftInPlace = false;
-			//Debug.Log("Timer On!");
 			TimerOn = true;
 		}
 		
@@ -94,13 +95,6 @@ namespace DanceEvent
 				WasSuccessful = true;
                 return;
             }
-
-            // Track what limb is currently being rotated
-			/*
-			Debug.Log("DanceEventManager.cs: CurrentLimbCount: " + CurrentLimbCount );
-			Debug.Log("DanceEventManager.cs: Context.DesiredPoseOrders.ElementAt(CurrentSequencePoseIndex).LimbRotationOrder.Count - 1: "  + (Context.DesiredPoseOrders.ElementAt(CurrentSequencePoseIndex).LimbRotationOrder.Count - 1));
-			*/
-
 			
 			if (CurrentLimbCount < Context.DesiredPoseOrders.ElementAt(CurrentSequencePoseIndex).LimbRotationOrder.Count)
 			{
@@ -109,13 +103,18 @@ namespace DanceEvent
 				DanceEventUIManager.HighlightGoalLimb(InputController.CurrentLimb);
 			}
 
-
             // Tell player what button to press for quicktime event
-            DisplayInstruction();
+			if (!IsEnemyQuicktimeEvent)
+			{
+            	DisplayInstruction();
+			}
+
             // Decrement timer
             HandleTimer();
-            // Check to see if player's limbs are in position
+            
+			// Check to see if player's limbs are in position
             CheckGoalPositions();
+
             // If all limbs are in position, dance event over
             if (ArmRightInPlace && LegRightInPlace && ArmLeftInPlace && LegLeftInPlace)
             {

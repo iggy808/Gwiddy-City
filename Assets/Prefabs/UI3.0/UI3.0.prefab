@@ -2867,6 +2867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c29ef8b0020b4685a23d306340dfd54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SequencerIcons: []
   SequencerSlotIconPrefab: {fileID: 1368645698925010100, guid: 8c17279175eef4714b2cc1c5889ba2e5, type: 3}
   SequencerSlotBorders: []
 --- !u!1 &2324769121157058065
@@ -4588,10 +4589,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5846f55b50f124b48b799367df37fcf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsEnemyQuicktimeEvent: 0
   ArmRightPivot: {fileID: 3229531597279067888}
   LegRightPivot: {fileID: 3229531596022387186}
   ArmLeftPivot: {fileID: 3229531596818972816}
   LegLeftPivot: {fileID: 3229531595543343561}
+  DanceManager: {fileID: 0}
   CurrentLimb: 0
 --- !u!114 &3229531596623840338
 MonoBehaviour:
@@ -4611,11 +4614,11 @@ MonoBehaviour:
   ArmRightInPlace: 0
   InputController: {fileID: 3229531596623840333}
   DanceRequestHandler: {fileID: 5648977391847450059}
+  GoalPose: {fileID: 8090704148143724458}
   ArmRightPivot: {fileID: 3229531597279067888}
   LegRightPivot: {fileID: 3229531596022387186}
   ArmLeftPivot: {fileID: 3229531596818972816}
   LegLeftPivot: {fileID: 3229531595543343561}
-  GoalPose: {fileID: 8090704148143724458}
   DanceEventUIManager: {fileID: 1309487096300053568}
 --- !u!114 &8090704148143724458
 MonoBehaviour:
@@ -10796,10 +10799,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5846f55b50f124b48b799367df37fcf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsEnemyQuicktimeEvent: 0
   ArmRightPivot: {fileID: 3732040263640558875}
   LegRightPivot: {fileID: 5948135981297652115}
   ArmLeftPivot: {fileID: 1674780056585223695}
   LegLeftPivot: {fileID: 5347031175635036579}
+  DanceManager: {fileID: 8022849700733667772}
   CurrentLimb: 0
 --- !u!114 &8022849700733667772
 MonoBehaviour:
@@ -10819,11 +10824,11 @@ MonoBehaviour:
   ArmRightInPlace: 0
   InputController: {fileID: 8022849700733667747}
   DanceRequestHandler: {fileID: 5648977391847450059}
+  GoalPose: {fileID: 3729136783610470083}
   ArmRightPivot: {fileID: 3732040263640558875}
   LegRightPivot: {fileID: 5948135981297652115}
   ArmLeftPivot: {fileID: 1674780056585223695}
   LegLeftPivot: {fileID: 5347031175635036579}
-  GoalPose: {fileID: 3729136783610470083}
   DanceEventUIManager: {fileID: 7616272398274285792}
 --- !u!114 &3729136783610470083
 MonoBehaviour:

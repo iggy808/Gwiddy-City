@@ -9,6 +9,7 @@ namespace DanceEvent
     {
 		// dont think i need context here
 		public DanceRequestContext Context;
+		public bool IsEnemyQuicktimeEvent;
         // Arm right pivot contains rotation constraints
 		[SerializeField]
         public GameObject ArmRightPivot;
@@ -19,9 +20,23 @@ namespace DanceEvent
 		[SerializeField]
         public GameObject LegLeftPivot;
 		
+		[SerializeField]
+		DanceEventManager DanceManager;
+
+		GoalPose GoalPose;
+
 
         float RotationSpeed = 10f; // Breaks at 5 rotation speed lmao- need to implement clamp and see if that fixes
         public Limb CurrentLimb;
+
+		public void InitializeInputController(bool IsEnemyTurn)
+		{
+			IsEnemyQuicktimeEvent = IsEnemyTurn;
+			if (IsEnemyQuicktimeEvent)
+			{	
+				GoalPose = DanceManager.GoalPose;
+			}
+		}
 
         // Update is called once per frame
         void Update()
@@ -33,6 +48,33 @@ namespace DanceEvent
         void HandleInput()
         {
             float currentRotation;
+			if (IsEnemyQuicktimeEvent)
+			{
+				Debug.Log("Handling enemy quicktime event input.");
+				Debug.Log("Enemy CurrentLimb : " + CurrentLimb);
+				switch (CurrentLimb)
+				{
+					case Limb.ArmRight:
+						// Ideally, rotate limbs towards goal position automatically for enemy
+						//Vector3 goalRotation = GoalPose.ArmRightGoalRotation.eulerAngles;
+						//ArmRightPivot.transform.localRotation = Quaternion.Euler(goalRotation.x, goalRotation.y, goalRotation.z - currentRotation + RotationSpeed);
+						// Alternatively, immediately set rotation to goal rotation
+						ArmRightPivot.transform.localRotation = GoalPose.ArmRightGoalRotation;
+						break;
+					case Limb.LegRight:
+						LegRightPivot.transform.localRotation = GoalPose.LegRightGoalRotation;
+						break;
+					case Limb.ArmLeft:
+						ArmLeftPivot.transform.localRotation = GoalPose.ArmLeftGoalRotation;
+						break;
+					case Limb.LegLeft:
+						LegLeftPivot.transform.localRotation = GoalPose.LegLeftGoalRotation;
+						break;
+					default:
+						break;
+				}
+				return;
+			}
             switch (CurrentLimb)
             {
                 case Limb.ArmRight:

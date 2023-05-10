@@ -40,6 +40,7 @@ namespace DanceEvent
 		DanceEventUITransformController DanceEventUITransformController;
 		List<Pose> DanceSequence;
 		bool IsSequenceEvent;
+		bool IsEnemyTurn;
 
 		int SequenceCoolness;
 		int SequenceStaminaCost;
@@ -50,7 +51,7 @@ namespace DanceEvent
 			EnvDanceUI.SetActive(false);
 		}
 
-		public void ActivateDanceEvent(DanceRequestContext context)
+		public void ActivateDanceEvent(DanceRequestContext context, bool IsEnemyTurn = false)
 		{
 			Context = context;
 			if (!IsEventActive)
@@ -59,10 +60,13 @@ namespace DanceEvent
 				CurrentSequencePoseIndex = 0;
 				SequenceCoolness = 0;
 				SequenceStaminaCost = 0;
+				if (BattleHandler.BattleIsActive && IsEnemyTurn)
+				{
 
+				}
 				AssignUIAndManagers();	
 				DisableUnwantedChildren();	
-				ConfigureQuicktimeEvent();	
+				ConfigureQuicktimeEvent(IsEnemyTurn);	
 				TriggerQuicktimeEvent();
 			}
 			else
@@ -91,6 +95,7 @@ namespace DanceEvent
 				SequenceStaminaCost = 0;
 
 				AssignUIAndManagers();
+
 				DisableUnwantedChildren();	
 				ConfigureQuicktimeEvent();
 				TriggerQuicktimeEvent();
@@ -214,12 +219,11 @@ namespace DanceEvent
 			DanceInputController = DanceEventUI.GetComponent<InputController>();
 		}
 
-		void ConfigureQuicktimeEvent()
+		void ConfigureQuicktimeEvent(bool IsEnemyTurn = false)
 		{	
 			// Enable object for configuration
 			DanceEventUI.SetActive(true);
 			
-			//
 			// Configure components to dance request context
 			DanceEventUITransformController.SetUITransform(Context);			
 
@@ -227,7 +231,8 @@ namespace DanceEvent
 			DanceEventManager.ConfigureDanceEventInternal(
 					Context, 
 					CurrentSequencePoseIndex, 
-					Context.DesiredPoseOrders.ElementAt(CurrentSequencePoseIndex).LimbRotationOrder.ElementAt(0));
+					Context.DesiredPoseOrders.ElementAt(CurrentSequencePoseIndex).LimbRotationOrder.ElementAt(0),
+					IsEnemyTurn);
 			
 			// Initialize components and game object to off
 			DanceEventManager.enabled = false;
