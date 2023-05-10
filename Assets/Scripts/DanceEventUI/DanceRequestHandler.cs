@@ -239,12 +239,6 @@ namespace DanceEvent
 			DanceInputController.enabled = false;
 			DanceEventUITransformController.enabled = false;
 
-			// if this is a battle, disable the UI components
-			if (Context.Environment == Environment.BattleDance)
-			{
-				BattleEventUIComponents.SetActive(false);
-			}
-
 			// Disable dance event ui to allow for delayed start
 			DanceEventUI.SetActive(false);
 		}
@@ -255,7 +249,9 @@ namespace DanceEvent
 			{
 				EnvDanceUI.SetActive(false);
 				// Turn off battle dance UI components, but do not diable battle dance UI canvas - canvas holds logic for the battle
-				BattleEventUIComponents.SetActive(false);	
+				//BattleEventUIComponents.SetActive(false);	
+				BattleManager.BattleUIManager.HideInputPanel();
+				BattleManager.BattleUIManager.ShowBattleStats();
 			}
 			else if (Context.Environment == Environment.EnvDance)
 			{

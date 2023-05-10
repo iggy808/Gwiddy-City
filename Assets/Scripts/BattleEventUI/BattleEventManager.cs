@@ -17,13 +17,12 @@ namespace BattleEvent
 		public int CurrentSequencePoseIndex;
 		public BattleRequestContext Context;
 		public BattleTurn CurrentTurn;
+		public BattleEventUIManager BattleUIManager;
 
 		[SerializeField]
 		GameObject PlayerController;
 		[SerializeField]
 		BattleRequestHandler BattleHandler;
-		[SerializeField]
-		BattleEventUIManager BattleUIManager;
 		[SerializeField]
 		SequencerUIManager SequencerUIManager;
 		[SerializeField]
@@ -72,7 +71,13 @@ namespace BattleEvent
 		{
 			Debug.Log("Playing enemy turn.");
 			bool IsEnemyTurn = true;
-			TriggerOneOffDanceEvent(DanceEvent.Pose.Splits, IsEnemyTurn);
+			if (EnemyCurrentStamina >= GetPoseStaminaCost(DanceEvent.Pose.Splits))
+			{
+				TriggerOneOffDanceEvent(DanceEvent.Pose.Splits, IsEnemyTurn);
+			}
+
+			// if not enough stamina to do any poses,
+			// Rest
 		}
 
 		public void HandleSequenceStats(int sequenceCoolness, int sequenceStaminaCost)
@@ -82,13 +87,11 @@ namespace BattleEvent
 			{
 				PlayerCurrentCoolness += sequenceCoolness;
 				PlayerCurrentStamina -= sequenceStaminaCost;
-				CurrentTurn = BattleTurn.Enemy;
 			}
 			else if (CurrentTurn == BattleTurn.Enemy)
 			{	
 				EnemyCurrentCoolness += sequenceCoolness;
 				EnemyCurrentStamina -= sequenceStaminaCost;
-				CurrentTurn = BattleTurn.Player;
 			}	
 
 			// If both dancers run out of stamina, or if one dancer leads the other by 30 coolness,
@@ -124,14 +127,16 @@ namespace BattleEvent
 			{
 				if (CurrentTurn == BattleTurn.Player)
 				{
-					Debug.Log("Player turn, displaying UI for player");
-					BattleUIManager.ShowMainMenu();
+					Debug.Log("Player turn is over switching to enemy.");
+					CurrentTurn = BattleTurn.Enemy;
+					PlayEnemyTurn();
 					BattleUIManager.UpdateBattleStats();
 				}
 				else if (CurrentTurn == BattleTurn.Enemy)
 				{
-					Debug.Log("Enemy turn, temporarily displaying manual UI.");
-					PlayEnemyTurn();
+					Debug.Log("Enemy turn is over, switching to player.");
+					CurrentTurn = BattleTurn.Player;
+					BattleUIManager.ShowInputPanel();
 					BattleUIManager.ShowMainMenu();
 					BattleUIManager.UpdateBattleStats();
 				}
@@ -216,6 +221,8 @@ namespace BattleEvent
 
 		public void TriggerOneOffDanceEvent(DanceEvent.Pose pose, bool IsEnemyTurn = false)
 		{
+			BattleUIManager.ShowBattleStats();
+
 			DanceHandler.ActivateDanceEvent(new DanceRequestContext()
 			{
 				Environment = Environment.BattleDance,

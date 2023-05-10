@@ -2837,6 +2837,9 @@ MonoBehaviour:
   SequencerUIManager: {fileID: 3191129143610542419}
   Player: {fileID: 0}
   UIComponents: {fileID: 5297777176016878447}
+  InputPanel: {fileID: 5297777174626147907}
+  EnemyBattleStats: {fileID: 4498806711640087671}
+  PlayerBattleStats: {fileID: 5297777175236054850}
   BackButton: {fileID: 6677961687636060674}
   MainMenuButtons: {fileID: 5297777176015599108}
   DanceMenuButtons: {fileID: 5297777176746755670}

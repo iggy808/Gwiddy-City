@@ -26,6 +26,12 @@ namespace BattleEvent
 		// UI Components may be shut off, allowing the battle logic to persist, but the UI elements to not be displayed
 		[SerializeField]
 		GameObject UIComponents;
+		[SerializeField]
+		GameObject InputPanel;
+		[SerializeField]
+		GameObject EnemyBattleStats;
+		[SerializeField]
+		GameObject PlayerBattleStats;
 
 		// Handy button for going back a layer in the battle menu system
 		[SerializeField]
@@ -89,6 +95,7 @@ namespace BattleEvent
 		{
 			EnemyUI_Name.text = context.Enemy.Name.ToString();
 			InitializeBattleStats(context);
+			ShowInputPanel();
 		}
 
 		public void InitializeBattleStats(BattleRequestContext context)
@@ -128,6 +135,22 @@ namespace BattleEvent
 		{
 			PlayerUI_CurrentCoolness.text = BattleManager.PlayerCurrentCoolness.ToString();
 			EnemyUI_CurrentCoolness.text = BattleManager.EnemyCurrentCoolness.ToString();
+		}
+
+		public void ShowBattleStats()
+		{
+			EnemyBattleStats.SetActive(true);
+			PlayerBattleStats.SetActive(true);
+		}
+
+		public void HideInputPanel()
+		{
+			InputPanel.SetActive(false);
+		}
+
+		public void ShowInputPanel()
+		{
+			InputPanel.SetActive(true);
 		}
 
 		public void ShowMainMenu(bool IsEnemyTurn = false)

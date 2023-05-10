@@ -47,13 +47,11 @@ namespace BattleEvent
 			Debug.Log("BackButton clicked");
 			if (BattleEventUIManager.CurrentState == InputState.DanceMenu)
 			{
-				Debug.Log("Show main menu called frim back button script");
 				BattleEventUIManager.ShowMainMenu();
 			}
 			else if (BattleEventUIManager.CurrentState == InputState.SequenceMenu)
 			{
 				BattleManager.InitializeSequencerState();
-				Debug.Log("Going back from sequence menu to dance menu.");
 				BattleEventUIManager.ShowDanceMenu();
 			}
 		}
@@ -63,11 +61,6 @@ namespace BattleEvent
 			BattleManager.EndBattle();
 		}
 
-		// Will need to find a way to accept poses as input from the panel
-		//
-		// Also need to figure out how to change from using the cursor for 
-		// looking around to using the cursor for clicking menu buttons,
-		// because this does not work currently
 		public void DanceMenuClicked()
 		{
 			Debug.Log("Dance button clicked");
