@@ -1,4 +1,7 @@
 using UnityEngine;
+using DanceEvent;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 
 namespace BattleEvent
@@ -15,18 +18,22 @@ namespace BattleEvent
 		public BattleRequestContext Context;
 		public BattleTurn CurrentTurn;
 
-
 		[SerializeField]
 		GameObject PlayerController;
 		[SerializeField]
 		BattleRequestHandler BattleHandler;
 		[SerializeField]
 		BattleEventUIManager BattleUIManager;
+		[SerializeField]
+		SequencerUIManager SequencerUIManager;
+		[SerializeField]
+		DanceRequestHandler DanceHandler;
 
 		SpecialEnemies CurrentEnemy;
-
 		bool WasSuccessful;
 		int CoolnessLeadWinThreshhold;
+		List<DanceEvent.Pose> SequencerPoses;
+		int CurrentSequencerIndex;
 
 
 		public void InitializeBattleEvent(BattleRequestContext context)
@@ -46,12 +53,24 @@ namespace BattleEvent
 			PlayerCurrentCoolness = 0;
 			CoolnessLeadWinThreshhold = context.Enemy.CoolnessThreshhold;
 
+			SequencerPoses = new List<DanceEvent.Pose>();
+			CurrentSequencerIndex = 0;
+			SequencerUIManager.SequencerIcons = new List<GameObject>();
+
 			// Initialize the battle stats with the freshly fetched stats
 			BattleUIManager.InitializeBattleUI(Context);
 		}
 
+		public void InitializeSequencerState()
+		{
+			// Can let player earn more sequencer slots as an upgrade
+			SequencerPoses = new List<DanceEvent.Pose>();
+			CurrentSequencerIndex = 0;
+		}
+
 		public void HandleSequenceStats(int sequenceCoolness, int sequenceStaminaCost)
 		{
+			// Track correct stats according to current turn, switch turns afterwards
 			if (CurrentTurn == BattleTurn.Player)
 			{
 				PlayerCurrentCoolness += sequenceCoolness;
@@ -67,10 +86,15 @@ namespace BattleEvent
 
 			// If both dancers run out of stamina, or if one dancer leads the other by 30 coolness,
 			// end the battle
-			if ((PlayerCurrentCoolness >= EnemyCurrentCoolness + CoolnessLeadWinThreshhold 
-				 || EnemyCurrentCoolness >= PlayerCurrentCoolness + CoolnessLeadWinThreshhold) 
+			if ((PlayerCurrentCoolness - CoolnessLeadWinThreshhold > EnemyCurrentCoolness 
+				 || EnemyCurrentCoolness - CoolnessLeadWinThreshhold >= PlayerCurrentCoolness) 
 				 || (EnemyCurrentStamina <= 0 && PlayerCurrentStamina <= 0))
 			{
+				if (EnemyCurrentStamina <= 0 && PlayerCurrentStamina <= 0)
+				{
+					 Debug.Log("Both dancers out of stamina.");
+				}
+
 				// If player is cooler, player wins
 				if (PlayerCurrentCoolness > EnemyCurrentCoolness)
 				{
@@ -78,15 +102,15 @@ namespace BattleEvent
 				}
 				else if (PlayerCurrentCoolness == EnemyCurrentCoolness)
 				{
-					Debug.Log("Tiebreaker! Dif minigame would be cool.");
-					Debug.Log("For now, default to player victory.");
+					Debug.Log("Tiebreaker! For now, default to player victory.");
 					WasSuccessful = true;
 				}
 				else
 				{
 					WasSuccessful = false;
 				}
-
+				
+				Debug.Log("Ending battle. Player cooler than '" + Context.Enemy.Name +"' ? : " + WasSuccessful);
 				EndBattle();
 			}
 			else
@@ -99,7 +123,7 @@ namespace BattleEvent
 				}
 				else if (CurrentTurn == BattleTurn.Enemy)
 				{
-					Debug.Log("Enemy turn, displaying UI for enemy");
+					Debug.Log("Enemy turn, temporarily displaying manual UI.");
 					BattleUIManager.ShowMainMenu();
 					BattleUIManager.UpdateBattleStats();
 				}
@@ -144,6 +168,55 @@ namespace BattleEvent
 			}
 
 			return poseStaminaCost;
+		}
+
+		public void AddPoseToSequencer(DanceEvent.Pose pose)
+		{
+			if (CurrentSequencerIndex < Context.Player.SequencerSlots)
+			{
+				Debug.Log("Adding [" + pose + "] to sequencer.");	
+				SequencerPoses.Add(pose);
+				SequencerUIManager.AddPoseIconToSequencer(CurrentSequencerIndex, pose);
+				CurrentSequencerIndex++;
+			}
+			else
+			{
+				Debug.Log("Sequencer is full! Cannot add [" + pose + "] to sequencer.");
+			}
+		}
+
+		public void TriggerSequenceEvent()
+		{
+
+			if (SequencerPoses.Count > 0)
+			{
+				// Disable icons here
+				SequencerUIManager.InitializeSequencerIcons();
+
+				// Disable the sequencer menu buttons
+				foreach (GameObject button in BattleUIManager.SequenceDanceButtons)
+				{
+					Destroy(button);
+				}
+
+				DanceHandler.ActivateDanceSequenceEvent(new DanceRequestContext()
+				{
+					Environment = Environment.BattleDance,
+					DesiredMoves = SequencerPoses,
+				});	
+			}
+		}
+
+		public void TriggerOneOffDanceEvent(DanceEvent.Pose pose)
+		{
+			DanceHandler.ActivateDanceEvent(new DanceRequestContext()
+			{
+				Environment = Environment.BattleDance,
+				DesiredMoves = new List<DanceEvent.Pose>()
+				{
+					pose
+				}
+			});
 		}
 
 		public void EndBattle()

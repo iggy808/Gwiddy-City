@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
+using TMPro;
 using System.Collections.Generic;
 using DanceEvent;
 
@@ -50,6 +52,7 @@ namespace BattleEvent
 			}
 			else if (BattleEventUIManager.CurrentState == InputState.SequenceMenu)
 			{
+				BattleManager.InitializeSequencerState();
 				Debug.Log("Going back from sequence menu to dance menu.");
 				BattleEventUIManager.ShowDanceMenu();
 			}
@@ -74,6 +77,11 @@ namespace BattleEvent
 		public void SequenceMenuClicked()
 		{
 			BattleEventUIManager.ShowSequenceMenu();
+		}
+
+		public void DanceMenuDanceButtonClicked(DanceEvent.Pose pose)
+		{
+			BattleManager.TriggerOneOffDanceEvent(pose);
 		}
 
 		public void DemoSequenceEvent()
@@ -116,6 +124,16 @@ namespace BattleEvent
 				},
 				TargetObject = null
 			});	
+		}
+
+		public void AddToSequencer(DanceEvent.Pose pose)
+		{
+			BattleManager.AddPoseToSequencer(pose);
+		}
+
+		public void MoveItButtonClicked()
+		{
+			BattleManager.TriggerSequenceEvent();
 		}
 
 	}

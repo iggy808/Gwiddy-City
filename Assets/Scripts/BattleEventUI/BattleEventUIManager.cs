@@ -15,6 +15,9 @@ namespace BattleEvent
 		[SerializeField]
 		InputController InputController;
 		
+		[SerializeField]
+		SequencerUIManager SequencerUIManager;
+		
 		// References to player controller needed to get updated versions of player stats
 		[SerializeField]
 		GameObject Player;
@@ -48,7 +51,7 @@ namespace BattleEvent
 		[SerializeField]
 		GameObject SequenceDancesPanel;
 
-		List<GameObject> SequenceDanceButtons;
+		public List<GameObject> SequenceDanceButtons;
 
 		// Temporary hardcoded button references
 		// Need to find a way to dynamically generate these with prefab Instantiate()
@@ -95,19 +98,14 @@ namespace BattleEvent
 
 		public void InitializeCoolnessStats(BattleRequestContext context)
 		{
-			Debug.Log("Initializing coolness stats to 0");
 			EnemyUI_CurrentCoolness.text = BattleManager.EnemyCurrentCoolness.ToString();
 			PlayerUI_CurrentCoolness.text = BattleManager.PlayerCurrentCoolness.ToString();
 		}
 
 		public void InitializeStaminaStats(BattleRequestContext context)
 		{
-			Debug.Log("Initializing stamina stats");
 			PlayerUI_CurrentStamina.text = BattleManager.PlayerCurrentStamina.ToString();
 			PlayerUI_MaxStamina.text = context.Player.MaxStamina.ToString();
-			Debug.Log("Current Player stamina: " + context.Player.CurrentStamina.ToString());
-			Debug.Log("Player max stamina: " + context.Player.MaxStamina.ToString());
-
 
 			EnemyUI_CurrentStamina.text = context.Enemy.MaxStamina.ToString();
 			EnemyUI_MaxStamina.text = context.Enemy.MaxStamina.ToString();
@@ -133,6 +131,7 @@ namespace BattleEvent
 
 		public void ShowMainMenu()
 		{
+			// Delete generated buttons from dance menu if previous menu was dance menu
 			if (CurrentState == InputState.DanceMenu)
 			{
 				foreach (GameObject button in DanceMenuDanceButtons)
@@ -140,6 +139,7 @@ namespace BattleEvent
 					Destroy(button);
 				}
 			}
+
 			CurrentState = InputState.MainMenu;
 			BackButton.SetActive(false);
 			UIComponents.SetActive(true);
@@ -191,14 +191,6 @@ namespace BattleEvent
 		{
 			DanceMenuDanceButtons = new List<GameObject>();
 
-			// Note:
-			// Left side (i%2=0):
-			// Min/Max x anchors: (0, 0.5)
-			// Min/Max y anchors: (0.8, 1) <-- Y anchors vary by intervals of 0.2
-
-			// Right side (i%2!=0):
-			// Min/Max x anchors: (0.5,1)
-			// Min/Max y anchors: (0.8, 1) <-- Y anchors vary by intervals 0.2
 			Vector2 startingAnchorMin = new Vector2(0f, 0.8f);
 			Vector2 startingAnchorMax = new Vector2(0.5f, 1f);
 			Vector2 rowAnchors_Y = new Vector2(startingAnchorMin.y, startingAnchorMax.y);	
@@ -207,16 +199,14 @@ namespace BattleEvent
 			int i = 0;
 			foreach (DanceEvent.Pose pose in PlayerAvailableDances)
 			{
-				// instantiate and position a prefab dance button	
-				Debug.Log("Generating a dance button! i: " + i);
-
-				// instantiate and position a prefab sequence dance event button
-				// Instantiate dance button
+				// Instantiate and position a prefab dance event button
 				GameObject danceButton = Instantiate(DanceMenuButtonPrefab, new Vector3(0f,0f,0f), Quaternion.identity) as GameObject;
+				// For some reason have to enable this button? Maybe prefab error
 				danceButton.SetActive(true);
+				// Track current set of generated DanceMenuButtons for later destroying
 				DanceMenuDanceButtons.Add(danceButton);
 
-				// Set to be a child of the sequence dances panel
+				// Set to be a child of the DanceMenuButtons container
 				danceButton.transform.parent = DanceMenuButtons.transform;
 
 				// Position with RectTransform accordingly
@@ -230,7 +220,6 @@ namespace BattleEvent
 				else if (i % 2 == 0)
 				{
 					rowAnchors_Y = new Vector2(startingAnchorMin.y + ((i/2) * anchorOffset_Y), startingAnchorMax.y + ((i/2) * anchorOffset_Y));
-					Debug.Log("i : " + i + " , rowAnchors_Y (min) : " + rowAnchors_Y.x + " , rowAnchors_Y (max) : " + rowAnchors_Y.y);
 				}
 				else
 				{
@@ -262,25 +251,11 @@ namespace BattleEvent
 				rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, 0f);
 
 				// Label button with appropriate dance name
-				Debug.Log("First child of sequence dances panel (Sequence button) : " + DanceMenuButtons.transform.GetChild(0).name);
-				Debug.Log("Second child of dance menu buttons object (Dance button container) : " + DanceMenuButtons.transform.GetChild(1).name);
-				Debug.Log("Ideally 'text': " + DanceMenuButtons.transform.GetChild(i+1).transform.GetChild(0).transform.GetChild(0).name);
 				DanceMenuButtons.transform.GetChild(i+1).transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = pose.ToString().ToUpper() + "!";
 
-				Debug.Log("DanceMenuButtons.transform.GetChild(i+1).transform.GetChild(0).name : " + DanceMenuButtons.transform.GetChild(i+1).transform.GetChild(0).name);
+				// Assign OnClick functions to generated buttons
 				Button danceButtonComponent = DanceMenuButtons.transform.GetChild(i+1).transform.GetChild(0).GetComponent<Button>();
-				// Assign onclick event to button
-				switch (pose)
-				{
-					case DanceEvent.Pose.Splits:
-						danceButtonComponent.onClick.AddListener(InputController.SplitsAttackClicked);
-						break;
-					case DanceEvent.Pose.Cool:
-						danceButtonComponent.onClick.AddListener(InputController.CoolAttackClicked);
-						break;
-					default:
-						break;
-				}
+				danceButtonComponent.onClick.AddListener(delegate{InputController.DanceMenuDanceButtonClicked(pose);});
 
 				i++;
 			}
@@ -296,10 +271,9 @@ namespace BattleEvent
 			int i = 0;
 			foreach (DanceEvent.Pose pose in PlayerAvailableDances)
 			{
-				// instantiate and position a prefab sequence dance event button
-				Debug.Log("Generating a sequence dance button! i: " + i);
-				// Instantiate dance button
+				// Instantiate and position a prefab sequence dance button
 				GameObject danceButton = Instantiate(SequenceDanceButtonPrefab, new Vector3(0f,0f,0f), Quaternion.identity) as GameObject;
+				// Track current set of SequenceDanceButtons for later destorying
 				SequenceDanceButtons.Add(danceButton);
 				// Set to be a child of the sequence dances panel
 				danceButton.transform.parent = SequenceDancesPanel.transform;
@@ -318,23 +292,17 @@ namespace BattleEvent
 				rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, 0f);
 
 				// Label button with appropriate dance name
-				Debug.Log("First child of sequence dances panel : " + SequenceDancesPanel.transform.GetChild(0).name);
-				Debug.Log("Ideally 'DanceButton': " + SequenceDancesPanel.transform.GetChild(i).transform.GetChild(0).name);
-				SequenceDancesPanel.transform.GetChild(i).transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = pose.ToString().ToUpper() + "!";
+				danceButton.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>()
+					.text = pose.ToString().ToUpper() + "!";
 
 				// Assign onclick event for add button
-				// Assign onhover/onclick stat display for label
+				// Assign onhover/onclick stat display for label* (maybe)
+				Button addButtonComponent = danceButton.transform.GetChild(0).transform.GetChild(1).GetComponent<Button>();
+
+				// Assign onclick event to button
+				addButtonComponent.onClick.AddListener(delegate{InputController.AddToSequencer(pose);});
 
 				i++;
-				// Note from internet: 
-				// How to set left (left is float val for left):
-				//rt.offsetMin = new Vector2(left, rt.offsetMin.y);
-				// How to set right (right is float val for right):
-				//rt.offsetMax = new Vector2(-right, rt.offsetMax.y);
-				// How to set top (top is float val for top)
-				//rt.offsetMax = new Vector2(rt.offsetMax.x, -top);
-				// How to set bottom (bottom is float val for bottom)
-				//rt.offsetMin = new Vector2(rt.offsetMin.x, bottom);
 			}
 		}
 
@@ -352,10 +320,11 @@ namespace BattleEvent
 			DanceMenuButtons.SetActive(false);	
 			BackButton.SetActive(true);
 
-			// Need to dynamically generate buttons according to player available dances
 			SequenceMenu.SetActive(true);
-			// Same problem as show dance menu:
 			GenerateSequenceDanceButtons();
+			BattleManager.InitializeSequencerState();
+			SequencerUIManager.InitializeSequencerIcons();
+			SequencerUIManager.EnableSequencerSlotBorders(BattleManager.Context.Player.SequencerSlots);
 		}
 	}
 }
