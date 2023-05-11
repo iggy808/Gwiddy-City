@@ -35,6 +35,18 @@ public class PlayerInteract : MonoBehaviour
                     }
                     
                 }
+
+
+                // If the collided object has an ItemInteractable script
+                if (collider.TryGetComponent(out ItemInteractable item) )
+                {
+                    Debug.Log(item);
+                    // if the object has been interacted with 
+                    if (item.interacted == false)
+                    {
+                        item.Interact();
+                    }
+                }
             }
         }
     }

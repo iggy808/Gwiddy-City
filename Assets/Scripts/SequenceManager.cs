@@ -7,13 +7,12 @@ using UnityEngine;
 public class SequenceManager : MonoBehaviour
 {
 
-    public SequenceBlock block;
+    public ItemInteractable block;
     public Material[] notes = new Material[6];
     public Material[] selectedNotes = new Material[6];
     public int notesInputed;
     public Material blank;
     private Queue<GameObject> queue;
-    private Queue<GameObject> queue2;
     GameObject current;
     public GameObject door;
     public bool opened;
@@ -25,7 +24,6 @@ public class SequenceManager : MonoBehaviour
         failed = false;
         opened = false;
         queue = new Queue<GameObject>();
-        queue2 = new Queue<GameObject>();
     }
 
     // Update is called once per frame
@@ -33,11 +31,19 @@ public class SequenceManager : MonoBehaviour
     {
         isEqual = Enumerable.SequenceEqual(selectedNotes, notes);
         
+        if (block.GetComponent<AudioSource>().isPlaying )
+        {
+            block.interacted = true;
+        }
+        if (!block.GetComponent<AudioSource>().isPlaying )
+        {
+            block.interacted = false;
+        }
         // if the audio source is done playing, grey everything in the queue
         if (!block.GetComponent<AudioSource>().isPlaying && queue.Count >0 && !opened)
         {
             // Grey everything in the queue 
-            Debug.Log("Emptying queue");
+            //Debug.Log("Emptying queue");
             current = queue.Dequeue();
             for (int i = 0; i < selectedNotes.Length; i++)
             {
@@ -54,9 +60,9 @@ public class SequenceManager : MonoBehaviour
         {
 
             // Open the door 
-            Debug.Log("selected notes at index 5 = " + selectedNotes[5]);
-            Debug.Log("THEY ARE MATCHING");
-            Debug.Log("Opening Door");
+            //Debug.Log("selected notes at index 5 = " + selectedNotes[5]);
+            //Debug.Log("THEY ARE MATCHING");
+            //Debug.Log("Opening Door");
             door.transform.position += new Vector3(0, 4, 0);
             opened = true;
         }
@@ -71,7 +77,7 @@ public class SequenceManager : MonoBehaviour
             {
                 selectedNotes[i] = null;
             }
-            Debug.Log("THEY ARE NOT MATCHING");
+            //Debug.Log("THEY ARE NOT MATCHING");
 
             // Grey everything
             // For each child of sequencemanager (sequence1-6)
@@ -91,7 +97,7 @@ public class SequenceManager : MonoBehaviour
         // and the door hasn't been opened 
         if (selectedNotes[notesInputed] == notes[notesInputed] && selectedNotes[0] != null   && !opened)
         {
-            Debug.Log("Im gonna color and notesInputed = " + notesInputed);
+            //Debug.Log("Im gonna color and notesInputed = " + notesInputed);
 
             // Get the children game objects 
             // Since the two arrays have identical materials so far  
@@ -118,7 +124,7 @@ public class SequenceManager : MonoBehaviour
             GameObject Go = this.gameObject.transform.GetChild(i).gameObject;
             queue.Enqueue(Go);
             StartCoroutine(Color(Go, notes[i]));    
-            Debug.Log(Go.name);
+            //Debug.Log(Go.name);
         }
     }
 

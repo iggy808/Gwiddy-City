@@ -7,6 +7,7 @@ TagManager:
   - OldMan
   - NPC
   - MusicPuzzle
+  - Button
   layers:
   - Default
   - TransparentFX

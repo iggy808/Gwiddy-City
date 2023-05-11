@@ -29,19 +29,8 @@ public class NPCInteractable : MonoBehaviour
                 dialogueCanvas.SetActive(true);
                 Cursor.lockState = CursorLockMode.Confined;
                 Cursor.visible = true;
-                // Enable the speaking boolean?
-                // How to disable?
-                // The dialogue Manager takes in the name text and dialogue text, why not the boolean as well
-                // because we need this to be generalized. We cannot have a tie to NPC interactable because that's very specific
             }
         }
 
-        // If the target is an item.....
-        // COLIN: DO THIS LATER
-
-
-
-        // Debug comment
-        Debug.Log("Interacted");
     }
 }
