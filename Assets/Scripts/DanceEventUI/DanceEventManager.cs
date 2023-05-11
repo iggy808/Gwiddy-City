@@ -68,7 +68,7 @@ namespace DanceEvent
 
 		void InitializeEvent()
 		{
-			RemainingTime = 3f;
+			RemainingTime = 10f;
 			WasSuccessful = false;
 			CurrentLimbCount = 0;
 			ArmRightInPlace = false;

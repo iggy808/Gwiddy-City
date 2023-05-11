@@ -56,6 +56,10 @@ public class HUD : MonoBehaviour
             Dance2.gameObject.SetActive(true);
 
         }
+        if (player.GetComponent<PlayerDances>().Dances.Contains(DanceEvent.Pose.Sick))
+        {
+            Dance3.gameObject.SetActive(true);
+        }
 
     }
 }

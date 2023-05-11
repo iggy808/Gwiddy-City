@@ -60,8 +60,8 @@ namespace DanceEvent
 						Environment = Environment.EnvDance,
 						DesiredMoves = new List<Pose>
 						{
-							Pose.Splits
-							//Pose.Sick
+							//Pose.Splits
+							Pose.Sick
 						},
 						TargetObject = GameObject.Find("Walkablocka (3)")
 					});
