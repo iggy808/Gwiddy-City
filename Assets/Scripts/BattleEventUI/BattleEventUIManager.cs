@@ -39,11 +39,15 @@ namespace BattleEvent
 		[SerializeField]
 		Slider EnemyCoolnessBar;
 		[SerializeField]
+		TextMeshProUGUI EnemyCoolnessThreshold;
+		[SerializeField]
 		GameObject PlayerBattleStats;
 		[SerializeField]
 		Slider PlayerStaminaBar;
 		[SerializeField]
 		Slider PlayerCoolnessBar;
+		[SerializeField]
+		TextMeshProUGUI PlayerCoolnessThreshold;
 
 		// Handy button for going back a layer in the battle menu system
 		[SerializeField]
@@ -132,10 +136,12 @@ namespace BattleEvent
 
 		public void InitializeCoolnessStats(BattleRequestContext context)
 		{
+			PlayerCoolnessThreshold.text = context.Enemy.CoolnessThreshhold.ToString();
 			PlayerCoolnessBar.maxValue = MaxCooless;
 			PlayerCoolnessBar.value = BattleManager.PlayerCurrentCoolness;
 			PlayerUI_CurrentCoolness.text = BattleManager.PlayerCurrentCoolness.ToString();
 
+			EnemyCoolnessThreshold.text = context.Enemy.CoolnessThreshhold.ToString();
 			EnemyCoolnessBar.maxValue = MaxCooless;
 			EnemyCoolnessBar.value = BattleManager.EnemyCurrentCoolness;
 			EnemyUI_CurrentCoolness.text = BattleManager.EnemyCurrentCoolness.ToString();
@@ -173,9 +179,11 @@ namespace BattleEvent
 
 		public void UpdateCoolnessStats()
 		{
+			PlayerCoolnessThreshold.text = (BattleManager.EnemyCurrentCoolness + BattleManager.Context.Enemy.CoolnessThreshhold).ToString();
 			PlayerCoolnessBar.value = BattleManager.PlayerCurrentCoolness;
 			PlayerUI_CurrentCoolness.text = BattleManager.PlayerCurrentCoolness.ToString();
 
+			EnemyCoolnessThreshold.text = (BattleManager.PlayerCurrentCoolness + BattleManager.Context.Enemy.CoolnessThreshhold).ToString();
 			EnemyCoolnessBar.value = BattleManager.EnemyCurrentCoolness;
 			EnemyUI_CurrentCoolness.text = BattleManager.EnemyCurrentCoolness.ToString();
 		}
