@@ -2574,6 +2574,7 @@ MonoBehaviour:
   - {fileID: 0}
   notesInputed: 0
   blank: {fileID: 2100000, guid: 7757e4a55e6a26e4e8cb700f8b1d7d20, type: 2}
+  player: {fileID: 0}
   door: {fileID: 5326761621080830500}
   opened: 0
   isEqual: 0

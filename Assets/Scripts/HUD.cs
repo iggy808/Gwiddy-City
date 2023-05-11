@@ -25,14 +25,9 @@ public class HUD : MonoBehaviour
     {
         // Initialize the score with the game name as a string
         // PUT THIS IN A START FUNCTION (title scree, HUD, etc; whatever runs at the start of the game
-        //HS.Init(this, "Gwiddy City");
-
-        // Ty is the best 
-        // Okay later in the game, get the player to input their name 
-        // Ty used a keyboard on his screen and used the output from that
-        // THen we can just grab the score (likely from a script on the PlayerCharacter)
-        // DO NOT PUT IT IN AN UPDATE FUNCTION
-        //HS.SubmitHighScore(this, "Colin",score )
+        HS.Init(this, "Gwiddy City");
+        GameObject end = GameObject.FindWithTag("EndGame");
+        end.SetActive(false);
 
         Dance1.gameObject.SetActive(false);
         Dance2.gameObject.SetActive(false);

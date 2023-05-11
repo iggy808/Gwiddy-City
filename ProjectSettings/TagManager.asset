@@ -8,6 +8,8 @@ TagManager:
   - NPC
   - MusicPuzzle
   - Button
+  - HUD
+  - EndGame
   layers:
   - Default
   - TransparentFX

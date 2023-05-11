@@ -14,6 +14,7 @@ public class SequenceManager : MonoBehaviour
     public Material blank;
     private Queue<GameObject> queue;
     GameObject current;
+    public GameObject player;
     public GameObject door;
     public bool opened;
     public bool isEqual;
@@ -63,8 +64,10 @@ public class SequenceManager : MonoBehaviour
             //Debug.Log("selected notes at index 5 = " + selectedNotes[5]);
             //Debug.Log("THEY ARE MATCHING");
             //Debug.Log("Opening Door");
+            
             door.transform.position += new Vector3(0, 4, 0);
             opened = true;
+            player.GetComponent<PlayerOrbCollection>().total += 30;
         }
 
 
