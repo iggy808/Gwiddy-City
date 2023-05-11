@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0028616034, g: 0.013144882, b: 0.020892013, a: 1}
+  m_IndirectSpecularColor: {r: 0.002861463, g: 0.013143655, b: 0.020891603, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 439be913269a2564c8f7ddde861586fb, type: 2}
 --- !u!114 &30226656 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 503250456315141460, guid: db8270d363911944f9b4d502afb38721, type: 3}
@@ -841,6 +841,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2923765937517925287, guid: a23ebfd3ca65542f08b6ca38592de074, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2923765937560681076, guid: a23ebfd3ca65542f08b6ca38592de074, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -853,9 +857,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2923765937631446836, guid: a23ebfd3ca65542f08b6ca38592de074, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2923765937827729135, guid: a23ebfd3ca65542f08b6ca38592de074, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923765937827729135, guid: a23ebfd3ca65542f08b6ca38592de074, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2923765937867223538, guid: a23ebfd3ca65542f08b6ca38592de074, type: 3}
       propertyPath: m_Layer
@@ -872,6 +884,10 @@ PrefabInstance:
     - target: {fileID: 2923765937978667529, guid: a23ebfd3ca65542f08b6ca38592de074, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2923765937978667529, guid: a23ebfd3ca65542f08b6ca38592de074, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2923765938095470011, guid: a23ebfd3ca65542f08b6ca38592de074, type: 3}
       propertyPath: m_Layer
@@ -21212,7 +21228,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1393122
+  m_Name: pb_Mesh-9466
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -32294,7 +32310,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1393136
+  m_Name: pb_Mesh-9480
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
