@@ -179,9 +179,29 @@ PrefabInstance:
       value: Breathing Idle
       objectReference: {fileID: 0}
     - target: {fileID: 8442137758569561092, guid: 75f2c5732da7a03408bec7dac4312b52, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8442137758569561092, guid: 75f2c5732da7a03408bec7dac4312b52, type: 3}
+      propertyPath: m_Quality
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8442137758569561092, guid: 75f2c5732da7a03408bec7dac4312b52, type: 3}
+      propertyPath: m_CastShadows
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8442137758569561092, guid: 75f2c5732da7a03408bec7dac4312b52, type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8442137758569561092, guid: 75f2c5732da7a03408bec7dac4312b52, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8442137758569561092, guid: 75f2c5732da7a03408bec7dac4312b52, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ef9e4d3f5a7fcfe4e9d0c7439e6af296, type: 2}
+      objectReference: {fileID: 2100000, guid: cd1772a0dd6d81f469dee3cc1b711549, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75f2c5732da7a03408bec7dac4312b52, type: 3}
 --- !u!1 &163170500
@@ -312,6 +332,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 9172362808593105693, guid: 5f05f962fbf69bf49941fdf8f19034ab, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9172362809093060910, guid: 5f05f962fbf69bf49941fdf8f19034ab, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
