@@ -11,6 +11,10 @@ namespace BattleEvent
 	public class BattleEventUIManager : MonoBehaviour
 	{
 		public InputState CurrentState;
+
+		[SerializeField]
+		GameObject PlayerHud;
+
 		[SerializeField]
 		BattleEventManager BattleManager;
 		[SerializeField]
@@ -31,7 +35,15 @@ namespace BattleEvent
 		[SerializeField]
 		GameObject EnemyBattleStats;
 		[SerializeField]
+		Slider EnemyStaminaBar;
+		[SerializeField]
+		Slider EnemyCoolnessBar;
+		[SerializeField]
 		GameObject PlayerBattleStats;
+		[SerializeField]
+		Slider PlayerStaminaBar;
+		[SerializeField]
+		Slider PlayerCoolnessBar;
 
 		// Handy button for going back a layer in the battle menu system
 		[SerializeField]
@@ -91,12 +103,25 @@ namespace BattleEvent
 		List<DanceEvent.Pose> PlayerAvailableDances;
 		List<DanceEvent.Pose> EnemyAvailableDances;
 
+		int MaxCooless = 150;
+
+		public void HidePlayerHud()
+		{
+			PlayerHud.SetActive(false);
+		}
+
+		public void ShowPlayerHud()
+		{
+			PlayerHud.SetActive(true);
+		}
+
 		public void InitializeBattleUI(BattleRequestContext context)
 		{
 			EnemyUI_Name.text = context.Enemy.Name.ToString();
 			InitializeBattleStats(context);
 			ShowInputPanel();
 			ShowMainMenu();
+			HidePlayerHud();
 		}
 
 		public void InitializeBattleStats(BattleRequestContext context)
@@ -107,14 +132,25 @@ namespace BattleEvent
 
 		public void InitializeCoolnessStats(BattleRequestContext context)
 		{
-			EnemyUI_CurrentCoolness.text = BattleManager.EnemyCurrentCoolness.ToString();
+			PlayerCoolnessBar.maxValue = MaxCooless;
+			PlayerCoolnessBar.value = BattleManager.PlayerCurrentCoolness;
 			PlayerUI_CurrentCoolness.text = BattleManager.PlayerCurrentCoolness.ToString();
+
+			EnemyCoolnessBar.maxValue = MaxCooless;
+			EnemyCoolnessBar.value = BattleManager.EnemyCurrentCoolness;
+			EnemyUI_CurrentCoolness.text = BattleManager.EnemyCurrentCoolness.ToString();
 		}
 
 		public void InitializeStaminaStats(BattleRequestContext context)
 		{
+			PlayerStaminaBar.maxValue = context.Player.MaxStamina;
+			PlayerStaminaBar.value = BattleManager.PlayerCurrentStamina;
+
 			PlayerUI_CurrentStamina.text = BattleManager.PlayerCurrentStamina.ToString();
 			PlayerUI_MaxStamina.text = context.Player.MaxStamina.ToString();
+
+			EnemyStaminaBar.maxValue = context.Enemy.MaxStamina;
+			EnemyStaminaBar.value = BattleManager.EnemyCurrentStamina;
 
 			EnemyUI_CurrentStamina.text = context.Enemy.MaxStamina.ToString();
 			EnemyUI_MaxStamina.text = context.Enemy.MaxStamina.ToString();
@@ -128,13 +164,19 @@ namespace BattleEvent
 
 		public void UpdateStaminaStats()
 		{
+			PlayerStaminaBar.value = BattleManager.PlayerCurrentStamina;
 			PlayerUI_CurrentStamina.text = BattleManager.PlayerCurrentStamina.ToString();
+
+			EnemyStaminaBar.value = BattleManager.EnemyCurrentStamina;
 			EnemyUI_CurrentStamina.text = BattleManager.EnemyCurrentStamina.ToString();
 		}
 
 		public void UpdateCoolnessStats()
 		{
+			PlayerCoolnessBar.value = BattleManager.PlayerCurrentCoolness;
 			PlayerUI_CurrentCoolness.text = BattleManager.PlayerCurrentCoolness.ToString();
+
+			EnemyCoolnessBar.value = BattleManager.EnemyCurrentCoolness;
 			EnemyUI_CurrentCoolness.text = BattleManager.EnemyCurrentCoolness.ToString();
 		}
 

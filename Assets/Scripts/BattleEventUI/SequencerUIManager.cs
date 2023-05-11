@@ -34,12 +34,13 @@ namespace BattleEvent
 		public void AddPoseIconToSequencer(int currentSequencerIndex, DanceEvent.Pose pose)
 		{
 			// need to generate icons as prefabs and adjust them
-
+			Debug.Log("Adding pose icon to sequencer.");
 			// Instantiate a sequencer icon prefab
 			GameObject sequencerIcon = Instantiate(SequencerSlotIconPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
 			SequencerIcons.Add(sequencerIcon);
 
 			// Make prefab's parent be the sequencer slot at the correct index
+			Debug.Log("Current sequencer index : " + currentSequencerIndex);
 			sequencerIcon.transform.parent = SequencerSlotBorders.ElementAt(currentSequencerIndex).transform.parent.transform;
 
 			// Position icon as needed

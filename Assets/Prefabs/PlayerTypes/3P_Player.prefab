@@ -999,6 +999,8 @@ GameObject:
   - component: {fileID: 1714705971}
   - component: {fileID: 1714705972}
   - component: {fileID: 1714705975}
+  - component: {fileID: 2374961320024912910}
+  - component: {fileID: 6517407838943293431}
   m_Layer: 0
   m_Name: 3P_Player
   m_TagString: Untagged
@@ -1065,6 +1067,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   orientation: {fileID: 9172362810255580609}
+  dbJump: 0
+  dsh: 0
   rb: {fileID: 0}
 --- !u!82 &1714705973
 AudioSource:
@@ -1227,6 +1231,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c492efb58cbabd4db1d0bd677879578, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2374961320024912910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9172362809246681561}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 062f8f9b547429a4581755e710fcc2cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensX: 0
+  sensY: 0
+  orientation: {fileID: 9172362810255580609}
+  ThirdPersonCamera: {fileID: 0}
+  CameraBrain: {fileID: 0}
+--- !u!114 &6517407838943293431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9172362809246681561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d5cf7e963b5d40f58478a2197f4f0d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxStamina: 0
+  CurrentStamina: 0
+  SequencerSlots: 0
 --- !u!1 &9172362810255580608
 GameObject:
   m_ObjectHideFlags: 0

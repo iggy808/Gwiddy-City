@@ -71,6 +71,7 @@ namespace BattleEvent
 				else if (battlesWon == 2)
 					PlayerMovement.dsh = true;
             }
+			BattleEventUIManager.ShowPlayerHud();
 		}
 
 		void InitializeBattle()

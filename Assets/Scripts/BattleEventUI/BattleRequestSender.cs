@@ -15,14 +15,14 @@ namespace BattleEvent
 			// test triggers to send new dance requests
 			switch (collider.gameObject.name)
 			{
-				case "LameDanceEventTrigger (1)":
+				case "LameDanceEventTrigger":
 					BattleHandler.ActivateBattleEvent(new BattleRequestContext
 					{
 						Enemy = new Enemy(SpecialEnemies.FunkMaster),
 						Player = PlayerStats
 					});
 					break;
-				case "SickDanceEventTrigger (1)":
+				case "SickDanceEventTrigger":
 					BattleHandler.ActivateBattleEvent(new BattleRequestContext
 					{
 						Enemy = new Enemy(SpecialEnemies.Smoothness),
