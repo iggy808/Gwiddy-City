@@ -37,7 +37,7 @@ public class SphereBehavior : MonoBehaviour
 		{
 			importedTotalValue.total++;
 			//  Unlock dance move
-			//
+			Dances.Add(DanceEvent.Pose.Sick);
 			Debug.Log("Dance added");
 		}
     }
