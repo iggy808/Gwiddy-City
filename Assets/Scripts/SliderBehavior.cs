@@ -52,7 +52,7 @@ public class SliderBehavior : MonoBehaviour
             }
             else if (gameObject.name == "Volume")
             {
-                AudioListener.volume = slider.value;
+                AudioListener.volume = (slider.value / 50f);
                 Save("Vol");
             }
             sliderText.text = value.ToString();
