@@ -39,6 +39,8 @@ public class SphereBehavior : MonoBehaviour
 			//  Unlock dance move
 			Dances.Add(DanceEvent.Pose.Sick);
 			Debug.Log("Dance added");
+
+			Destroy(gameObject);
 		}
     }
 }
