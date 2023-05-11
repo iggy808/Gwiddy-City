@@ -14,9 +14,9 @@ public class PauseMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (paused)
-                Pause();
-            else
                 UnPause();
+            else
+                Pause();
         }    
     }
 
