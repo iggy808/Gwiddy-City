@@ -33,7 +33,7 @@ public class SphereBehavior : MonoBehaviour
 
             Destroy(gameObject);
         }
-		else if (other.tag == "Player" && importedTotalValue.total == 1)
+		else if (other.tag == "Player" && importedTotalValue.total >= 1)
 		{
 			importedTotalValue.total++;
 			//  Unlock dance move
