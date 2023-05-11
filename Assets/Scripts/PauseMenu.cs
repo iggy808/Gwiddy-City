@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class PauseMenu : MonoBehaviour
 {
     public GameObject menuUI;
-    public PlayerCam playerCam;
+    public PlayerCam firstPerson;
+    public CinemachineFreeLook thirdPerson;
     public bool paused;
 
     void Update()
@@ -22,7 +24,10 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
-        playerCam.enabled = false;
+        if (firstPerson != null)
+            firstPerson.enabled = false;
+        if (thirdPerson != null)
+            thirdPerson.enabled = false;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         menuUI.SetActive(true);
@@ -32,7 +37,10 @@ public class PauseMenu : MonoBehaviour
 
     public void UnPause()
     {
-        playerCam.enabled = true;
+        if (firstPerson != null)
+            firstPerson.enabled = true;
+        if (thirdPerson != null)
+            thirdPerson.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         menuUI.SetActive(false);

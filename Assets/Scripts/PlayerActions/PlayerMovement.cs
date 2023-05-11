@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode dashKey = KeyCode.LeftShift;
     public LayerMask groundLayer;
     public Transform orientation;
+    public bool dbJump;
+    public bool dsh;
     private bool grounded;
     private bool jumpReady = true;
     private bool dashReady = true;
@@ -77,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
                 Invoke("ResetJump", jumpCooldown);
             }
         }
-        if(Input.GetKey(dashKey) && dashReady)
+        if(Input.GetKey(dashKey) && dashReady && dsh)
         {
             dashReady = false;
             dashCD = false;
@@ -115,7 +118,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void ResetJump()
     {
-        jumpReady = true;
+        if (grounded || dbJump)
+            jumpReady = true;
+        else
+            Invoke("ResetJump", jumpCooldown);
     }
 
     private void Dash()
