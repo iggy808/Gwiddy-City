@@ -48,7 +48,7 @@ namespace BattleEvent
 					};
 					MaxStamina = 3;
 					CurrentStamina = MaxStamina;
-					CoolnessThreshhold = 100;
+					CoolnessThreshhold = 60;
 					break;
 				default:
 					break;
