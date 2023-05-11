@@ -280,6 +280,14 @@ namespace BattleEvent
 	
 			// Turn on the dance menu buttons according to the player's currently available dances
 			MainMenuButtons.SetActive(false);
+			if (BattleManager.PlayerCurrentStamina > 0)
+			{
+				SequenceMenuButton.transform.GetChild(0).GetComponent<Button>().interactable = true;
+			}
+			else
+			{
+				SequenceMenuButton.transform.GetChild(0).GetComponent<Button>().interactable = false;
+			}
 			SequenceMenu.SetActive(false);
 			DanceMenuButtons.SetActive(true);
 			BackButton.SetActive(true);
@@ -287,7 +295,6 @@ namespace BattleEvent
 			// Dynamically generate a button for every dance in the player's dance list
 			GenerateDanceMenuButtons();
 			
-			SequenceMenuButton.SetActive(true);
 		}
 
 

@@ -61,6 +61,11 @@ namespace BattleEvent
 			BattleManager.EndBattle();
 		}
 
+		public void RestButtonClicked()
+		{
+			BattleManager.RestTurn();
+		}
+
 		public void DanceMenuClicked()
 		{
 			Debug.Log("Dance button clicked");

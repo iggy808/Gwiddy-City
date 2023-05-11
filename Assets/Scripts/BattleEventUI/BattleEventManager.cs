@@ -34,6 +34,7 @@ namespace BattleEvent
 		int CoolnessLeadWinThreshhold;
 		List<DanceEvent.Pose> SequencerPoses;
 		int CurrentSequencerIndex;
+		int CurrentSequencerStaminaCost;
 
 
 		public void InitializeBattleEvent(BattleRequestContext context)
@@ -55,6 +56,7 @@ namespace BattleEvent
 
 			SequencerPoses = new List<DanceEvent.Pose>();
 			CurrentSequencerIndex = 0;
+			CurrentSequencerStaminaCost = 0;
 			SequencerUIManager.SequencerIcons = new List<GameObject>();
 
 			// Initialize the battle stats with the freshly fetched stats
@@ -66,6 +68,7 @@ namespace BattleEvent
 			// Can let player earn more sequencer slots as an upgrade
 			SequencerPoses = new List<DanceEvent.Pose>();
 			CurrentSequencerIndex = 0;
+			CurrentSequencerStaminaCost = 0;
 		}
 
 		public void PlayEnemyTurn()
@@ -74,12 +77,13 @@ namespace BattleEvent
 			bool IsEnemyTurn = true;
 			if (EnemyCurrentStamina >= GetPoseStaminaCost(DanceEvent.Pose.Splits))
 			{
+				Debug.Log("Enemy has enough stamina, doing the splits.");
 				TriggerOneOffDanceEvent(DanceEvent.Pose.Splits, IsEnemyTurn);
 			}
 			else 
 			{
-				Debug.Log("Player did not have enough stamina. Needs to rest. Switching to palayer");
-				CurrentTurn = BattleTurn.Player;
+				Debug.Log("Enemy does not have enough stamina, resting.");
+				RestTurn();
 				IsEnemyTurn = false;
 
 				// Will need to augment this later
@@ -214,9 +218,18 @@ namespace BattleEvent
 			if (CurrentSequencerIndex < Context.Player.SequencerSlots)
 			{
 				Debug.Log("Adding [" + pose + "] to sequencer.");	
-				SequencerPoses.Add(pose);
-				SequencerUIManager.AddPoseIconToSequencer(CurrentSequencerIndex, pose);
-				CurrentSequencerIndex++;
+
+				if (CurrentSequencerStaminaCost + GetPoseStaminaCost(pose) > PlayerCurrentStamina)
+				{
+					Debug.Log("Player does not have enough stamina to add [" + pose + "] to sequencer.");	
+				}
+				else
+				{
+					SequencerPoses.Add(pose);
+					SequencerUIManager.AddPoseIconToSequencer(CurrentSequencerIndex, pose);
+					CurrentSequencerIndex++;
+					CurrentSequencerStaminaCost += GetPoseStaminaCost(pose);
+				}
 			}
 			else
 			{
@@ -253,19 +266,6 @@ namespace BattleEvent
 			BattleUIManager.HideInputPanel();
 			Debug.Log("Triggering one off dance, hiding stats respectively.");
 
-			/*
-			if (IsEnemyTurn)
-			{
-				BattleUIManager.HidePlayerBattleStats();
-				BattleUIManager.ShowEnemyBattleStats();
-			}
-			else
-			{
-				BattleUIManager.HideEnemyBattleStats();
-				BattleUIManager.ShowPlayerBattleStats();
-			}
-			*/
-
 			BattleUIManager.ShowBattleStats();
 
 			DanceHandler.ActivateDanceEvent(new DanceRequestContext()
@@ -277,6 +277,37 @@ namespace BattleEvent
 				}
 			},
 			IsEnemyTurn);
+		}
+
+		public void RestTurn()
+		{
+			if (CurrentTurn == BattleTurn.Player)
+			{
+				if (PlayerCurrentStamina + 10 > Context.Player.MaxStamina)
+				{
+					PlayerCurrentStamina = Context.Player.MaxStamina;
+				}
+				else 
+				{
+					PlayerCurrentStamina += 10;
+				}
+				BattleUIManager.UpdateBattleStats();
+				CurrentTurn = BattleTurn.Enemy;
+				PlayEnemyTurn();
+			}
+			else if (CurrentTurn == BattleTurn.Enemy)
+			{
+				if (EnemyCurrentStamina + 10 > Context.Enemy.MaxStamina)
+				{
+					EnemyCurrentStamina = Context.Enemy.MaxStamina;
+				}
+				else
+				{
+					EnemyCurrentStamina += 10;
+				}
+
+				CurrentTurn = BattleTurn.Player;
+			}
 		}
 
 		public void EndBattle()
