@@ -16,6 +16,7 @@ namespace BattleEvent
 		public bool BattleIsActive = false;		 
 		public BattleRequestContext Context;	
 		public DanceRequestHandler DanceHandler;
+		private int battlesWon = 0;
 
 		[SerializeField]
 		GameObject BattleEventUI;
@@ -62,6 +63,14 @@ namespace BattleEvent
 			BattleEventUI.SetActive(false);
 			BattleIsActive = false;
 			PlayerMovement.enabled = true;
+			if (wasSuccessful)
+            {
+				battlesWon += 1;
+				if (battlesWon == 1)
+					PlayerMovement.dbJump = true;
+				else if (battlesWon == 2)
+					PlayerMovement.dsh = true;
+            }
 		}
 
 		void InitializeBattle()
