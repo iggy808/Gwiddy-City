@@ -6,6 +6,7 @@ TagManager:
   tags:
   - OldMan
   - NPC
+  - MusicPuzzle
   layers:
   - Default
   - TransparentFX
