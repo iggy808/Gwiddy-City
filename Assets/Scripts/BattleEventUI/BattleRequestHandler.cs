@@ -70,13 +70,13 @@ namespace BattleEvent
 			PlayerMovement.enabled = false;			
 			// Let DanceHandler know the state of the battle
 			DanceHandler.CurrentBattleMoveCount = 0;
-			BattleManager.InitializeBattleEvent(Context);
 			// Restrict player motion, enable mouse menu input
 			PlayerCam.SwitchMouseControls();
 			// Set battle event UI to main input panel
 			BattleEventUI.SetActive(true);
 			BattleEventUIComponents.SetActive(true);
-			BattleEventUIManager.ShowMainMenu();
+
+			BattleManager.InitializeBattleEvent(Context);
 		}
 
 		void SynchronizeDanceUI()

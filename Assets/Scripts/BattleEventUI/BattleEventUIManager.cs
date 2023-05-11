@@ -96,6 +96,7 @@ namespace BattleEvent
 			EnemyUI_Name.text = context.Enemy.Name.ToString();
 			InitializeBattleStats(context);
 			ShowInputPanel();
+			ShowMainMenu();
 		}
 
 		public void InitializeBattleStats(BattleRequestContext context)
@@ -143,6 +144,26 @@ namespace BattleEvent
 			PlayerBattleStats.SetActive(true);
 		}
 
+		public void ShowEnemyBattleStats()
+		{
+			EnemyBattleStats.SetActive(true);
+		}
+
+		public void HideEnemyBattleStats()
+		{
+			EnemyBattleStats.SetActive(false);
+		}
+
+		public void ShowPlayerBattleStats()
+		{
+			PlayerBattleStats.SetActive(true);
+		}
+
+		public void HidePlayerBattleStats()
+		{
+			PlayerBattleStats.SetActive(false);
+		}
+
 		public void HideInputPanel()
 		{
 			InputPanel.SetActive(false);
@@ -163,13 +184,17 @@ namespace BattleEvent
 					Destroy(button);
 				}
 			}
-
-			if (IsEnemyTurn)
+			else if (CurrentState == InputState.SequenceMenu)
 			{
-				StartCoroutine(DelayBeginEnemyTurn());
+				// Diable instantiated prefab buttons
+				foreach (GameObject button in SequenceDanceButtons)
+				{
+					Destroy(button);
+				}
 			}
 
 			CurrentState = InputState.MainMenu;
+
 			BackButton.SetActive(false);
 			UIComponents.SetActive(true);
 			DanceMenuButtons.SetActive(false);
@@ -197,27 +222,18 @@ namespace BattleEvent
 				}
 			}
 
+			ShowMainMenu();
 			CurrentState = InputState.DanceMenu;
 
 			if (BattleManager.CurrentTurn == BattleTurn.Player)
 			{
 				// Fetch updated list of dances
-				//List<DanceEvent.Pose> playerDances = Player.GetComponent<PlayerDances>().Dances;
-				// Remove dances where the stamina cost is higher than the available stamina
 				PlayerAvailableDances = Player.GetComponent<PlayerDances>().Dances;
 
-				foreach (DanceEvent.Pose pose in PlayerAvailableDances)
-				{
-					if (BattleManager.GetPoseStaminaCost(pose) <= BattleManager.PlayerCurrentStamina)
-					{
-						//PlayerAvailableDances.Add(pose);
-					}
-				}
 			}
 			else if (BattleManager.CurrentTurn == BattleTurn.Enemy)
 			{	
 				// will figure out enemy stuff later
-				//EnemyAvailableDances = BattleManager.Context.Enemy.DanceMoves.Where(x => BattleManager.GetPoseStaminaCost(x) <= BattleManager.EnemyCurrentStamina).ToList();
 			}
 	
 			// Turn on the dance menu buttons according to the player's currently available dances

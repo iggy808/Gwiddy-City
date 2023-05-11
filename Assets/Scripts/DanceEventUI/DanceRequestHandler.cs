@@ -250,8 +250,8 @@ namespace DanceEvent
 				EnvDanceUI.SetActive(false);
 				// Turn off battle dance UI components, but do not diable battle dance UI canvas - canvas holds logic for the battle
 				//BattleEventUIComponents.SetActive(false);	
-				BattleManager.BattleUIManager.HideInputPanel();
-				BattleManager.BattleUIManager.ShowBattleStats();
+				//BattleManager.BattleUIManager.HideInputPanel();
+				//BattleManager.BattleUIManager.ShowBattleStats();
 			}
 			else if (Context.Environment == Environment.EnvDance)
 			{
