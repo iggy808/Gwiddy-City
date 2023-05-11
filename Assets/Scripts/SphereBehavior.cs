@@ -24,7 +24,7 @@ public class SphereBehavior : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 		Dances = Player.GetComponent<PlayerDances>().Dances;
-        if (other.tag == "Player")
+        if (other.tag == "Player" && importedTotalValue.total == 0)
         {
             importedTotalValue.total++;
 			// Unlock dance move
@@ -33,5 +33,12 @@ public class SphereBehavior : MonoBehaviour
 
             Destroy(gameObject);
         }
+		else if (other.tag == "Player" && importedTotalValue.total == 1)
+		{
+			importedTotalValue.total++;
+			//  Unlock dance move
+			//
+			Debug.Log("Dance added");
+		}
     }
 }

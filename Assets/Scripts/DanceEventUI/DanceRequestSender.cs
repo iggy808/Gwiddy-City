@@ -35,6 +35,7 @@ namespace DanceEvent
 						DesiredMoves = new List<Pose>
 						{
 							Pose.Cool
+							//Pose.Sick
 						},
 						TargetObject = GameObject.Find("Walkablocka (1)") 
 						// Note: can probably grab gameobject from OnTriggerEnter, and store it in the dancerequest sender as TargetObject or something to avoid find
@@ -48,6 +49,7 @@ namespace DanceEvent
 						DesiredMoves = new List<Pose>
 						{
 							Pose.Splits
+							//Pose.Sick
 						},
 						TargetObject = GameObject.Find("Walkablocka (2)")
 					});
@@ -59,6 +61,7 @@ namespace DanceEvent
 						DesiredMoves = new List<Pose>
 						{
 							Pose.Splits
+							//Pose.Sick
 						},
 						TargetObject = GameObject.Find("Walkablocka (3)")
 					});

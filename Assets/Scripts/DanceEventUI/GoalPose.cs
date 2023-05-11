@@ -40,6 +40,12 @@ namespace DanceEvent
                     ArmLeftGoalRotation = Quaternion.Euler(0f, 0f, 110f);   // ArmLeftGoal for splits
                     LegLeftGoalRotation = Quaternion.Euler(0f, 0f, 200f);   // LegLeftGoal for splits
 					break;
+				case Pose.Sick:
+                    ArmRightGoalRotation = Quaternion.Euler(0f, 0f, 290f);   // ArmRightGoal for splits
+                    LegRightGoalRotation = Quaternion.Euler(0f, 0f, 260f);  // LegRightGoal for splits
+                    ArmLeftGoalRotation = Quaternion.Euler(0f, 0f, 225f);   // ArmLeftGoal for splits
+                    LegLeftGoalRotation = Quaternion.Euler(0f, 0f, 240f);   // LegLeftGoal for splits
+					break;
                 default:
                     break;
             }

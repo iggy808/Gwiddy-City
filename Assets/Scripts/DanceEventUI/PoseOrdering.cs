@@ -31,6 +31,15 @@ namespace DanceEvent
 						Limb.ArmRight
 					};
 					break;
+				case Pose.Sick:
+					LimbRotationOrder = new List<Limb>()
+					{
+						Limb.LegLeft,
+						Limb.ArmRight,
+						Limb.ArmLeft,
+						Limb.LegRight
+					};
+					break;
 				default:
 					break;
 			}
