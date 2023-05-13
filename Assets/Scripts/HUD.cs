@@ -26,14 +26,15 @@ public class HUD : MonoBehaviour
         // Initialize the score with the game name as a string
         // PUT THIS IN A START FUNCTION (title scree, HUD, etc; whatever runs at the start of the game
         HS.Init(this, "Gwiddy City");
-        GameObject end = GameObject.FindWithTag("EndGame");
-        end.SetActive(false);
+        //GameObject end = GameObject.FindWithTag("EndGame");
+        //end.SetActive(false);
 
-        Dance1.gameObject.SetActive(false);
-        Dance2.gameObject.SetActive(false);
-        Dance3.gameObject.SetActive(false);
-        Dance4.gameObject.SetActive(false);
-        Dance5.gameObject.SetActive(false);
+		Debug.Log("Disabling all buttons on hud");
+        Dance1.SetActive(false);
+        Dance2.SetActive(false);
+        Dance3.SetActive(false);
+        Dance4.SetActive(false);
+        Dance5.SetActive(false);
     }
 
     
@@ -43,17 +44,18 @@ public class HUD : MonoBehaviour
         // Move this from the update function so that we can have animations.
         if (player.GetComponent<PlayerDances>().Dances.Contains(DanceEvent.Pose.Splits))
         {
-            Dance1.gameObject.SetActive(true);
+			Debug.Log("Player has splits");
+            Dance1.SetActive(true);
 
         }
         if (player.GetComponent<PlayerDances>().Dances.Contains(DanceEvent.Pose.Cool))
         {
-            Dance2.gameObject.SetActive(true);
+            Dance2.SetActive(true);
 
         }
         if (player.GetComponent<PlayerDances>().Dances.Contains(DanceEvent.Pose.Sick))
         {
-            Dance3.gameObject.SetActive(true);
+            Dance3.SetActive(true);
         }
 
     }
