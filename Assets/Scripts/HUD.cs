@@ -7,11 +7,11 @@ using UnityEngine.UI;
 public class HUD : MonoBehaviour
 {
 
-    public Button Dance1;
-    public Button Dance2;
-    public Button Dance3;
-    public Button Dance4;
-    public Button Dance5;
+    public GameObject Dance1;
+    public GameObject Dance2;
+    public GameObject Dance3;
+    public GameObject Dance4;
+    public GameObject Dance5;
     public GameObject player;
 
     private bool dance1Acquired;

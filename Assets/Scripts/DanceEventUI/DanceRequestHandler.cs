@@ -16,6 +16,9 @@ namespace DanceEvent
 		public int CurrentSequencePoseIndex;
 
 		[SerializeField]
+		ScenarioController ScenarioController;
+
+		[SerializeField]
 		BattleRequestHandler BattleHandler;
 		[SerializeField]
 		BattleEventManager BattleManager;
@@ -192,9 +195,13 @@ namespace DanceEvent
 						BattleManager.HandleSequenceStats(SequenceCoolness, SequenceStaminaCost);
 					}
 				}
-				else if (Context.Environment == Environment.EnvDance && wasSuccessful)
+				else if (Context.Environment == Environment.EnvDance && wasSuccessful && !Context.IsTutorial)
 				{
 					Context.TargetObject.SetActive(false);
+				}
+				else if (Context.IsTutorial)
+				{
+					ScenarioController.ProgressScenario();
 				}
 			}
         }

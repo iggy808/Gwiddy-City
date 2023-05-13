@@ -72,7 +72,6 @@ namespace BattleEvent
 
 			// Empty sequencer icons list
 			SequencerIcons = new List<GameObject>();
-		}
-		
+		}		
 	}
 }

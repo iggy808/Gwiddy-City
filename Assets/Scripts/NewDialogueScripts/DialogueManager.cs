@@ -49,6 +49,9 @@ public class DialogueManager : MonoBehaviour
     bool clicked;
 
 
+	[SerializeField]
+	ScenarioController ScenarioController;
+
 
     // Start is called before the first frame update
     void Start()
@@ -137,8 +140,18 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
-        // Enable player movement
-        playerCharacter.GetComponent<PlayerMovement>().enabled = true;
+		if (!(ScenarioController.CurrentDialogueInteractionCount < ScenarioController.ScenarioTotalInteractionCount))
+		{
+			Debug.Log("PlayerMovement enabled from dialogue manager.");
+        	// Enable player movement if the scenario is over
+			ScenarioController.ProgressScenario();
+        	playerCharacter.GetComponent<PlayerMovement>().enabled = true;
+		}
+		else
+		{
+			ScenarioController.ProgressScenario();
+		}
+
         // Get rid of dialogue canvas
         animator.SetBool("IsOpen", true);
         dialogueCanvas.SetActive(false);
@@ -146,7 +159,6 @@ public class DialogueManager : MonoBehaviour
         Cursor.visible = false;
         // Display main camera , hide dialogue camera 
         DialogueCamera.enabled = false; MainCamera.enabled = true;
-        
     }
     
 }

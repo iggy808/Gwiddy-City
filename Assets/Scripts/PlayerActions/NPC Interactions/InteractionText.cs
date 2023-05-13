@@ -4,27 +4,45 @@ using UnityEngine;
 
 public class InteractionText : MonoBehaviour
 {
-    public GameObject interactionText;
+    public GameObject interactionTextPrefab;
     public Transform TextPosition;
+
+    public GameObject interactionTextObject;
+	bool IsTextInstantiated;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+		IsTextInstantiated = false;
+        //interactionTextObject = Instantiate(interactionTextPrefab, TextPosition.position, Quaternion.Euler(0, -90, 0), transform) as GameObject;
+		interactionTextObject.SetActive(false);
     }
     
 
 
     // COLIN: Displays Text when inflated trigger collider collides with the Player 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && !IsTextInstantiated)
         {
-            Instantiate(interactionText, TextPosition.position, Quaternion.Euler(0, -90, 0), transform);
-
+			IsTextInstantiated = true;
+			interactionTextObject.SetActive(true);
+			Debug.Log("Text activated.");
         }
 
     }
+
+	void OnTriggerExit(Collider other)
+	{
+		Debug.Log("OnTriggerExit called.");
+		if (other.tag == "Player" && IsTextInstantiated)
+		{
+			interactionTextObject.SetActive(false);
+			IsTextInstantiated = false;
+			Debug.Log("Text disabled.");
+		}
+	}
+
     // Update is called once per frame
     void Update()
     {

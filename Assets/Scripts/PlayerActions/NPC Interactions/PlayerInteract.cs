@@ -5,13 +5,15 @@ using UnityEngine.Rendering;
 
 public class PlayerInteract : MonoBehaviour
 {
-    
+	[SerializeField]
+	ScenarioController ScenarioController;    
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
+			Debug.Log("Player triggered interaction.");
             float interactRange = 2f;
 
             // If there is anything with a collider within the interaction range...

@@ -12,12 +12,19 @@ public class ParticleHandler : MonoBehaviour
         self.SetActive(false);
     }
 
+	public void PUFF_O_SMOKE()
+	{
+		self.SetActive(true);
+	}
+
     // Update is called once per frame
     void Update()
     {
+		/*
         if (oldManCall.transform.position.y <= -10)
         {
             self.SetActive(true);
         }
+		*/
     }
 }

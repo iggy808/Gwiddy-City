@@ -10,6 +10,7 @@ namespace DanceEvent
 		public List<Pose> DesiredMoves;
 		public List<PoseOrdering> DesiredPoseOrders => ConvertDesiredMovesToPoseOrders();
 		public GameObject TargetObject;
+		public bool IsTutorial = false;
 
 		List<PoseOrdering> ConvertDesiredMovesToPoseOrders()
 		{

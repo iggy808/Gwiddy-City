@@ -9,6 +9,9 @@ public class NPCInteractable : MonoBehaviour
     public Camera MainCamera;
     public GameObject dialogueCanvas;
 
+	[SerializeField]
+	ScenarioController ScenarioController;
+
     public void Interact()
     {
         // If the target is an NPC...
@@ -19,6 +22,9 @@ public class NPCInteractable : MonoBehaviour
             if (gameObject.TryGetComponent(out DialogueTrigger dialogue)){
                 
                 Debug.Log("Dialogue started");
+				// Scenario must prgress state when dialogue is triggered
+				ScenarioController.CurrentDialogueInteractionCount++;
+				ScenarioController.ProgressScenario();
                 // Begin dialogue 
                 dialogue.TriggerDialogueManager();
                 // Disable Cameras
