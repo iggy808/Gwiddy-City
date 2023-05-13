@@ -1002,6 +1002,7 @@ GameObject:
   - component: {fileID: 1714705975}
   - component: {fileID: 2374961320024912910}
   - component: {fileID: 6517407838943293431}
+  - component: {fileID: 8055223243906581424}
   m_Layer: 0
   m_Name: 3P_Player
   m_TagString: Untagged
@@ -1232,6 +1233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c492efb58cbabd4db1d0bd677879578, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ScenarioController: {fileID: 8055223243906581424}
 --- !u!114 &2374961320024912910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1264,6 +1266,26 @@ MonoBehaviour:
   MaxStamina: 0
   CurrentStamina: 0
   SequencerSlots: 0
+--- !u!114 &8055223243906581424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9172362809246681561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e45661fbd4f6d43db8c24d03225ad934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentState: 0
+  CurrentDialogueInteractionCount: 0
+  ScenarioTotalInteractionCount: 0
+  Player: {fileID: 9172362809246681561}
+  OldManObject: {fileID: 0}
+  OldManTextPrompt: {fileID: 0}
+  DanceHandler: {fileID: 0}
+  ParticleHandler: {fileID: 0}
 --- !u!1 &9172362810255580608
 GameObject:
   m_ObjectHideFlags: 0
