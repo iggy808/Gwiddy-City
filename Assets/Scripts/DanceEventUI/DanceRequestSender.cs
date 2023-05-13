@@ -11,63 +11,37 @@ namespace DanceEvent
 
 		void OnTriggerEnter(Collider collider)
 		{
-			//Debug.Log("Trigger entered");
-			// test triggers to send new dance requests
-			switch (collider.gameObject.name)
+			if (collider.gameObject.TryGetComponent(out DanceInteractor danceInteractor))
 			{
-				case "EnvironmentalDanceEventTrigger":
-					DanceHandler.ActivateDanceEvent(new DanceRequestContext
-					{
-						Environment = Environment.EnvDance,
-						DesiredMoves = new List<Pose>()
+				switch (danceInteractor.Type)
+				{
+					case InteractorType.EnvEnemy:
+						Debug.Log("Collider object type : " + danceInteractor.Type);
+						DanceHandler.ActivateDanceEvent(new DanceRequestContext
 						{
-							Pose.Splits,
-							Pose.Cool
-						},
-						TargetObject = collider.gameObject
-					});
-					break;
-				case "WalkablockaDanceEventTriggerCool":
-					Debug.Log("Cool walkablocka encountered");
-					DanceHandler.ActivateDanceEvent(new DanceRequestContext
-					{
-						Environment = Environment.EnvDance,
-						DesiredMoves = new List<Pose>
+							Environment = Environment.EnvDance,
+							DesiredMoves = new List<DanceEvent.Pose>()
+							{
+								DanceEvent.Pose.Cool	
+							},
+							TargetObject = collider.gameObject
+						});
+						break;
+					case InteractorType.TutorialBridge:
+						Debug.Log("Collider object type : " + danceInteractor.Type);
+						DanceHandler.ActivateDanceEvent(new DanceRequestContext
 						{
-							Pose.Cool
-							//Pose.Sick
-						},
-						TargetObject = GameObject.Find("Walkablocka (1)") 
-						// Note: can probably grab gameobject from OnTriggerEnter, and store it in the dancerequest sender as TargetObject or something to avoid find
-					});
-					break;
-				case "WalkablockaDanceEventTriggerSplits":
-					Debug.Log("Splits walkablocka encountered");
-					DanceHandler.ActivateDanceEvent(new DanceRequestContext
-					{
-						Environment = Environment.EnvDance,
-						DesiredMoves = new List<Pose>
-						{
-							Pose.Splits
-							//Pose.Sick
-						},
-						TargetObject = GameObject.Find("Walkablocka (2)")
-					});
-					break;
-				case "WalkablockaDanceEventTriggerSplitsAgain":
-					DanceHandler.ActivateDanceEvent(new DanceRequestContext
-					{
-						Environment = Environment.EnvDance,
-						DesiredMoves = new List<Pose>
-						{
-							//Pose.Splits
-							Pose.Sick
-						},
-						TargetObject = GameObject.Find("Walkablocka (3)")
-					});
-					break;
-				default:
-					break;
+							Environment = Environment.EnvDance,
+							DesiredMoves = new List<DanceEvent.Pose>()
+							{
+								DanceEvent.Pose.Splits	
+							},
+							TargetObject = collider.gameObject
+						});
+						break;
+					default:
+						break;
+				}
 			}
 		}
 	}

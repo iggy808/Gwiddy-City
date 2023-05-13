@@ -10,7 +10,8 @@ public class DanceRange : MonoBehaviour
 		{
 			UnityEngine.AI.NavMeshAgent agent = GetComponentInParent<UnityEngine.AI.NavMeshAgent>();
 			agent.enabled = false;
-			GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+			//NOTE: TEMPORARILY COMMENTING OUT, THROWING ERRORS
+			//GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
 		}
 	}
 
