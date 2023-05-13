@@ -10,59 +10,55 @@ public class animationStateController : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>(); 
-	Debug.Log(animator);
+		Debug.Log(animator);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey("w"))
-	{
-		animator.SetBool("isRunning", true);
-	}
-	if (!Input.GetKey("w"))
-	{
-		animator.SetBool("isRunning", false);
-	}
+    	if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d"))
+		{
+			animator.SetBool("isRunning", true);
+		}
+		else
+		{
+			animator.SetBool("isRunning", false);
+		}
 
-  	if (Input.GetKey("q"))
-	{
-		animator.SetBool("isDancing1", true);
-	}
-	if (!Input.GetKey("q"))
-	{
-		animator.SetBool("isDancing1", false);
-	}
-if (Input.GetKey("e"))
-	{
-		animator.SetBool("isDancing2", true);
-	}
-	if (!Input.GetKey("e"))
-	{
-		animator.SetBool("isDancing2", false);
-	}
-if (Input.GetKey("r"))
-	{
-		animator.SetBool("isDancing3", true);
-	}
-	if (!Input.GetKey("r"))
-	{
-		animator.SetBool("isDancing3", false);
-	}
-if (Input.GetKey("t"))
-	{
-		animator.SetBool("isDancing4", true);
-	}
-	if (!Input.GetKey("t"))
-	{
-		animator.SetBool("isDancing4", false);
-	}
+		if (Input.GetKey("q"))
+		{
+			animator.SetBool("isDancing1", true);
+		}
+		else
+		{
+			animator.SetBool("isDancing1", false);
+		}
 
+		if (Input.GetKey("e"))
+		{
+			animator.SetBool("isDancing2", true);
+		}
+		else
+		{
+			animator.SetBool("isDancing2", false);
+		}
 
+		if (Input.GetKey("r"))
+		{
+			animator.SetBool("isDancing3", true);
+		}
+		else
+		{
+			animator.SetBool("isDancing3", false);
+		}
 
-
-
-
-
+		if (Input.GetKey("t"))
+		{
+			animator.SetBool("isDancing4", true);
+		}
+		else
+		{
+			animator.SetBool("isDancing4", false);
+		}
     }
 }

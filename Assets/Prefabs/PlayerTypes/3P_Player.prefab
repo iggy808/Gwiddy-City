@@ -153,7 +153,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 903993293565822013}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: -7}
+  m_LocalPosition: {x: -7.000001, y: 2, z: 0.0000009536743}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -575,7 +575,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3514970284904473449}
-  m_LocalRotation: {x: 0.09252102, y: -0.000000017659854, z: 0.0000000016409462, w: 0.99571073}
+  m_LocalRotation: {x: -0.06542225, y: -0.70407385, z: 0.06542225, w: -0.70407385}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -653,7 +653,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3705947001898914772}
-  m_LocalRotation: {x: 0.13870122, y: 1e-45, z: -0, w: 0.99033433}
+  m_LocalRotation: {x: -0.09807657, y: -0.70027214, z: 0.09807657, w: -0.70027214}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -731,7 +731,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8137218695598264486}
-  m_LocalRotation: {x: 0.11559233, y: 0.000000017091043, z: -0.0000000019889257, w: 0.99329674}
+  m_LocalRotation: {x: -0.081736125, y: -0.7023669, z: 0.081736125, w: -0.7023669}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -818,6 +818,7 @@ Transform:
   m_Children:
   - {fileID: 9172362810255580609}
   - {fileID: 9172362809093060908}
+  - {fileID: 6164958008487951250}
   m_Father: {fileID: 9172362809246681562}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -978,7 +979,7 @@ BoxCollider:
   m_GameObject: {fileID: 9172362809093060899}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -1022,7 +1023,6 @@ Transform:
   m_Children:
   - {fileID: 9172362808593105683}
   - {fileID: 8489875989721449170}
-  - {fileID: 6164958008487951250}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1300,7 +1300,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 9172362809246681562}
+    m_TransformParent: {fileID: 9172362808593105683}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 75f2c5732da7a03408bec7dac4312b52, type: 3}
       propertyPath: m_RootOrder
@@ -1308,7 +1308,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 75f2c5732da7a03408bec7dac4312b52, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.050964355
+      value: -0.050964363
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 75f2c5732da7a03408bec7dac4312b52, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1316,7 +1316,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 75f2c5732da7a03408bec7dac4312b52, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.01599884
+      value: -0.016006462
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 75f2c5732da7a03408bec7dac4312b52, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1407,3 +1407,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &9124069387409755497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6829009587080782120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a61c5139140094ab12b664c4b2c76a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
