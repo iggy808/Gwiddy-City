@@ -8,6 +8,8 @@ namespace DanceEvent
 	public class DanceRequestSender : MonoBehaviour
 	{
 		[SerializeField]
+		ScenarioController ScenarioController;
+		[SerializeField]
 		DanceRequestHandler DanceHandler;
 		[SerializeField]
 		PlayerDances PlayerDances;
@@ -57,6 +59,12 @@ namespace DanceEvent
 		{
 			Debug.Log("Player is currently inside of : " + collider.gameObject.name);
 
+			if (ScenarioController.IsScenarioActive)
+			{
+				Debug.Log("Scenario is active, trigger voided");
+				return;
+			}
+
 			if (collider.gameObject.TryGetComponent(out DanceInteractor danceInteractor))
 			{		
 				Debug.Log("Has dance interactor");
@@ -77,32 +85,33 @@ namespace DanceEvent
 							{
 								Environment = Environment.EnvDance,
 								DesiredMoves = new List<DanceEvent.Pose>() {PlayerDances.Dances.ElementAt(0)},
-								TargetObject = collider.gameObject
+								TargetObject = collider.gameObject.transform.parent.gameObject
 							});
 						}
 						break;
 
 					case InteractorType.TutorialBridge:
-						Debug.Log("Collider object type : " + danceInteractor.Type);
 						// Activate interact text and wait for interact button press...
 						Debug.Log("Calling ActivateInteractText from DanceRequestSender");
-						CurrentTextController.ActivateInteractText();
+						if (!DanceActive)
+						{
+							CurrentTextController.ActivateInteractText();
+						}
+
 						Debug.Log("Waiting for interact key");
 						if (PlayerInteract.InteractKeyPressed)
 						{
-							Debug.Log("Interaact key pressed");
-							Debug.Log("Dance active? : " + DanceActive);
 							if (!DanceActive)
 							{
 								DanceActive = true;
+								Debug.Log("Calling disable interact text from dance request sender.");
 								CurrentTextController.DisableInteractText();
 								Debug.Log("DanceRequestSender logs an interact key press. Triggering the dance event");
-								DanceHandler.ActivateDanceSequenceEvent(new DanceRequestContext 
+								DanceHandler.ActivateDanceEvent(new DanceRequestContext 
 								{
 									Environment = Environment.EnvDance,
 									DesiredMoves = new List<DanceEvent.Pose>()
 									{
-										Pose.Splits,
 										Pose.Cool
 									},
 									TargetObject = collider.gameObject.transform.parent.gameObject
@@ -127,6 +136,7 @@ namespace DanceEvent
 			if (CurrentTextController != null && !DanceActive)
 			{
 				Debug.Log("Left trigger, allowing for interactor processing");
+				CurrentTextController.DisableInteractText();
 				AllowForInteractorProcessing();
 			}
 		}

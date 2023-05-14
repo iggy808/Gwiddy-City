@@ -122,7 +122,7 @@ namespace DanceEvent
 
         void TriggerQuicktimeEvent()
         {
-			Debug.Log("Dance event triggered");
+			//Debug.Log("Dance event triggered");
 			StartCoroutine(DelayQuicktimeEnable());
         }
 
@@ -133,15 +133,16 @@ namespace DanceEvent
             DanceEventManager.enabled = true;
 			DanceInputController.enabled = true;
 			DanceEventUITransformController.enabled = true;
-			Debug.Log("Dance event enabled.");
+			//Debug.Log("Dance event enabled.");
         }
 
         IEnumerator DelayQuicktimeDisable(bool wasSuccessful)
         {
             yield return new WaitForSeconds(0.5f);
+			// If not sequence, disable dance event UI, handle battle single move case
 			if (!IsSequenceEvent)//|| CurrentSequencePoseIndex >= Context.DesiredMoves.Count)
 			{
-				Debug.Log("WEnt through !IsSequenceEvent blovk");
+				Debug.Log("Went through !IsSequenceEvent block.");
             	DanceEventManager.enabled = false;
 				DanceInputController.enabled = false;
 				DanceEventUITransformController.enabled = false;
@@ -165,6 +166,15 @@ namespace DanceEvent
 
 			if (Context != null)
 			{
+				// If this is the tutorial dance event, ignore remaining handling, progress scenario, and break
+				if (Context.IsTutorial)
+				{
+					Debug.Log("Dance Event Handler : ProgressingScenarion, attempting yield break.");
+					ScenarioController.ProgressScenario();
+					yield break;
+				}
+
+				// If this is a battle sequence event, handle accordingly
 				if (Context.Environment == Environment.BattleDance && IsSequenceEvent)
 				{
 					if (wasSuccessful)
@@ -199,6 +209,37 @@ namespace DanceEvent
 						BattleManager.HandleSequenceStats(SequenceCoolness, SequenceStaminaCost);
 					}
 				}
+
+				// If this is a successful enevironmental dance event, handle accordingly
+				if (Context.Environment == Environment.EnvDance && wasSuccessful && !Context.IsTutorial)
+				{	
+					Debug.Log("Dance handler - collider component name : " + Context.TargetObject.transform.GetChild(0).name);
+					// DanceEventTrigger object is always the first child of the environmental dance interactions 
+					if (Context.TargetObject.transform.GetChild(0).TryGetComponent<DanceInteractor>(out DanceInteractor danceInteractor))
+					{
+						GameObject colliderObject = Context.TargetObject.transform.GetChild(0).gameObject;
+						// Disable event trigger - gives enemies permanence 
+						colliderObject.SetActive(false);
+						Debug.Log("Dance handler allowing interactor processing in the dance sender");
+						DanceSender.AllowForInteractorProcessing();
+						if (danceInteractor.Type == InteractorType.EnvEnemy)
+						{
+							Debug.Log("Dance handler handling environmental enemy victory.");
+							// Note: nothing right now, could spice up later
+						}
+						else if (danceInteractor.Type == InteractorType.TutorialBridge)
+						{
+							Debug.Log("Dance handler handling tutorial bridge victory.");
+							TutorialBridgeController.RaiseBridge();
+						}
+					}
+					else
+					{
+						Debug.Log("BIG PROBLEM BIG PROBLEM BIG PROBLEM BIG PROBLEM DanceHandler - danceInteractor not found");
+					}
+				}
+
+				/*
 				else if (Context.Environment == Environment.EnvDance && wasSuccessful && Context.TargetObject.GetComponent<DanceInteractor>().Type == InteractorType.TutorialBridge)
 				{
 					Context.TargetObject.SetActive(false);
@@ -216,6 +257,7 @@ namespace DanceEvent
 				{
 					ScenarioController.ProgressScenario();
 				}
+				*/
 			}
         }
 

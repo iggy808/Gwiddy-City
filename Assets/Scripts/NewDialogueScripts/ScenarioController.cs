@@ -13,6 +13,9 @@ public class ScenarioController : MonoBehaviour
 	int CurrentProgressionStage;
 
 	[SerializeField]
+	DanceRequestSender DanceSender;
+
+	[SerializeField]
 	GameObject Player;
 	PlayerMovement PlayerMovement;
 	[SerializeField]
@@ -24,12 +27,16 @@ public class ScenarioController : MonoBehaviour
 	[SerializeField]
 	ParticleHandler ParticleHandler;
 
+	public bool IsScenarioActive;
 
 	// Initialize game in tutorial scenario - movement locked and speaking to old man
 	void Awake()
 	{
 		Scenario startingScenario = new Scenario(ScenarioType.TutorialOldMan);
 		PlayerMovement = Player.GetComponent<PlayerMovement>();
+		// Throughout the intro, disable the general dance event sender
+		// Or control with IsSCenarioActive?
+		//DanceSender.enabled = false;
 
 		InitializeScenario(startingScenario);
 	}
@@ -37,6 +44,7 @@ public class ScenarioController : MonoBehaviour
 	// General initialize function for future scenarios
 	public void InitializeScenario(Scenario scenario)
 	{
+		IsScenarioActive = true;
 		CurrentScenario = scenario;
 		CurrentState = CurrentScenario.States.First();
 		PlayerMovement.enabled = false;
@@ -83,6 +91,9 @@ public class ScenarioController : MonoBehaviour
 						ParticleHandler.PUFF_O_SMOKE();
 						Debug.Log("OLD MAN GONE, PLAYER CAN MOVE!");
 						OldManObject.SetActive(false);
+						// Enable the general environmental dance event sender
+						//DanceSender.enabled = true;
+						IsScenarioActive = false;
 						break;
 				}
 				break;
@@ -99,7 +110,7 @@ public class ScenarioController : MonoBehaviour
 		if (CurrentProgressionStage > CurrentScenario.States.Count)
 		{
 			CurrentState = ScenarioStates.Over;
-			Debug.Log("Scenario is over.");
+			Debug.Log("Out of bounds - oopsie was made somewhere.");
 			return;
 		}
 		else
