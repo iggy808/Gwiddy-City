@@ -1613,7 +1613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2767967983370690082, guid: 21538ef967e0db94299704de2523dcc6, type: 3}
       propertyPath: m_Name
-      value: InteractionText
+      value: InteractionTextContainer
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21538ef967e0db94299704de2523dcc6, type: 3}

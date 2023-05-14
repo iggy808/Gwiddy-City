@@ -59,7 +59,6 @@ namespace DanceEvent
 
 			if (collider.gameObject.TryGetComponent(out DanceInteractor danceInteractor))
 			{		
-				Debug.Log("Has dance interactor");
 				if (CurrentlyProcessingInteractor == null)
 				{	
 					AssignCurrentlyProcessingInteractor(danceInteractor);
@@ -67,6 +66,12 @@ namespace DanceEvent
 
 				switch (CurrentlyProcessingInteractorType)
 				{
+					/*
+					case InteractorType.OldManTutorial:
+						CurrentTextController.ActivateInteractText();
+						break;
+						*/
+
 
 					case InteractorType.EnvEnemy:
 						Debug.Log("Collider object type : " + danceInteractor.Type);
@@ -77,7 +82,7 @@ namespace DanceEvent
 							{
 								Environment = Environment.EnvDance,
 								DesiredMoves = new List<DanceEvent.Pose>() {PlayerDances.Dances.ElementAt(0)},
-								TargetObject = collider.gameObject
+								TargetObject = collider.transform.parent.transform.gameObject
 							});
 						}
 						break;
@@ -92,8 +97,10 @@ namespace DanceEvent
 						{
 							Debug.Log("Interaact key pressed");
 							Debug.Log("Dance active? : " + DanceActive);
+							/*
 							if (!DanceActive)
 							{
+							*/
 								DanceActive = true;
 								CurrentTextController.DisableInteractText();
 								Debug.Log("DanceRequestSender logs an interact key press. Triggering the dance event");
@@ -105,9 +112,12 @@ namespace DanceEvent
 										Pose.Splits,
 										Pose.Cool
 									},
-									TargetObject = collider.gameObject.transform.parent.gameObject
+									//TargetObject = collider.gameObject.transform.parent.gameObject
+									TargetObject = collider.gameObject
 								});
+								/*
 							}
+						*/
 						}
 						break;
 

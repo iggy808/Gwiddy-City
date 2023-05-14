@@ -165,6 +165,10 @@ namespace DanceEvent
 
 			if (Context != null)
 			{
+				if (Context.Environment == Environment.EnvDance)
+				{
+					Debug.Log("Dance event over, object with interactor name : " + Context.TargetObject.transform.GetChild(Context.TargetObject.transform.childCount-2).name);
+				}
 				if (Context.Environment == Environment.BattleDance && IsSequenceEvent)
 				{
 					if (wasSuccessful)
@@ -199,7 +203,9 @@ namespace DanceEvent
 						BattleManager.HandleSequenceStats(SequenceCoolness, SequenceStaminaCost);
 					}
 				}
-				else if (Context.Environment == Environment.EnvDance && wasSuccessful && Context.TargetObject.GetComponent<DanceInteractor>().Type == InteractorType.TutorialBridge)
+				else if (Context.Environment == Environment.EnvDance && wasSuccessful 
+						&& Context.TargetObject.transform.GetChild(Context.TargetObject.transform.childCount-2)
+							.GetComponent<DanceInteractor>().Type == InteractorType.TutorialBridge)
 				{
 					Context.TargetObject.SetActive(false);
 					Debug.Log("Calling AllowForInteractorProcessing from DanceRequestHandler");

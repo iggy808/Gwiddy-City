@@ -13,6 +13,9 @@ public class ScenarioController : MonoBehaviour
 	int CurrentProgressionStage;
 
 	[SerializeField]
+	InteractTextController TextController;
+
+	[SerializeField]
 	GameObject Player;
 	PlayerMovement PlayerMovement;
 	[SerializeField]
@@ -29,6 +32,10 @@ public class ScenarioController : MonoBehaviour
 	void Awake()
 	{
 		Scenario startingScenario = new Scenario(ScenarioType.TutorialOldMan);
+		Debug.Log("Awakening scenario...");
+		Debug.Log("Oldman remake object : " + OldManTextPrompt.transform.parent.transform.gameObject.name);
+		Debug.Log("Object w interact text controller : ");
+		TextController = OldManTextPrompt.transform.parent.transform.gameObject.GetComponent<InteractTextController>();
 		PlayerMovement = Player.GetComponent<PlayerMovement>();
 
 		InitializeScenario(startingScenario);
@@ -37,6 +44,7 @@ public class ScenarioController : MonoBehaviour
 	// General initialize function for future scenarios
 	public void InitializeScenario(Scenario scenario)
 	{
+		TextController.ActivateInteractText();
 		CurrentScenario = scenario;
 		CurrentState = CurrentScenario.States.First();
 		PlayerMovement.enabled = false;
@@ -55,7 +63,8 @@ public class ScenarioController : MonoBehaviour
 				switch (CurrentState)
 				{
 					case ScenarioStates.InteractedOnce:
-						OldManTextPrompt.SetActive(false);
+						//OldManTextPrompt.SetActive(false);
+						TextController.DisableInteractText();
 						break;
 					case ScenarioStates.DanceEventTutorial:
 						// Activate a dance event with tutorial intructions and long timer
@@ -72,11 +81,13 @@ public class ScenarioController : MonoBehaviour
 						break;
 					case ScenarioStates.DanceEventTutorialOver:
 						// Enable interact text above old man head
-						OldManTextPrompt.SetActive(true);
+						//OldManTextPrompt.SetActive(true);
+						TextController.ActivateInteractText();
 						break;
 					case ScenarioStates.InteractedTwice:
 						// Disable interact text above old man head
-						OldManTextPrompt.SetActive(false);
+						//OldManTextPrompt.SetActive(false);
+						TextController.DisableInteractText();
 						break;
 					case ScenarioStates.Over:
 						// PUFF OF SMOKE ETC.

@@ -10,12 +10,16 @@ public class InteractionText : MonoBehaviour
     public GameObject interactionTextObject;
 	bool IsTextInstantiated;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+	void Awake()
+	{
+
 		IsTextInstantiated = false;
         //interactionTextObject = Instantiate(interactionTextPrefab, TextPosition.position, Quaternion.Euler(0, -90, 0), transform) as GameObject;
 		interactionTextObject.SetActive(false);
+	}
+    // Start is called before the first frame update
+    void Start()
+    {
     }
     
 
