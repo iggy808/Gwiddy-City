@@ -8,11 +8,18 @@ public class PlayerInteract : MonoBehaviour
 	[SerializeField]
 	ScenarioController ScenarioController;    
 
+	public bool InteractKeyPressed;
+	
+	void Start()
+	{
+	}
+
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
+			InteractKeyPressed = true;
 			Debug.Log("Player triggered interaction.");
             float interactRange = 2f;
 
@@ -51,5 +58,9 @@ public class PlayerInteract : MonoBehaviour
                 }
             }
         }
+		else
+		{
+			InteractKeyPressed = false;
+		}
     }
 }

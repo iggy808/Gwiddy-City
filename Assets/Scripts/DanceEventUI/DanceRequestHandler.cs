@@ -19,6 +19,8 @@ namespace DanceEvent
 		ScenarioController ScenarioController;
 		[SerializeField]
 		TutorialBridgeController TutorialBridgeController;
+		[SerializeField]
+		DanceRequestSender DanceSender;
 
 		[SerializeField]
 		BattleRequestHandler BattleHandler;
@@ -200,11 +202,15 @@ namespace DanceEvent
 				else if (Context.Environment == Environment.EnvDance && wasSuccessful && Context.TargetObject.GetComponent<DanceInteractor>().Type == InteractorType.TutorialBridge)
 				{
 					Context.TargetObject.SetActive(false);
+					Debug.Log("Calling AllowForInteractorProcessing from DanceRequestHandler");
+					DanceSender.AllowForInteractorProcessing();
 					TutorialBridgeController.RaiseBridge();
 				}
 				else if (Context.Environment == Environment.EnvDance && wasSuccessful && !Context.IsTutorial)
 				{
 					Context.TargetObject.SetActive(false);
+					Debug.Log("Calling AllowForInteractorProcessing from DanceRequestHandler");
+					DanceSender.AllowForInteractorProcessing();
 				}
 				else if (Context.IsTutorial)
 				{
