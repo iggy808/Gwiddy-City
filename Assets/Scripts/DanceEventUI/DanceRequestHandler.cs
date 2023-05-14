@@ -210,33 +210,56 @@ namespace DanceEvent
 					}
 				}
 
-				// If this is a successful enevironmental dance event, handle accordingly
-				if (Context.Environment == Environment.EnvDance && wasSuccessful && !Context.IsTutorial)
+				// If this is an enevironmental dance event, handle accordingly
+				if (Context.Environment == Environment.EnvDance)
 				{	
 					Debug.Log("Dance handler - collider component name : " + Context.TargetObject.transform.GetChild(0).name);
-					// DanceEventTrigger object is always the first child of the environmental dance interactions 
+					// All environmental dances have colliders that hold a dance interactor component
+					// DanceEventTrigger object w/ interactor component is always the first child of the environmental object
 					if (Context.TargetObject.transform.GetChild(0).TryGetComponent<DanceInteractor>(out DanceInteractor danceInteractor))
 					{
 						GameObject colliderObject = Context.TargetObject.transform.GetChild(0).gameObject;
 						// Disable event trigger - gives enemies permanence 
-						colliderObject.SetActive(false);
 						Debug.Log("Dance handler allowing interactor processing in the dance sender");
 						DanceSender.AllowForInteractorProcessing();
 						if (danceInteractor.Type == InteractorType.EnvEnemy)
 						{
+							if (wasSuccessful)
+							{
+								colliderObject.SetActive(false);
+							}
+							else
+							{
+								//DanceSender.AllowForInteractorProcessing();
+							}
+
 							Debug.Log("Dance handler handling environmental enemy victory.");
 							// Note: nothing right now, could spice up later
 						}
 						else if (danceInteractor.Type == InteractorType.TutorialBridge)
 						{
-							Debug.Log("Dance handler handling tutorial bridge victory.");
-							TutorialBridgeController.RaiseBridge();
+							if (wasSuccessful)
+							{
+								Debug.Log("Dance handler handling tutorial bridge victory.");
+								colliderObject.SetActive(false);
+								TutorialBridgeController.RaiseBridge();
+							}
+							else
+							{
+								//DanceSender.AllowForInteractorProcessing();	
+							}
+
 						}
 					}
 					else
 					{
 						Debug.Log("BIG PROBLEM BIG PROBLEM BIG PROBLEM BIG PROBLEM DanceHandler - danceInteractor not found");
 					}
+				}
+				// If this is an unsuccessful environmental dance event, handle accordingly
+				else if (Context.Environment == Environment.EnvDance && !wasSuccessful)
+				{
+					DanceSender.AllowForInteractorProcessing();
 				}
 
 				/*
