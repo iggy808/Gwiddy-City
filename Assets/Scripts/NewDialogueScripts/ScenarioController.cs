@@ -32,7 +32,7 @@ public class ScenarioController : MonoBehaviour
 
 	public bool IsScenarioActive;
 	public bool INSP_CANCELINTROSCENARIO;
-
+	Rigidbody rb;
 	// Initialize game in tutorial scenario - movement locked and speaking to old man
 	void Awake()
 	{
@@ -43,7 +43,7 @@ public class ScenarioController : MonoBehaviour
 			return;
 		}
 		*/
-
+		rb = Player.GetComponent<Rigidbody>();
 		Scenario startingScenario = new Scenario(ScenarioType.TutorialOldMan);
 		PlayerMovement = Player.GetComponent<PlayerMovement>();
 		// Throughout the intro, disable the general dance event sender
@@ -66,9 +66,12 @@ public class ScenarioController : MonoBehaviour
 		
 		// Restrict player movement and animation at beginning of scenario
 		PlayerMovement.enabled = false;
-		//AnimationInputController.enabled = false;
+        rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
-		Debug.Log("Scenario initialized, CurrentState = " + CurrentState + ", CurrentProgressionStage = " + CurrentProgressionStage);
+        //AnimationInputController.enabled = false;
+
+        Debug.Log("Scenario initialized, CurrentState = " + CurrentState + ", CurrentProgressionStage = " + CurrentProgressionStage);
 	}
 
 	void ProgressState() 

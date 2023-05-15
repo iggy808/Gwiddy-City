@@ -47,7 +47,7 @@ public class DialogueManager : MonoBehaviour
     string sentence;
     // Boolean to figure out if the player skipped passed dialogue
     bool clicked;
-
+    Rigidbody rb;
 
 	[SerializeField]
 	ScenarioController ScenarioController;
@@ -56,6 +56,8 @@ public class DialogueManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rb = playerCharacter.GetComponent<Rigidbody>();
+
         clicked = false;
         mouseButton.gameObject.SetActive(false);
         animator.SetBool("IsOpen", false);
@@ -146,8 +148,11 @@ public class DialogueManager : MonoBehaviour
         	// Enable player movement if the scenario is over
 			ScenarioController.ProgressScenario();
         	playerCharacter.GetComponent<PlayerMovement>().enabled = true;
-		}
-		else
+            rb.constraints &= ~RigidbodyConstraints.FreezePositionX | ~RigidbodyConstraints.FreezePositionY | ~RigidbodyConstraints.FreezePositionZ;
+            rb.constraints &= ~RigidbodyConstraints.FreezeRotationX | ~RigidbodyConstraints.FreezeRotationY | ~RigidbodyConstraints.FreezeRotationZ;
+
+        }
+        else
 		{
 			ScenarioController.ProgressScenario();
 		}
