@@ -5,6 +5,8 @@ using UnityEngine;
 public class animationStateController : MonoBehaviour
 {
 	Animator animator;
+	[SerializeField]
+	ScenarioController ScenarioController;
 
     // Start is called before the first frame update
     void Start()
@@ -16,14 +18,18 @@ public class animationStateController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    	if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d"))
+		if (!ScenarioController.IsScenarioActive)
 		{
-			animator.SetBool("isRunning", true);
+    		if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d"))
+			{
+				animator.SetBool("isRunning", true);
+			}
+			else	
+			{
+				animator.SetBool("isRunning", false);
+			}
 		}
-		else
-		{
-			animator.SetBool("isRunning", false);
-		}
+
 
 		if (Input.GetKey("q"))
 		{

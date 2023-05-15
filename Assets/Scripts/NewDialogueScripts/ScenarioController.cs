@@ -14,6 +14,9 @@ public class ScenarioController : MonoBehaviour
 
 	[SerializeField]
 	DanceRequestSender DanceSender;
+	[SerializeField]
+	animationStateController AnimationInputController;
+
 
 	[SerializeField]
 	GameObject Player;
@@ -28,10 +31,19 @@ public class ScenarioController : MonoBehaviour
 	ParticleHandler ParticleHandler;
 
 	public bool IsScenarioActive;
+	public bool INSP_CANCELINTROSCENARIO;
 
 	// Initialize game in tutorial scenario - movement locked and speaking to old man
 	void Awake()
 	{
+		/*
+		if (INSP_CANCELINTROSCENARIO)
+		{
+			AnimationInputController.enabled = true;
+			return;
+		}
+		*/
+
 		Scenario startingScenario = new Scenario(ScenarioType.TutorialOldMan);
 		PlayerMovement = Player.GetComponent<PlayerMovement>();
 		// Throughout the intro, disable the general dance event sender
@@ -44,13 +56,17 @@ public class ScenarioController : MonoBehaviour
 	// General initialize function for future scenarios
 	public void InitializeScenario(Scenario scenario)
 	{
+		// Configure variables for internal use during scenario
 		IsScenarioActive = true;
 		CurrentScenario = scenario;
 		CurrentState = CurrentScenario.States.First();
-		PlayerMovement.enabled = false;
 		CurrentProgressionStage = 0;
 		CurrentDialogueInteractionCount = 0;
 		ScenarioTotalInteractionCount = CurrentScenario.DialogueInteractionCount;	
+		
+		// Restrict player movement and animation at beginning of scenario
+		PlayerMovement.enabled = false;
+		//AnimationInputController.enabled = false;
 
 		Debug.Log("Scenario initialized, CurrentState = " + CurrentState + ", CurrentProgressionStage = " + CurrentProgressionStage);
 	}
@@ -66,6 +82,7 @@ public class ScenarioController : MonoBehaviour
 						OldManTextPrompt.SetActive(false);
 						break;
 					case ScenarioStates.DanceEventTutorial:
+						AnimationInputController.enabled = true;
 						// Activate a dance event with tutorial intructions and long timer
 						DanceHandler.ActivateDanceEvent(new DanceRequestContext
 						{
