@@ -46,6 +46,10 @@ namespace BattleEvent
 			CurrentEnemy = context.Enemy.Name;
 			EnemyCurrentStamina = context.Enemy.MaxStamina;
 
+			// Tell the player they are in a battle
+			PlayerEngaged engaged = PlayerController.GetComponent<PlayerEngaged>();
+			engaged.battleEngaged = true;
+
 			// Fetch the current player stats from the player controller
 			Context.Player = PlayerController.GetComponent<PlayerStats>();
 			PlayerCurrentStamina = Context.Player.CurrentStamina;
@@ -313,6 +317,8 @@ namespace BattleEvent
 		public void EndBattle()
 		{
 			BattleHandler.EndBattleEvent(WasSuccessful);
+			PlayerEngaged engaged = PlayerController.GetComponent<PlayerEngaged>();
+			engaged.battleEngaged = false;
 		}
 	}
 }

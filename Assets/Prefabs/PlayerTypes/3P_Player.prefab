@@ -153,7 +153,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 903993293565822013}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.000001, y: 2, z: 0.0000009536743}
+  m_LocalPosition: {x: 0, y: 2, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -204,7 +204,7 @@ MonoBehaviour:
   m_YAxis:
     Value: 0.5
     m_SpeedMode: 0
-    m_MaxSpeed: 80
+    m_MaxSpeed: 4
     m_AccelTime: 0.2
     m_DecelTime: 0.1
     m_InputAxisName: Mouse Y
@@ -228,7 +228,7 @@ MonoBehaviour:
   m_XAxis:
     Value: 0
     m_SpeedMode: 0
-    m_MaxSpeed: 3000
+    m_MaxSpeed: 400
     m_AccelTime: 0.1
     m_DecelTime: 0.1
     m_InputAxisName: Mouse X
@@ -575,7 +575,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3514970284904473449}
-  m_LocalRotation: {x: -0.06542225, y: -0.70407385, z: 0.06542225, w: -0.70407385}
+  m_LocalRotation: {x: 0.09252102, y: 0.000000017659858, z: -0.0000000016409465, w: 0.99571073}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -653,7 +653,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3705947001898914772}
-  m_LocalRotation: {x: -0.09807657, y: -0.70027214, z: 0.09807657, w: -0.70027214}
+  m_LocalRotation: {x: 0.13870122, y: 1e-45, z: -0, w: 0.99033433}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -731,7 +731,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8137218695598264486}
-  m_LocalRotation: {x: -0.081736125, y: -0.7023669, z: 0.081736125, w: -0.7023669}
+  m_LocalRotation: {x: 0.11559233, y: -0.00000001709104, z: 0.0000000019889252, w: 0.99329674}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1003,6 +1003,7 @@ GameObject:
   - component: {fileID: 2374961320024912910}
   - component: {fileID: 6517407838943293431}
   - component: {fileID: 8055223243906581424}
+  - component: {fileID: 1555488035889052495}
   m_Layer: 0
   m_Name: 3P_Player
   m_TagString: Untagged
@@ -1220,7 +1221,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b915643c14204f739af518f7444bd91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ScenarioController: {fileID: 0}
   DanceHandler: {fileID: 0}
+  PlayerDances: {fileID: 0}
+  CurrentTextController: {fileID: 0}
+  CurrentlyProcessingInteractor: {fileID: 0}
+  CurrentlyProcessingInteractorType: 0
 --- !u!114 &1714705975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1234,6 +1240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScenarioController: {fileID: 8055223243906581424}
+  InteractKeyPressed: 0
 --- !u!114 &2374961320024912910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1281,11 +1288,28 @@ MonoBehaviour:
   CurrentState: 0
   CurrentDialogueInteractionCount: 0
   ScenarioTotalInteractionCount: 0
+  DanceSender: {fileID: 0}
+  AnimationInputController: {fileID: 0}
   Player: {fileID: 9172362809246681561}
   OldManObject: {fileID: 0}
   OldManTextPrompt: {fileID: 0}
   DanceHandler: {fileID: 0}
   ParticleHandler: {fileID: 0}
+  IsScenarioActive: 0
+  INSP_CANCELINTROSCENARIO: 0
+--- !u!114 &1555488035889052495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9172362809246681561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23d7c7481ea3ce04187faf1b9c5b3c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battleEngaged: 0
 --- !u!1 &9172362810255580608
 GameObject:
   m_ObjectHideFlags: 0
@@ -1441,3 +1465,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49a61c5139140094ab12b664c4b2c76a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ScenarioController: {fileID: 0}

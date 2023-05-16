@@ -45,8 +45,8 @@ public class SliderBehavior : MonoBehaviour
                 }
                 if (thirdPerson != null)
                 {
-                    thirdPerson.m_XAxis.m_MaxSpeed = (3000f / 50f * value);
-                    thirdPerson.m_YAxis.m_MaxSpeed = (80f / 50f * value);
+                    thirdPerson.m_XAxis.m_MaxSpeed = (400f / 50f * value);
+                    thirdPerson.m_YAxis.m_MaxSpeed = (4f / 50f * value);
                 }
                 Save("Sens");
             }

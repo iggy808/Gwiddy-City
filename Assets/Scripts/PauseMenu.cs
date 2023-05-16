@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject menuUI;
     public PlayerCam firstPerson;
     public CinemachineFreeLook thirdPerson;
+    public PlayerEngaged engaged;
     public bool paused;
 
     void Update()
@@ -41,8 +42,11 @@ public class PauseMenu : MonoBehaviour
             firstPerson.enabled = true;
         if (thirdPerson != null)
             thirdPerson.enabled = true;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        if (!engaged.battleEngaged)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
         menuUI.SetActive(false);
         Time.timeScale = 1f;
         paused = false;
