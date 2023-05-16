@@ -42,7 +42,7 @@ namespace DanceEvent
 		void AssignCurrentlyProcessingInteractor(DanceInteractor danceInteractor)
 		{
 			Debug.Log("Assigning interactor, danceInteractor gameObject name : " + danceInteractor.gameObject.name);
-			if (danceInteractor.Type == InteractorType.TutorialBridge)
+			if (danceInteractor.Type == InteractorType.TutorialBridge1)
 			{	
 				Debug.Log("Assigning interactor, danceInteractor gameObject name (should be eventtrigger): " + danceInteractor.gameObject.name);
 			}
@@ -90,7 +90,37 @@ namespace DanceEvent
 						}
 						break;
 
-					case InteractorType.TutorialBridge:
+					case InteractorType.TutorialBridge1:
+						// Activate interact text and wait for interact button press...
+						Debug.Log("Calling ActivateInteractText from DanceRequestSender");
+						if (!DanceActive)
+						{
+							CurrentTextController.ActivateInteractText();
+						}
+
+						Debug.Log("Waiting for interact key");
+						if (PlayerInteract.InteractKeyPressed)
+						{
+							if (!DanceActive)
+							{
+								DanceActive = true;
+								Debug.Log("Calling disable interact text from dance request sender.");
+								CurrentTextController.DisableInteractText();
+								Debug.Log("DanceRequestSender logs an interact key press. Triggering the dance event");
+								DanceHandler.ActivateDanceEvent(new DanceRequestContext 
+								{
+									Environment = Environment.EnvDance,
+									DesiredMoves = new List<DanceEvent.Pose>()
+									{
+										Pose.Cool
+									},
+									TargetObject = collider.gameObject.transform.parent.gameObject
+								});
+							}
+						}
+						break;
+
+					case InteractorType.TutorialBridge2:
 						// Activate interact text and wait for interact button press...
 						Debug.Log("Calling ActivateInteractText from DanceRequestSender");
 						if (!DanceActive)

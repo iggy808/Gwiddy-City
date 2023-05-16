@@ -236,51 +236,27 @@ namespace DanceEvent
 							Debug.Log("Dance handler handling environmental enemy victory.");
 							// Note: nothing right now, could spice up later
 						}
-						else if (danceInteractor.Type == InteractorType.TutorialBridge)
+						else if (danceInteractor.Type == InteractorType.TutorialBridge1 || danceInteractor.Type == InteractorType.TutorialBridge2)
 						{
 							if (wasSuccessful)
 							{
 								Debug.Log("Dance handler handling tutorial bridge victory.");
 								colliderObject.SetActive(false);
-								TutorialBridgeController.RaiseBridge();
+								TutorialBridgeController.RaiseBridge(danceInteractor.Type);
 							}
 							else
 							{
 								//DanceSender.AllowForInteractorProcessing();	
 							}
-
 						}
 					}
 					else
 					{
 						Debug.Log("BIG PROBLEM BIG PROBLEM BIG PROBLEM BIG PROBLEM DanceHandler - danceInteractor not found");
 					}
-				}
-				// If this is an unsuccessful environmental dance event, handle accordingly
-				else if (Context.Environment == Environment.EnvDance && !wasSuccessful)
-				{
-					DanceSender.AllowForInteractorProcessing();
-				}
 
-				/*
-				else if (Context.Environment == Environment.EnvDance && wasSuccessful && Context.TargetObject.GetComponent<DanceInteractor>().Type == InteractorType.TutorialBridge)
-				{
-					Context.TargetObject.SetActive(false);
-					Debug.Log("Calling AllowForInteractorProcessing from DanceRequestHandler");
-					DanceSender.AllowForInteractorProcessing();
-					TutorialBridgeController.RaiseBridge();
-				}
-				else if (Context.Environment == Environment.EnvDance && wasSuccessful && !Context.IsTutorial)
-				{
-					Context.TargetObject.SetActive(false);
-					Debug.Log("Calling AllowForInteractorProcessing from DanceRequestHandler");
 					DanceSender.AllowForInteractorProcessing();
 				}
-				else if (Context.IsTutorial)
-				{
-					ScenarioController.ProgressScenario();
-				}
-				*/
 			}
         }
 

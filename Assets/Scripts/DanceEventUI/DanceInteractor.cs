@@ -4,7 +4,8 @@ public enum InteractorType
 {
 	OldManTutorial,
 	EnvEnemy,
-	TutorialBridge,
+	TutorialBridge1,
+	TutorialBridge2,
 	None
 }
 

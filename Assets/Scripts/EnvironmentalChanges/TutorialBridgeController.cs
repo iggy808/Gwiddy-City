@@ -5,18 +5,39 @@ using System.Collections.Generic;
 public class TutorialBridgeController : MonoBehaviour
 {
 	[SerializeField]
-	List<GameObject> Platforms;
+	List<GameObject> Bridge1Platforms;
+	[SerializeField]
+	List<GameObject> Bridge2Platforms;
 
-	float heightOffset = 2f;
-	public void RaiseBridge()
+	float Bridge1HeightOffset = 2f;
+	float Bridge2HeightOffset = 1.5f;
+
+	public void RaiseBridge(InteractorType interaction)
 	{
-		int i = 1;
-		foreach (var platform in Platforms)
+		// If function called w respect to first tutorial bridge, raise those platforms
+		if (interaction == InteractorType.TutorialBridge1)
 		{
-			Transform platformTransform = platform.GetComponent<Transform>();
-			platformTransform.position = new Vector3(platformTransform.position.x, platformTransform.position.y + 4.91f * 4 + (i*heightOffset), platformTransform.position.z);
-			//StartCoroutine(RaiseFashionably(platformTransform));
-			i++;
+			int i = 1;
+			foreach (var platform in Bridge1Platforms)
+			{
+				Transform platformTransform = platform.GetComponent<Transform>();
+				platformTransform.position = new Vector3(platformTransform.position.x, platformTransform.position.y + 4.91f * 4 + (i*Bridge1HeightOffset), platformTransform.position.z);
+				//StartCoroutine(RaiseFashionably(platformTransform));
+				i++;
+			}
+		}
+		// If function called w respect to second tutorial bridge, raise those platforms
+		else if (interaction == InteractorType.TutorialBridge2)
+		{
+			Debug.Log("Moving tutorial bridge 2");
+			int i = 1;
+			foreach (var platform in Bridge2Platforms)
+			{
+				Transform platformTransform = platform.GetComponent<Transform>();
+				platformTransform.position = new Vector3(platformTransform.position.x, platformTransform.position.y + 2.85f * 5 + (i*Bridge2HeightOffset), platformTransform.position.z);
+
+				i++;
+			}
 		}
 	}
 

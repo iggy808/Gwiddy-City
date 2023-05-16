@@ -36,13 +36,13 @@ public class ScenarioController : MonoBehaviour
 	// Initialize game in tutorial scenario - movement locked and speaking to old man
 	void Awake()
 	{
-		/*
+		
 		if (INSP_CANCELINTROSCENARIO)
 		{
 			AnimationInputController.enabled = true;
 			return;
 		}
-		*/
+
 		rb = Player.GetComponent<Rigidbody>();
 		Scenario startingScenario = new Scenario(ScenarioType.TutorialOldMan);
 		PlayerMovement = Player.GetComponent<PlayerMovement>();
