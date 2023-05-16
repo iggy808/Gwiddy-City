@@ -33,8 +33,12 @@ public class TutorialBridgeController : MonoBehaviour
 			int i = 1;
 			foreach (var platform in Bridge2Platforms)
 			{
+				/*
 				Transform platformTransform = platform.GetComponent<Transform>();
 				platformTransform.position = new Vector3(platformTransform.position.x, platformTransform.position.y + 2.85f * 5 + (i*Bridge2HeightOffset), platformTransform.position.z);
+				*/
+				Debug.Log("Platform name : name = " + platform.name);
+				platform.SetActive(true);
 
 				i++;
 			}
