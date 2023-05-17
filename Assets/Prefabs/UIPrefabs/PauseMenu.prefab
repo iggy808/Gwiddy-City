@@ -503,7 +503,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 3810251992857330655}
   m_HandleRect: {fileID: 3810251992443369072}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 1
   m_MaxValue: 100
   m_WholeNumbers: 1
   m_Value: 50
@@ -2117,5 +2117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuUI: {fileID: 3810251992722414234}
-  playerCam: {fileID: 0}
+  firstPerson: {fileID: 0}
+  thirdPerson: {fileID: 0}
+  engaged: {fileID: 0}
   paused: 0
