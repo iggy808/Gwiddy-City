@@ -7,6 +7,7 @@ using Cinemachine;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject menuUI;
+    public GameObject controlUI;
     public PlayerCam firstPerson;
     public CinemachineFreeLook thirdPerson;
     public PlayerEngaged engaged;
@@ -52,9 +53,21 @@ public class PauseMenu : MonoBehaviour
         paused = false;
     }
 
-    public void Return()
+    public void Quit()
     {
         UnPause();
         //SceneManager.LoadScene("Main Menu");
+    }
+
+    public void Return()
+    {
+        menuUI.SetActive(true);
+        controlUI.SetActive(false);
+    }
+
+    public void Controls()
+    {
+        menuUI.SetActive(false);
+        controlUI.SetActive(true);
     }
 }
