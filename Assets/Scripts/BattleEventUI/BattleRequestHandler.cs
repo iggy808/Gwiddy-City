@@ -83,6 +83,7 @@ namespace BattleEvent
 				BattleEventUIManager.ShowPlayerHud();
 			}
 			GameEnder.SetActive(true);
+			GameEnder.GetComponent<GameEnd>().EndTheGame();
 		}
 
 		void InitializeBattle()

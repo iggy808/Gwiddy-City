@@ -26,6 +26,7 @@ public class GameEnd : MonoBehaviour
         
     }
 
+	/*
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
@@ -51,12 +52,25 @@ public class GameEnd : MonoBehaviour
             // DO NOT PUT IT IN AN UPDATE FUNCTION
         }
     }
+	*/
     public void GetName()
     {
 
     }
     public void EndTheGame()
     {
+            player.gameObject.GetComponent<PlayerMovement>().enabled = false;
+            // disable hud 
+            hud.SetActive(false);
+
+
+            // Show keyboard
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+
+            // Get user name 
+            end.SetActive(true);
+            // Send score 
         userName = inputField.GetComponent<TMP_InputField>().text;
         HS.SubmitHighScore(this, userName, player.GetComponent<PlayerOrbCollection>().total);
         SceneManager.LoadScene("End Screen");
