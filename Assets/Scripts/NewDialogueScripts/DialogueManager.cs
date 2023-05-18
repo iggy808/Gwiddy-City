@@ -90,6 +90,12 @@ public class DialogueManager : MonoBehaviour
             }
 
         }
+
+        // Developer control to END current dialogue
+        if (Input.GetKeyDown(KeyCode.RightShift)){
+            sentences.Clear();
+        }
+
         // If the text is completed, display mouse button
         if (dialogueText.text == sentence)
         {
@@ -153,7 +159,6 @@ public class DialogueManager : MonoBehaviour
             if (scenarioStates == ScenarioStates.InteractedOnce)
             {
                 sentences.Clear();
-                Debug.Log("I learned we've interacted Once");
                 sentences.Enqueue("\"Hello There\"");
                 sentences.Enqueue("\"I am known as Old Man\"");
                 sentences.Enqueue("\"Welcome...to the world of many a name\"");
@@ -200,6 +205,44 @@ public class DialogueManager : MonoBehaviour
                 sentences.Enqueue("\"Use what I have taught you\"");
                 sentences.Enqueue("\"Dance your way to victory!\"");
                 sentences.Enqueue("\"AND SAVE US ALL!!!\"");
+            }
+        }
+
+        if (scenarioType == ScenarioType.TutorialOldMan2)
+        {
+            //Debug.Log("I learned we are in the Tutorial Old Man scenario");
+            if (scenarioStates == ScenarioStates.InteractedOnce)
+            {
+                sentences.Clear();
+                sentences.Enqueue("\"WAIT!!!\"");
+                sentences.Enqueue("\"I FORGOT TO TELL YOU HOW TO START....\"");
+                sentences.Enqueue("\"A DANCE DUEL\"");
+                sentences.Enqueue("\"For dance duels, you must choose your moves wisely\"");
+                sentences.Enqueue("\"And school your opponent in cool\"");
+                sentences.Enqueue("\"If they are much lamer than you...\"");
+                sentences.Enqueue("\"You can probably beat them with a single move\"");
+                sentences.Enqueue("\"BUT IF THEY ARE LIKE...\"");
+                sentences.Enqueue("\"WAYYYYYYYYY COOLER THAN YOU\"");
+                sentences.Enqueue("\"You must sequence your moves! \"");
+                sentences.Enqueue("\"Now you must try to engage me in a dance duel\"");
+                sentences.Enqueue("\"TRY YOUR BEST!!\"");
+            }
+
+            // Have some text pop up explaining controls?
+
+            if (scenarioStates == ScenarioStates.InteractedTwice)
+            {
+                sentences.Clear();
+                sentences.Enqueue("\"GOOD\"");
+                sentences.Enqueue("\"You are ready to duel the dancing champion\"");
+                sentences.Enqueue("\"They're just up ahead, in that big ass arena\"");
+                sentences.Enqueue("\"Remember what I have taught you!\"");
+                sentences.Enqueue("\"AND TO SAVE THE CITY\"");
+                sentences.Enqueue("\"YOU...\"");
+                sentences.Enqueue("\"MUST!\"");
+                sentences.Enqueue("\"HIT.\"");
+                sentences.Enqueue("\"THE.\"");
+                sentences.Enqueue("\"GRIDDYYYYYYYYYYY!!!!!\"");
             }
         }
     }

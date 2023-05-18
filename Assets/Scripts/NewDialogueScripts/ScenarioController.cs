@@ -47,6 +47,7 @@ public class ScenarioController : MonoBehaviour
 
 		rb = Player.GetComponent<Rigidbody>();
 		Scenario startingScenario = new Scenario(ScenarioType.TutorialOldMan);
+		Scenario secondSecario = new Scenario(ScenarioType.TutorialOldMan2);
 		PlayerMovement = Player.GetComponent<PlayerMovement>();
 		// Throughout the intro, disable the general dance event sender
 		// Or control with IsSCenarioActive?
