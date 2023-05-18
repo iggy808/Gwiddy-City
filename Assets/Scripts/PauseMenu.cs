@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
@@ -53,10 +54,13 @@ public class PauseMenu : MonoBehaviour
         paused = false;
     }
 
-    public void Quit()
+    public async void Quit()
     {
         UnPause();
-        //SceneManager.LoadScene("Main Menu");
+        GameObject fade = GameObject.FindWithTag("FadeScreen");
+        fade.GetComponent<FadeToBlack>().StartFade();
+        await Task.Delay(1000);
+        SceneManager.LoadScene("Start Screen");
     }
 
     public void Return()

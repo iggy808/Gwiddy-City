@@ -10,6 +10,7 @@ TagManager:
   - Button
   - HUD
   - EndGame
+  - FadeScreen
   layers:
   - Default
   - TransparentFX
