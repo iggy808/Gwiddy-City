@@ -21,12 +21,12 @@ public class PoseBattleInfo
 				break;
 			case DanceEvent.Pose.Cool:
 				StaminaCost = 2;
-				CoolnessGain = 15;
+				CoolnessGain = 10;
 				ScoreBoost = CoolnessGain;
 				break;
 			case DanceEvent.Pose.Sick:
 				StaminaCost = 3;
-				CoolnessGain = 25;
+				CoolnessGain = 15;
 				ScoreBoost = CoolnessGain;
 				break;
 			default:

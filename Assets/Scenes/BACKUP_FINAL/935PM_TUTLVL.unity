@@ -8931,7 +8931,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-538962
+  m_Name: pb_Mesh-751842
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -23608,7 +23608,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-538976
+  m_Name: pb_Mesh-751856
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -35802,7 +35802,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-538990
+  m_Name: pb_Mesh-751870
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -37580,7 +37580,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh277568
+  m_Name: pb_Mesh654544
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -47157,7 +47157,7 @@ PrefabInstance:
       objectReference: {fileID: 1730262286}
     - target: {fileID: 7272850725296330880, guid: 06d41630adc9d0d4dab34dd123130f6f, type: 3}
       propertyPath: m_VersionIndex
-      value: 2599
+      value: 2602
       objectReference: {fileID: 0}
     - target: {fileID: 7272850725296330881, guid: 06d41630adc9d0d4dab34dd123130f6f, type: 3}
       propertyPath: m_RootOrder
@@ -47281,7 +47281,7 @@ PrefabInstance:
       objectReference: {fileID: 452287476}
     - target: {fileID: 7272850725498233478, guid: 06d41630adc9d0d4dab34dd123130f6f, type: 3}
       propertyPath: m_VersionIndex
-      value: 1012
+      value: 1015
       objectReference: {fileID: 0}
     - target: {fileID: 7272850726301170369, guid: 06d41630adc9d0d4dab34dd123130f6f, type: 3}
       propertyPath: m_Mesh
@@ -47297,7 +47297,7 @@ PrefabInstance:
       objectReference: {fileID: 1126293285}
     - target: {fileID: 7272850726301170373, guid: 06d41630adc9d0d4dab34dd123130f6f, type: 3}
       propertyPath: m_VersionIndex
-      value: 694
+      value: 697
       objectReference: {fileID: 0}
     - target: {fileID: 7272850727017785674, guid: 06d41630adc9d0d4dab34dd123130f6f, type: 3}
       propertyPath: m_Mesh
@@ -47305,7 +47305,7 @@ PrefabInstance:
       objectReference: {fileID: 1516320375}
     - target: {fileID: 7272850727017785674, guid: 06d41630adc9d0d4dab34dd123130f6f, type: 3}
       propertyPath: m_VersionIndex
-      value: 700
+      value: 703
       objectReference: {fileID: 0}
     - target: {fileID: 7272850727017785718, guid: 06d41630adc9d0d4dab34dd123130f6f, type: 3}
       propertyPath: m_Mesh
@@ -48016,6 +48016,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2324769120650887622}
+    - target: {fileID: 2057411124011176994, guid: 3817cae13f02d44a397b564947a20160, type: 3}
+      propertyPath: m_fontSize
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 2057411124011176994, guid: 3817cae13f02d44a397b564947a20160, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 22
+      objectReference: {fileID: 0}
     - target: {fileID: 6127174513693439852, guid: 3817cae13f02d44a397b564947a20160, type: 3}
       propertyPath: m_Name
       value: DanceMenuButtons
@@ -61293,7 +61301,7 @@ PrefabInstance:
       objectReference: {fileID: 1208043644}
     - target: {fileID: 8055223243906581424, guid: 5f05f962fbf69bf49941fdf8f19034ab, type: 3}
       propertyPath: INSP_CANCELINTROSCENARIO
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8489875989721449170, guid: 5f05f962fbf69bf49941fdf8f19034ab, type: 3}
       propertyPath: m_RootOrder

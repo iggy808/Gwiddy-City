@@ -33,6 +33,8 @@ namespace BattleEvent
 		bool WasSuccessful;
 		int CoolnessLeadWinThreshhold;
 		List<DanceEvent.Pose> SequencerPoses;
+		DanceModifier CurrentDanceModifier;
+		
 		int CurrentSequencerIndex;
 		int CurrentSequencerStaminaCost;
 
@@ -102,6 +104,38 @@ namespace BattleEvent
 
 		public void HandleSequenceStats(int sequenceCoolness, int sequenceStaminaCost)
 		{
+			// Apply stat buffs to one shot moves
+			if (CurrentDanceModifier != null)
+			{
+				if (CurrentDanceModifier.CoolnessModifier != 0)
+				{
+					sequenceCoolness *= CurrentDanceModifier.CoolnessModifier;	
+				}
+				sequenceStaminaCost -= CurrentDanceModifier.StaminaReplenish;
+				if (CurrentTurn == BattleTurn.Player)
+				{
+					if (EnemyCurrentCoolness - CurrentDanceModifier.EnemyEmbarassment < 0)
+					{
+						EnemyCurrentCoolness = 0;
+					}
+					else
+					{	
+						EnemyCurrentCoolness -= CurrentDanceModifier.EnemyEmbarassment;
+					}
+				}
+				else if (CurrentTurn == BattleTurn.Enemy)
+				{
+					if (PlayerCurrentCoolness - CurrentDanceModifier.EnemyEmbarassment < 0)
+					{
+						PlayerCurrentCoolness = 0;
+					}
+					else
+					{
+						PlayerCurrentCoolness -= CurrentDanceModifier.EnemyEmbarassment;
+					}
+				}
+				
+			}
 			// Track correct stats according to current turn, switch turns afterwards
 			if (CurrentTurn == BattleTurn.Player)
 			{
@@ -117,8 +151,7 @@ namespace BattleEvent
 			// If both dancers run out of stamina, or if one dancer leads the other by 30 coolness,
 			// end the battle
 			if ((PlayerCurrentCoolness - CoolnessLeadWinThreshhold > EnemyCurrentCoolness 
-				 || EnemyCurrentCoolness - CoolnessLeadWinThreshhold >= PlayerCurrentCoolness) 
-				 || (EnemyCurrentStamina <= 0 && PlayerCurrentStamina <= 0))
+				 || EnemyCurrentCoolness - CoolnessLeadWinThreshhold >= PlayerCurrentCoolness))
 			{
 				if (EnemyCurrentStamina <= 0 && PlayerCurrentStamina <= 0)
 				{
@@ -141,12 +174,14 @@ namespace BattleEvent
 				}
 				
 				Debug.Log("Ending battle. Player cooler than '" + Context.Enemy.Name +"' ? : " + WasSuccessful);
+				CurrentDanceModifier = null;
 				EndBattle();
 			}
 			else
 			{
 				if (CurrentTurn == BattleTurn.Player)
 				{
+					CurrentDanceModifier = null;
 					Debug.Log("Player turn is over switching to enemy.");
 					CurrentTurn = BattleTurn.Enemy;
 					Debug.Log("Hiding player battle stats\n Hiding InputPanel\n Showing EnemyBattleStats, UpdatingBattleStats");
@@ -160,6 +195,7 @@ namespace BattleEvent
 				}
 				else if (CurrentTurn == BattleTurn.Enemy)
 				{
+					CurrentDanceModifier = null;
 					Debug.Log("Enemy turn is over, switching to player.");
 					CurrentTurn = BattleTurn.Player;
 					Debug.Log("Showing enemy+player BattleStats\n Updating battile stats\nShowing Input panel\n Showing Main menu");
@@ -189,6 +225,9 @@ namespace BattleEvent
 				case DanceEvent.Pose.Cool:
 					poseCoolness = 10;
 					break;
+				case DanceEvent.Pose.Sick:
+					poseCoolness = 15;
+					break;
 				default:
 					poseCoolness = 0;
 					break;
@@ -208,6 +247,9 @@ namespace BattleEvent
 					break;
 				case DanceEvent.Pose.Cool:
 					poseStaminaCost = 2;
+					break;
+				case DanceEvent.Pose.Sick:
+					poseStaminaCost = 3;
 					break;
 				default:
 					poseStaminaCost = 0;
@@ -271,6 +313,7 @@ namespace BattleEvent
 			Debug.Log("Triggering one off dance, hiding stats respectively.");
 
 			BattleUIManager.ShowBattleStats();
+			CurrentDanceModifier = new DanceModifier(pose);
 
 			DanceHandler.ActivateDanceEvent(new DanceRequestContext()
 			{

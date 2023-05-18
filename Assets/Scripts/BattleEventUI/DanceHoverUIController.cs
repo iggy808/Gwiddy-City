@@ -10,7 +10,7 @@ public class DanceHoverUIController : MonoBehaviour, IPointerEnterHandler, IPoin
 	TextMeshProUGUI StaminaCostText;
 	TextMeshProUGUI CoolnessGainText;
 	TextMeshProUGUI EffectsText;
-
+	DanceModifier DanceModifier;
 
 	PoseBattleInfo PoseInfo;
 	bool IsMouseHovering;
@@ -34,14 +34,19 @@ public class DanceHoverUIController : MonoBehaviour, IPointerEnterHandler, IPoin
 					PoseNameText.text = PoseInfo.Pose.ToString();
 					StaminaCostText.text = PoseInfo.StaminaCost.ToString();
 					CoolnessGainText.text = PoseInfo.CoolnessGain.ToString();
-					EffectsText.text = PoseInfo.Effects;
+					//EffectsText.text = 
+					string s = "";
+					s = DanceModifier.StaminaReplenish == 0 ? s : s + "Stamina Replenish : " + DanceModifier.StaminaReplenish + "\n";
+					s = DanceModifier.CoolnessModifier == 0 ? s : s + "Coolness Modifier : " + DanceModifier.CoolnessModifier + "\n";
+					s = DanceModifier.EnemyEmbarassment == 0 ? s : s + "Enemy Embarassment : " + DanceModifier.EnemyEmbarassment+ "\n";
+					EffectsText.text = s;
 				}
 				else 
 				{
 					PoseNameText.text = "Sequencer\nMenu";
 					StaminaCostText.text = "-";
 					CoolnessGainText.text = "-";
-					EffectsText.text = "Sequence moves!";
+					EffectsText.text = "Combine moves!";
 				}
 			}
 		}
@@ -57,6 +62,8 @@ public class DanceHoverUIController : MonoBehaviour, IPointerEnterHandler, IPoin
 		StaminaCostText = HoverInfoPanel.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>();
 		CoolnessGainText = HoverInfoPanel.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>();
 		EffectsText = HoverInfoPanel.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>();
+		
+		DanceModifier = new DanceModifier(pose);
 			
 		Debug.Log("Setting on hover info for button's new dancehoverui component");
 	}
