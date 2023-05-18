@@ -52,6 +52,7 @@ public class ScenarioController : MonoBehaviour
 		if (INSP_CANCELINTROSCENARIO)
 		{
 			AnimationInputController.enabled = true;
+			IsScenarioActive = false;
 			return;
 		}
 
@@ -207,6 +208,10 @@ public class ScenarioController : MonoBehaviour
 
 	public void ProgressScenario()
 	{
+		if (!IsScenarioActive)
+		{
+			return;
+		}
 		CurrentProgressionStage++;
 		Debug.Log("Progressing scenario...");
 
