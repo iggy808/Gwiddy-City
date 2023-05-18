@@ -40,6 +40,8 @@ namespace DanceEvent
 		GameObject BattleEventUIComponents;
 		[SerializeField]
 		BattleEvent.InputController BattleInputController;
+		[SerializeField]
+		PlayerMovement PlayerMovement;
 
 		GameObject DanceEventUI;
         DanceEventManager DanceEventManager;
@@ -133,6 +135,7 @@ namespace DanceEvent
             DanceEventManager.enabled = true;
 			DanceInputController.enabled = true;
 			DanceEventUITransformController.enabled = true;
+			PlayerMovement.engaged = true;
 			//Debug.Log("Dance event enabled.");
         }
 
@@ -147,6 +150,7 @@ namespace DanceEvent
 				DanceInputController.enabled = false;
 				DanceEventUITransformController.enabled = false;
             	DanceEventUI.SetActive(false);
+				PlayerMovement.engaged = false;
 				IsEventActive = false;
 				IsSequenceEvent = false;
 				if (Context != null)

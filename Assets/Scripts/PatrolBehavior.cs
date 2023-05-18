@@ -5,18 +5,19 @@ using UnityEngine;
 public class PatrolBehavior : MonoBehaviour
 {
     public UnityEngine.AI.NavMeshAgent agent;
+    public DanceRange danceRng;
     private Transform target;
     private bool tracking;
 
     private void FixedUpdate()
     {
-        if (tracking)
+        if (tracking && !danceRng.dancing)
             agent.SetDestination(target.position);
     }
 
     private void OnTriggerEnter(Collider col)
     {
-        if (col.CompareTag("Player"))
+        if (col.CompareTag("Player") && !tracking)
         {
             target = col.GetComponent<Transform>();
             agent.enabled = true;

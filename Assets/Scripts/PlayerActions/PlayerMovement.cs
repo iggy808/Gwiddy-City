@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform orientation;
     public bool dbJump;
     public bool dsh;
+    public bool engaged;
     private bool grounded;
     private bool jumpReady = true;
     private bool dashReady = true;
@@ -29,36 +30,38 @@ public class PlayerMovement : MonoBehaviour
     private float horizontalInput;
     private float verticalInput;
     private Vector3 moveDirection;
-    public Rigidbody rb;
+    private Rigidbody rb;
 
 
     private void Start()
     {
-        //Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
     }
 
     private void Update()
     {
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.8f, groundLayer);
-        PlayerInput();
-        SpeedControl();
-        if (grounded)
+        if (!engaged)
         {
-            rb.drag = groundDrag;
-            jumps = 0;
-            if (dashCD)
-                dashReady = true;
+            grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.8f, groundLayer);
+            PlayerInput();
+            SpeedControl();
+            if (grounded)
+            {
+                rb.drag = groundDrag;
+                jumps = 0;
+                if (dashCD)
+                    dashReady = true;
+            }
+            else
+                rb.drag = 0;
         }
-        else
-            rb.drag = 0;
     }
 
     
     private void FixedUpdate()
     {
+        if (!engaged)
         MovePlayer();
     }
     

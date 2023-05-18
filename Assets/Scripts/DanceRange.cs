@@ -4,23 +4,15 @@ using UnityEngine;
 
 public class DanceRange : MonoBehaviour
 {
+	public bool dancing;
+
 	private void OnTriggerEnter(Collider col)
 	{
 		if (col.CompareTag("Player"))
 		{
 			UnityEngine.AI.NavMeshAgent agent = GetComponentInParent<UnityEngine.AI.NavMeshAgent>();
 			agent.enabled = false;
-			//NOTE: TEMPORARILY COMMENTING OUT, THROWING ERRORS
-			//GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
-		}
-	}
-
-	private void OnTriggerExit(Collider col)
-	{
-		if (col.CompareTag("Player"))
-		{
-			UnityEngine.AI.NavMeshAgent agent = GetComponentInParent<UnityEngine.AI.NavMeshAgent>();
-			agent.enabled = true;
+			dancing = true;
 		}
 	}
 }
