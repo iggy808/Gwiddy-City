@@ -11256,6 +11256,8 @@ MonoBehaviour:
   CurrentBattleMoveCount: 0
   CurrentSequencePoseIndex: 0
   ScenarioController: {fileID: 0}
+  TutorialBridgeController: {fileID: 0}
+  DanceSender: {fileID: 0}
   BattleHandler: {fileID: 5297777174959194792}
   BattleManager: {fileID: 2324769120519640271}
   BattleDanceUI: {fileID: 8022849700733667769}
@@ -11265,6 +11267,8 @@ MonoBehaviour:
   BattleEventUI: {fileID: 2324769120519640268}
   BattleEventUIComponents: {fileID: 5297777176016878447}
   BattleInputController: {fileID: 2324769120519640270}
+  Player: {fileID: 0}
+  playerCam: {fileID: 0}
 --- !u!1 &5689232260027834975
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using BattleEvent;
+using Cinemachine;
 
 namespace DanceEvent
 {
@@ -41,7 +42,9 @@ namespace DanceEvent
 		[SerializeField]
 		BattleEvent.InputController BattleInputController;
 		[SerializeField]
-		PlayerMovement PlayerMovement;
+		GameObject Player;
+		[SerializeField]
+		CinemachineFreeLook playerCam;
 
 		GameObject DanceEventUI;
         DanceEventManager DanceEventManager;
@@ -135,9 +138,10 @@ namespace DanceEvent
             DanceEventManager.enabled = true;
 			DanceInputController.enabled = true;
 			DanceEventUITransformController.enabled = true;
-			PlayerMovement.engaged = true;
+			Player.GetComponent<PlayerMovement>().engaged = true;
+			playerCam.m_LookAt = EnvDanceUI.GetComponent<Transform>();
 			//Debug.Log("Dance event enabled.");
-        }
+		}
 
         IEnumerator DelayQuicktimeDisable(bool wasSuccessful)
         {
@@ -150,7 +154,8 @@ namespace DanceEvent
 				DanceInputController.enabled = false;
 				DanceEventUITransformController.enabled = false;
             	DanceEventUI.SetActive(false);
-				PlayerMovement.engaged = false;
+				Player.GetComponent<PlayerMovement>().engaged = false;
+				playerCam.m_LookAt = Player.GetComponent<Transform>();
 				IsEventActive = false;
 				IsSequenceEvent = false;
 				if (Context != null)
