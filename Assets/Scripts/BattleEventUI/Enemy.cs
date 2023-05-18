@@ -49,7 +49,7 @@ namespace BattleEvent
 					};
 					MaxStamina = 3;
 					CurrentStamina = MaxStamina;
-					CoolnessThreshhold = 5;
+					CoolnessThreshhold = 55;
 					break;
 				case SpecialEnemies.OldManTut:
 					Name = enemy;
