@@ -6,12 +6,13 @@ public class PatrolBehavior : MonoBehaviour
 {
     public UnityEngine.AI.NavMeshAgent agent;
     public DanceRange danceRng;
+    public EnemyAnimationController animControl;
     private Transform target;
     private bool tracking;
 
     private void FixedUpdate()
     {
-        if (tracking && !danceRng.dancing)
+        if (tracking && !danceRng.dancing && !animControl.fought)
             agent.SetDestination(target.position);
     }
 

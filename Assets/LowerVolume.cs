@@ -4,14 +4,23 @@ using UnityEngine;
 
 public class LowerVolume : MonoBehaviour
 {
+    public Collider player;
     public AudioSource audioSource;
     // Start is called before the first frame update
     private void OnTriggerStay(Collider other)
     {
-        audioSource.enabled = false;
+        if (other == player)
+        {
+            audioSource.enabled = false;
+
+        }
     }
     private void OnTriggerExit(Collider other)
     {
-        audioSource.enabled=true;
+        if (other == player)
+        {
+                    audioSource.enabled=true;
+
+        }
     }
 }
