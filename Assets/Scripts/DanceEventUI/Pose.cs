@@ -6,6 +6,7 @@ namespace DanceEvent
 	{
 		Splits,
 		Cool,
-		Sick
+		Sick,
+		None
 	}
 }

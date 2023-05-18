@@ -309,6 +309,10 @@ namespace BattleEvent
 
 		public void GenerateDanceMenuButtons()
 		{
+			// Additionally, configure sequencer button onHover event
+			SequenceMenuButton.GetComponent<DanceHoverUIController>().SetOnHoverInfo(DanceEvent.Pose.None);
+
+
 			DanceMenuDanceButtons = new List<GameObject>();
 
 			Vector2 startingAnchorMin = new Vector2(0f, 0.8f);
@@ -371,12 +375,23 @@ namespace BattleEvent
 				rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, 0f);
 
 				// Label button with appropriate dance name
-				DanceMenuButtons.transform.GetChild(i+1).transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = pose.ToString().ToUpper() + "!";
+				DanceMenuButtons.transform.GetChild(i+2).transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = pose.ToString().ToUpper() + "!";
 
 				// Assign OnClick functions to generated buttons
-				Button danceButtonComponent = DanceMenuButtons.transform.GetChild(i+1).transform.GetChild(0).GetComponent<Button>();
+				Button danceButtonComponent = DanceMenuButtons.transform.GetChild(i+2).transform.GetChild(0).GetComponent<Button>();
 				danceButtonComponent.onClick.AddListener(delegate{InputController.DanceMenuDanceButtonClicked(pose);});
 
+				// Add DanceHoverUIController to dance button container - mouse will intersect this in the UI (i hope)
+				DanceMenuButtons.transform.GetChild(i+2).gameObject.AddComponent<DanceHoverUIController>();
+				DanceHoverUIController danceButtonHoverUIController = DanceMenuButtons.transform.GetChild(i+2).gameObject.GetComponent<DanceHoverUIController>();
+
+				// Set hover panel reference in dancehoveruicontroller script
+				Debug.Log("Adding HoverInfoPanel reference to hoverUICOntolerrs");
+				Debug.Log("Hopefully hover info panel : " + DanceMenuButtons.transform.GetChild(1).gameObject.name);
+				danceButtonHoverUIController.HoverInfoPanel = DanceMenuButtons.transform.GetChild(1).gameObject;
+				danceButtonHoverUIController.SetOnHoverInfo(pose);
+				
+			
 				if (BattleManager.GetPoseStaminaCost(pose) > BattleManager.PlayerCurrentStamina)
 				{
 					// Disable button if stamina too costly (hoping this dims the button a lil)

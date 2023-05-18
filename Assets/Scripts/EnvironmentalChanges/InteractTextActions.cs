@@ -10,7 +10,7 @@ public class InteractTextActions : MonoBehaviour
 	void Update()
 	{
 		TextTransform = GetComponent<Transform>();
-		TextTransform.position = new Vector3(InteractionSubject.transform.position.x, InteractionSubject.transform.position.y+1.5f, InteractionSubject.transform.position.z);
+		TextTransform.position = new Vector3(InteractionSubject.transform.position.x, InteractionSubject.transform.position.y+2.8f, InteractionSubject.transform.position.z);
 		TextTransform.LookAt(PlayerTransform);
 
 

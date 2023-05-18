@@ -37,6 +37,20 @@ namespace BattleEvent
 
 		DanceEvent.Pose CurrentPose;
 
+		bool IsMouseOver;
+
+
+		public void OnPointerEnter(PointerEventData eventData)
+		{
+			Debug.Log("Mouse is hovering over button");
+			IsMouseOver = true;
+		}
+
+		public void OnPointerExit(PointerEventData eventData)
+		{
+			Debug.Log("Mouse has stopped hovering over button");
+			IsMouseOver = false;
+		}
 
 		void Start()
 		{
