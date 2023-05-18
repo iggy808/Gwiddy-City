@@ -7,6 +7,7 @@ public class EnemyAnimationController : MonoBehaviour
 	public UnityEngine.AI.NavMeshAgent agent;
 	public PlayerMovement playerCon;
 	public DanceRange danceRng;
+	public bool fought = false;
 	private Animator animator;
 	private float timer = 0f;
 
@@ -25,6 +26,7 @@ public class EnemyAnimationController : MonoBehaviour
 		if (!agent.enabled && playerCon.engaged && danceRng.dancing)
         {
 			timer += Time.deltaTime;
+			fought = true;
 			int dance = Random.Range(1, 68);
 			if (dance == 1)
 				animator.SetBool("isDancing1", true);
@@ -230,12 +232,12 @@ public class EnemyAnimationController : MonoBehaviour
 			animator.SetBool("isDancing65", false);
 			animator.SetBool("isDancing66", false);
 			animator.SetBool("isDancing67", false);
-			if (timer < 10)
+			if (timer < 10f && fought)
 			{
 				animator.SetBool("isDead", true);
 				danceRng.dancing = false;
 			}
-			else
+			else if (timer >= 10f && fought)
 				Dance();
 		}
 	}
