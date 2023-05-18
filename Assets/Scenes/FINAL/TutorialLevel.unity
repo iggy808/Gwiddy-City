@@ -93329,6 +93329,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 811470318}
     - target: {fileID: 8055223243906581424, guid: 5f05f962fbf69bf49941fdf8f19034ab, type: 3}
+      propertyPath: CinemachineFreeLook
+      value: 
+      objectReference: {fileID: 1997538796}
+    - target: {fileID: 8055223243906581424, guid: 5f05f962fbf69bf49941fdf8f19034ab, type: 3}
       propertyPath: DialogueManagerAccessor
       value: 
       objectReference: {fileID: 695688041}

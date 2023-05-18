@@ -133,9 +133,12 @@ public class ScenarioController : MonoBehaviour
 						//OldManObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 126.9f, 0f));
                         // Enable the general environmental dance event sender
                         //DanceSender.enabled = true;
-						OldManTextPrompt.SetActive(true);
-						PlayerMovement.enabled = false;
-						StartCoroutine(DelayInitializeScenario(ScenarioType.TutorialOldMan2));
+						OldManTextPrompt.SetActive(false);
+						PlayerMovement.enabled = true;
+                        IsScenarioActive = false;
+                        OldManObject.transform.position = new Vector3(-221.42f, 16.56f, -131.58f);
+                        OldManObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 126.9f, 0f));
+						//StartCoroutine(DelayInitializeScenario(ScenarioType.TutorialOldMan2));
 						break;
 				}
 				break;
