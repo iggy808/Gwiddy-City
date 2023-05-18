@@ -27,6 +27,7 @@ public class Scenario
 
 	public Scenario(ScenarioType scenario)
 	{
+		Type = scenario;
 		switch (scenario)
 		{
 			case ScenarioType.TutorialOldMan:

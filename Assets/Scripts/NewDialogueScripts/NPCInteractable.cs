@@ -18,28 +18,36 @@ public class NPCInteractable : MonoBehaviour
         // If the target is an NPC...
         if (gameObject.tag == "NPC")
         {
+			Debug.Log("Interacting with NPC. : " + gameObject.name);
+			
             // Check if it has a DialogueTrigger script...
             // If it does...
-            if (gameObject.TryGetComponent(out DialogueTrigger dialogue) ){
+            if (gameObject.TryGetComponent(out DialogueTrigger dialogue) )
+			{
                 
-                if (ScenarioController.CurrentState != ScenarioStates.DanceEventTutorial)
-                {
-                    if (ScenarioController.CurrentState == ScenarioStates.NotYetEngaged)
-                    {
-                        ScenarioController.CurrentProgressionStage = 0;
-                        ScenarioController.CurrentDialogueInteractionCount = 0;
+				/*
+                //if (ScenarioController.CurrentState != ScenarioStates.DanceEventTutorial)
+                //{
+                    //if (ScenarioController.CurrentState == ScenarioStates.NotYetEngaged)
+                    //{
+                        //ScenarioController.CurrentProgressionStage = 0;
+                        //ScenarioController.CurrentDialogueInteractionCount = 0;
 
-                        ScenarioController.InitializeScenario(ScenarioController.startingScenario);
+                        //ScenarioController.InitializeScenario(ScenarioController.startingScenario);
                         
-                    }
+                    //}
                     if (ScenarioController.CurrentState == ScenarioStates.Over)
                     {
-                        ScenarioController.CurrentProgressionStage = 0;
-                        ScenarioController.CurrentDialogueInteractionCount = 0;
+                        //ScenarioController.CurrentProgressionStage = 0;
+                        //ScenarioController.CurrentDialogueInteractionCount = 0;
 
                         ScenarioController.InitializeScenario(ScenarioController.secondScenario);
 
                     }
+					*/
+				Debug.Log("Interacting with old man. Progressing scenario");
+					// Refresh scenario controller component
+					ScenarioController = GameObject.FindWithTag("Player").transform.parent.gameObject.GetComponent<ScenarioController>();
                     // Scenario must prgress state when dialogue is triggered
                     ScenarioController.CurrentDialogueInteractionCount++;
                     ScenarioController.ProgressScenario();
@@ -78,9 +86,8 @@ public class NPCInteractable : MonoBehaviour
                 */
             }
             
-        }
+        } 
 
-    }
 
     private void Update()
     {

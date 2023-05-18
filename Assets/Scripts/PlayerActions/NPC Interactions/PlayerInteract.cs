@@ -31,9 +31,11 @@ public class PlayerInteract : MonoBehaviour
                 // If the collider has the NPCInteractable script...
                 if(collider.TryGetComponent(out NPCInteractable npc))
                 {
+					Debug.Log("Nearby npc has npcinteractable component");
                     // Disable player movement
                     gameObject.GetComponent<PlayerMovement>().enabled = false;
                     
+					Debug.Log("npc.dialoguecamera.enabled == false ?  : " + (npc.DialogueCamera.enabled == false));
                     // If the npc isn't speaking
                     if(npc.DialogueCamera.enabled == false)
                     {

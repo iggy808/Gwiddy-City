@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using DanceEvent;
 
@@ -55,7 +56,8 @@ public class ScenarioController : MonoBehaviour
 		// Or control with IsSCenarioActive?
 		//DanceSender.enabled = false;
 
-		//InitializeScenario(startingScenario);
+		Debug.Log("Awake called");
+		InitializeScenario(startingScenario);
 	}
 
 	// General initialize function for future scenarios
@@ -64,6 +66,7 @@ public class ScenarioController : MonoBehaviour
 		// Configure variables for internal use during scenario
 		IsScenarioActive = true;
 		CurrentScenario = scenario;
+		Debug.Log("Current scenario : " + CurrentScenario.Type);
 		CurrentState = CurrentScenario.States.First();
 		CurrentProgressionStage = 0;
 		CurrentDialogueInteractionCount = 0;
@@ -75,15 +78,15 @@ public class ScenarioController : MonoBehaviour
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
         //AnimationInputController.enabled = false;
-
+		
         Debug.Log("Scenario initialized, CurrentState = " + CurrentState + ", CurrentProgressionStage = " + CurrentProgressionStage);
 	}
 
 	void ProgressState() 
 	{
+		Debug.Log("Progressing state.");
 		switch (CurrentScenario.Type)
-		{
-			
+		{	
 			case ScenarioType.TutorialOldMan:
 				switch (CurrentState)
 				{
@@ -118,12 +121,14 @@ public class ScenarioController : MonoBehaviour
 					case ScenarioStates.Over:
 						// PUFF OF SMOKE ETC.
 						ParticleHandler.PUFF_O_SMOKE();
-						Debug.Log("OLD MAN GONE, PLAYER CAN MOVE!");
-						OldManObject.transform.position = new Vector3(-221.42f, 16.56f, -131.58f);
-						OldManObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 126.9f, 0f));
+						Debug.Log("OLD MAN GONE, PLAYER CAN MOVE! (sike)");
+						//OldManObject.transform.position = new Vector3(-221.42f, 16.56f, -131.58f);
+						//OldManObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 126.9f, 0f));
                         // Enable the general environmental dance event sender
                         //DanceSender.enabled = true;
-                        IsScenarioActive = false;
+						OldManTextPrompt.SetActive(true);
+						PlayerMovement.enabled = false;
+						StartCoroutine(DelayInitializeScenario(ScenarioType.TutorialOldMan2));
 						break;
 				}
 				break;
@@ -176,10 +181,16 @@ public class ScenarioController : MonoBehaviour
 		}
 
 	}
+	IEnumerator DelayInitializeScenario(ScenarioType scenarioType)
+	{
+		yield return new WaitForSeconds(0.5f);
+		InitializeScenario(new Scenario(scenarioType));
+	}
 
 	public void ProgressScenario()
 	{
 		CurrentProgressionStage++;
+		Debug.Log("Progressing scenario...");
 
 		if (CurrentProgressionStage > CurrentScenario.States.Count)
 		{

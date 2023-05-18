@@ -127,7 +127,10 @@ public class DialogueManager : MonoBehaviour
             Debug.Log("PlayerMovement enabled from dialogue manager.");
             // Enable player movement if the scenario is over
             ScenarioController.ProgressScenario();
-            playerCharacter.GetComponent<PlayerMovement>().enabled = true;
+			if (ScenarioController.CurrentScenario.Type != ScenarioType.TutorialOldMan)
+			{
+            	playerCharacter.GetComponent<PlayerMovement>().enabled = true;
+			}
             rb.constraints &= ~RigidbodyConstraints.FreezePositionX | ~RigidbodyConstraints.FreezePositionY | ~RigidbodyConstraints.FreezePositionZ;
             rb.constraints &= ~RigidbodyConstraints.FreezeRotationX | ~RigidbodyConstraints.FreezeRotationY | ~RigidbodyConstraints.FreezeRotationZ;
             //ScenarioController.CurrentDialogueInteractionCount = 0;
