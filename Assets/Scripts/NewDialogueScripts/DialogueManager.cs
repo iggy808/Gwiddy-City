@@ -189,7 +189,7 @@ public class DialogueManager : MonoBehaviour
                 sentences.Enqueue("\"You mean to tell me you don't know how to cha cha real smooth?\"");
                 sentences.Enqueue("\"Or mambo?\"");
                 sentences.Enqueue("\"NO WORRIES!!!!\"");
-                sentences.Enqueue("\"I WILL TEACH YOU NOW!!!\"");
+                sentences.Enqueue("\"I WILL TEACH YOU NOW!!! (Press Q/E)\"");
             }
 
             // Have some text pop up explaining controls.
