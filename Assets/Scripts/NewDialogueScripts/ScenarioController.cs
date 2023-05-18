@@ -137,7 +137,7 @@ public class ScenarioController : MonoBehaviour
 						OldManTextPrompt.SetActive(false);
 						PlayerMovement.enabled = true;
                         IsScenarioActive = false;
-                        OldManObject.transform.position = new Vector3(-221.42f, 16.56f, -131.58f);
+                        OldManObject.transform.position = new Vector3(0f, 16.56f, -131.58f);
                         OldManObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 126.9f, 0f));
 						//StartCoroutine(DelayInitializeScenario(ScenarioType.TutorialOldMan2));
 						break;
