@@ -10,9 +10,9 @@ public class DanceRange : MonoBehaviour
 	{
 		if (col.CompareTag("Player"))
 		{
+			dancing = true;
 			UnityEngine.AI.NavMeshAgent agent = GetComponentInParent<UnityEngine.AI.NavMeshAgent>();
 			agent.enabled = false;
-			dancing = true;
 		}
 	}
 }
