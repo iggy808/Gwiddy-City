@@ -71,8 +71,12 @@ public class GameEnd : MonoBehaviour
             // Get user name 
             end.SetActive(true);
             // Send score 
+    }
+
+	public void ForRealEndTheGame()
+	{
         userName = inputField.GetComponent<TMP_InputField>().text;
         HS.SubmitHighScore(this, userName, player.GetComponent<PlayerOrbCollection>().total);
         SceneManager.LoadScene("End Screen");
-    }
+	}
 }
