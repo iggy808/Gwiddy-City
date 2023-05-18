@@ -121,7 +121,7 @@ public class ScenarioController : MonoBehaviour
 					case ScenarioStates.Over:
 						// PUFF OF SMOKE ETC.
 						ParticleHandler.PUFF_O_SMOKE();
-						Debug.Log("OLD MAN GONE, PLAYER CAN MOVE! (sike)");
+						//Debug.Log("OLD MAN GONE, PLAYER CAN MOVE! (sike)");
 						//OldManObject.transform.position = new Vector3(-221.42f, 16.56f, -131.58f);
 						//OldManObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 126.9f, 0f));
                         // Enable the general environmental dance event sender
