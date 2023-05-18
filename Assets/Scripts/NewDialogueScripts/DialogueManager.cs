@@ -28,7 +28,6 @@ public class DialogueManager : MonoBehaviour
     // Sentence to enqueue
     string sentence;
     // Boolean to figure out if the player skipped passed dialogue
-    bool clicked;
     Rigidbody rb;
 
     [SerializeField]
@@ -40,7 +39,6 @@ public class DialogueManager : MonoBehaviour
     {
         rb = playerCharacter.GetComponent<Rigidbody>();
 
-        clicked = false;
         mouseButton.gameObject.SetActive(false);
         animator.SetBool("IsOpen", false);
         sentences = new Queue<string>();
@@ -82,7 +80,6 @@ public class DialogueManager : MonoBehaviour
             // If the text is incomplete, complete the text and display the button
             if (dialogueText.text != sentence)
             {
-                clicked = true;
                 StopAllCoroutines();
                 dialogueText.text = sentence;
                 mouseButton.gameObject.SetActive(true);
@@ -94,6 +91,9 @@ public class DialogueManager : MonoBehaviour
         // Developer control to END current dialogue
         if (Input.GetKeyDown(KeyCode.RightShift)){
             sentences.Clear();
+            //ScenarioController.CurrentState = ScenarioStates.Over;
+            ScenarioController.CurrentDialogueInteractionCount = ScenarioController.ScenarioTotalInteractionCount;
+            ScenarioController.ProgressScenario();
         }
 
         // If the text is completed, display mouse button
@@ -106,7 +106,6 @@ public class DialogueManager : MonoBehaviour
         {
             mouseButton.gameObject.SetActive(false);
         }
-        Debug.Log("Current sentences.Count == " + sentences.Count);
     }
 
     // Coroutine to type the sentence's characters
@@ -131,7 +130,7 @@ public class DialogueManager : MonoBehaviour
             playerCharacter.GetComponent<PlayerMovement>().enabled = true;
             rb.constraints &= ~RigidbodyConstraints.FreezePositionX | ~RigidbodyConstraints.FreezePositionY | ~RigidbodyConstraints.FreezePositionZ;
             rb.constraints &= ~RigidbodyConstraints.FreezeRotationX | ~RigidbodyConstraints.FreezeRotationY | ~RigidbodyConstraints.FreezeRotationZ;
-
+            //ScenarioController.CurrentDialogueInteractionCount = 0;
         }
         else
         {
@@ -162,7 +161,7 @@ public class DialogueManager : MonoBehaviour
                 sentences.Enqueue("\"Hello There\"");
                 sentences.Enqueue("\"I am known as Old Man\"");
                 sentences.Enqueue("\"Welcome...to the world of many a name\"");
-                sentences.Enqueue("\"Once known as the the Dance Central...\"");
+                sentences.Enqueue("\"Once known as the Dance Central...\"");
                 sentences.Enqueue("\"Or sung as DanceTron...\"");
                 sentences.Enqueue("\"Or called The Land Of A Thousand Dances...\"");
                 sentences.Enqueue("\"Or referred to as some other name the developers couldn't decide on\"");

@@ -10,7 +10,7 @@ public class ScenarioController : MonoBehaviour
 	public ScenarioStates CurrentState;
 	public int CurrentDialogueInteractionCount;
 	public int ScenarioTotalInteractionCount;
-	int CurrentProgressionStage;
+	public int CurrentProgressionStage;
 
 	[SerializeField]
 	DanceRequestSender DanceSender;
@@ -34,6 +34,8 @@ public class ScenarioController : MonoBehaviour
 	public bool INSP_CANCELINTROSCENARIO;
 	Rigidbody rb;
 
+	public Scenario startingScenario;
+	public Scenario secondScenario;
 	public DialogueManager DialogueManagerAccessor;
 	// Initialize game in tutorial scenario - movement locked and speaking to old man
 	void Awake()
@@ -46,14 +48,14 @@ public class ScenarioController : MonoBehaviour
 		}
 
 		rb = Player.GetComponent<Rigidbody>();
-		Scenario startingScenario = new Scenario(ScenarioType.TutorialOldMan);
-		Scenario secondSecario = new Scenario(ScenarioType.TutorialOldMan2);
+		startingScenario = new Scenario(ScenarioType.TutorialOldMan);
+        secondScenario = new Scenario(ScenarioType.TutorialOldMan2);
 		PlayerMovement = Player.GetComponent<PlayerMovement>();
 		// Throughout the intro, disable the general dance event sender
 		// Or control with IsSCenarioActive?
 		//DanceSender.enabled = false;
 
-		InitializeScenario(startingScenario);
+		//InitializeScenario(startingScenario);
 	}
 
 	// General initialize function for future scenarios
@@ -81,6 +83,7 @@ public class ScenarioController : MonoBehaviour
 	{
 		switch (CurrentScenario.Type)
 		{
+			
 			case ScenarioType.TutorialOldMan:
 				switch (CurrentState)
 				{
@@ -116,14 +119,59 @@ public class ScenarioController : MonoBehaviour
 						// PUFF OF SMOKE ETC.
 						ParticleHandler.PUFF_O_SMOKE();
 						Debug.Log("OLD MAN GONE, PLAYER CAN MOVE!");
-						OldManObject.SetActive(false);
-						// Enable the general environmental dance event sender
-						//DanceSender.enabled = true;
-						IsScenarioActive = false;
+						OldManObject.transform.position = new Vector3(-221.42f, 16.56f, -131.58f);
+						OldManObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 126.9f, 0f));
+                        // Enable the general environmental dance event sender
+                        //DanceSender.enabled = true;
+                        IsScenarioActive = false;
 						break;
 				}
 				break;
-			default:
+            case ScenarioType.TutorialOldMan2:
+                switch (CurrentState)
+                {
+                    case ScenarioStates.InteractedOnce:
+                        OldManTextPrompt.SetActive(false);
+                        //Debug.Log("Made it Here");
+                        DialogueManagerAccessor.OldManTalks(ScenarioType.TutorialOldMan2, ScenarioStates.InteractedOnce);
+                        break;
+                    case ScenarioStates.DanceEventTutorial:
+                        AnimationInputController.enabled = true;
+                        // Activate a dance event with tutorial intructions and long timer
+                        DanceHandler.ActivateDanceEvent(new DanceRequestContext
+                        {
+                            Environment = Environment.EnvDance,
+                            DesiredMoves = new List<DanceEvent.Pose>()
+                            {
+                                DanceEvent.Pose.Splits
+                            },
+                            TargetObject = OldManObject,
+                            IsTutorial = true
+                        });
+                        break;
+                    case ScenarioStates.DanceEventTutorialOver:
+                        // Enable interact text above old man head
+                        OldManTextPrompt.SetActive(true);
+                        break;
+                    case ScenarioStates.InteractedTwice:
+                        // Disable interact text above old man head
+                        OldManTextPrompt.SetActive(false);
+                        DialogueManagerAccessor.OldManTalks(ScenarioType.TutorialOldMan2, ScenarioStates.InteractedTwice);
+                        break;
+                    case ScenarioStates.Over:
+                        // PUFF OF SMOKE ETC.
+                        ParticleHandler.PUFF_O_SMOKE();
+                        Debug.Log("OLD MAN GONE, PLAYER CAN MOVE!");
+                        // Enable the general environmental dance event sender
+                        //DanceSender.enabled = true;
+                        IsScenarioActive = false;
+                        OldManObject.transform.position = new Vector3(-221.42f, 16.56f, -131.58f);
+                        OldManObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 126.9f, 0f));
+
+                        break;
+                }
+				break;
+            default:
 				break;
 		}
 
@@ -147,4 +195,10 @@ public class ScenarioController : MonoBehaviour
 			ProgressState();
 		}
 	}
+
+    private void Update()
+    {
+		Debug.Log("Current Scenario " + CurrentScenario);
+		Debug.Log("Current Scenerio State " + CurrentState);
+    }
 }
