@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class GameEnd : MonoBehaviour
@@ -34,6 +35,7 @@ public class GameEnd : MonoBehaviour
             // disable hud 
             hud.SetActive(false);
 
+
             // Show keyboard
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
@@ -57,6 +59,6 @@ public class GameEnd : MonoBehaviour
     {
         userName = inputField.GetComponent<TMP_InputField>().text;
         HS.SubmitHighScore(this, userName, player.GetComponent<PlayerOrbCollection>().total);
-        Application.Quit();
+        SceneManager.LoadScene("End Screen");
     }
 }

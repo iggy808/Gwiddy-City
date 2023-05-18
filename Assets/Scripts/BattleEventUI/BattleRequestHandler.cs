@@ -36,13 +36,14 @@ namespace BattleEvent
 		PlayerMovement PlayerMovement;
 		[SerializeField]
 		ScenarioController ScenarioController;
-
+		public GameObject GameEnder;
 		
 
 		void Start()
 		{
 			BattleEventUIComponents.SetActive(false);
 			BattleEventUI.SetActive(false);	
+			GameEnder.SetActive(false);
 		}
 
 		public void ActivateBattleEvent(BattleRequestContext context)
@@ -81,6 +82,7 @@ namespace BattleEvent
 			{
 				BattleEventUIManager.ShowPlayerHud();
 			}
+			GameEnder.SetActive(true);
 		}
 
 		void InitializeBattle()
