@@ -1152,7 +1152,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2822791906232213629, guid: 5f05f962fbf69bf49941fdf8f19034ab, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9172362808593105693, guid: 5f05f962fbf69bf49941fdf8f19034ab, type: 3}
       propertyPath: m_Enabled
@@ -3082,7 +3082,7 @@ MonoBehaviour:
   orientation: {fileID: 6827890099056178292}
   dbJump: 0
   dsh: 0
-  rb: {fileID: 0}
+  engaged: 0
 --- !u!1 &6827890100220792982
 GameObject:
   m_ObjectHideFlags: 0
@@ -3408,7 +3408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8442137758569561092, guid: 75f2c5732da7a03408bec7dac4312b52, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8442137758569561092, guid: 75f2c5732da7a03408bec7dac4312b52, type: 3}
       propertyPath: m_Quality
