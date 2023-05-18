@@ -26,6 +26,7 @@ public class DangerBlock : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            //player.GetComponent<PlayerOrbCollection>().total -= 1;
             AudioSource source = GetComponent<AudioSource>();
             AudioClip clip = source.clip;
             source.PlayOneShot(clip);
@@ -39,9 +40,9 @@ public class DangerBlock : MonoBehaviour
         Debug.Log("Made it");
         for (int i = 0; i < 25; i++)
         {
-            playerRenderer.GetComponent<MeshRenderer>().enabled = false;
+            playerRenderer.SetActive(false);
             yield return new WaitForSeconds(.1f);
-            playerRenderer.GetComponent<MeshRenderer>().enabled = true;
+            playerRenderer.SetActive(true);
             yield return new WaitForSeconds(.1f);
         }
     }
