@@ -34,6 +34,8 @@ namespace BattleEvent
 		PlayerCam PlayerCam;
 		[SerializeField]
 		PlayerMovement PlayerMovement;
+		[SerializeField]
+		ScenarioController ScenarioController;
 
 		
 
@@ -71,7 +73,14 @@ namespace BattleEvent
 				else if (battlesWon == 2)
 					PlayerMovement.dsh = true;
             }
-			BattleEventUIManager.ShowPlayerHud();
+			if (ScenarioController.IsScenarioActive)
+			{
+				ScenarioController.ProgressScenario();
+			}
+			else
+			{
+				BattleEventUIManager.ShowPlayerHud();
+			}
 		}
 
 		void InitializeBattle()
@@ -81,7 +90,10 @@ namespace BattleEvent
 			// Let DanceHandler know the state of the battle
 			DanceHandler.CurrentBattleMoveCount = 0;
 			// Restrict player motion, enable mouse menu input
-			PlayerCam.SwitchMouseControls();
+			if (!(ScenarioController.IsScenarioActive && ScenarioController.CurrentState == ScenarioStates.InteractedOnce))
+			{
+				PlayerCam.SwitchMouseControls();
+			}
 			// Set battle event UI to main input panel
 			BattleEventUI.SetActive(true);
 			BattleEventUIComponents.SetActive(true);

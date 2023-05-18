@@ -11,6 +11,7 @@ namespace BattleEvent
 
 	public enum SpecialEnemies
 	{
+		OldManTut,
 		FunkMaster,
 		Smoothness	
 	}
@@ -49,6 +50,17 @@ namespace BattleEvent
 					MaxStamina = 3;
 					CurrentStamina = MaxStamina;
 					CoolnessThreshhold = 60;
+					break;
+				case SpecialEnemies.OldManTut:
+					Name = enemy;
+					Type = EnemyType.Special;
+					DanceMoves = new List<DanceEvent.Pose>()
+					{
+						Pose.Splits
+					};
+					MaxStamina = 2;
+					CurrentStamina = MaxStamina;
+					CoolnessThreshhold = 15;
 					break;
 				default:
 					break;

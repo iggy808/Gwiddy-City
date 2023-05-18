@@ -47,6 +47,7 @@ public class PlayerCam : MonoBehaviour
 
     public void SwitchMouseControls()
     {
+		Debug.Log("THIS ONE THIS ONE THIS ONE Switching Mouse State from : " + currentMouseState);
 		switch (currentMouseState)
 		{
 			case MouseState.Environmetal:
@@ -67,5 +68,6 @@ public class PlayerCam : MonoBehaviour
 			default:
 				break;
 		}
+		Debug.Log("THIS ONE THIS ONE THIS ONE Current mouse state : " + currentMouseState);
     }
 }

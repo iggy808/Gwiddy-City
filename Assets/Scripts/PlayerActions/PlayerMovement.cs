@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+	public PlayerEngaged PlayerEngaged;
+	public ScenarioController ScenarioController;
     public float moveSpeed;
     public float playerHeight;
     public float groundDrag;
@@ -37,11 +39,13 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+		engaged = PlayerEngaged.battleEngaged;
     }
 
     private void Update()
     {
-        if (!engaged)
+		engaged = PlayerEngaged.battleEngaged;
+        if (!engaged && !ScenarioController.IsScenarioActive)
         {
             grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.8f, groundLayer);
             PlayerInput();

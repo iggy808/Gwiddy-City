@@ -17279,7 +17279,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh157302
+  m_Name: pb_Mesh43784
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -86086,6 +86086,7 @@ MonoBehaviour:
   BattleManager: {fileID: 2324769120650887623}
   PlayerCam: {fileID: 9172362809748709366}
   PlayerMovement: {fileID: 9172362809748709365}
+  ScenarioController: {fileID: 9172362809748709372}
 --- !u!1 &5297777174830569382
 GameObject:
   m_ObjectHideFlags: 0
@@ -93304,6 +93305,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9172362809748709374}
     - target: {fileID: 8055223243906581424, guid: 5f05f962fbf69bf49941fdf8f19034ab, type: 3}
+      propertyPath: PlayerStats
+      value: 
+      objectReference: {fileID: 9172362809748709367}
+    - target: {fileID: 8055223243906581424, guid: 5f05f962fbf69bf49941fdf8f19034ab, type: 3}
       propertyPath: DanceHandler
       value: 
       objectReference: {fileID: 5648977392248090819}
@@ -93311,6 +93316,10 @@ PrefabInstance:
       propertyPath: OldManObject
       value: 
       objectReference: {fileID: 8582086029266886492}
+    - target: {fileID: 8055223243906581424, guid: 5f05f962fbf69bf49941fdf8f19034ab, type: 3}
+      propertyPath: BattleHandler
+      value: 
+      objectReference: {fileID: 5297777174830569376}
     - target: {fileID: 8055223243906581424, guid: 5f05f962fbf69bf49941fdf8f19034ab, type: 3}
       propertyPath: ParticleHandler
       value: 
@@ -93399,6 +93408,14 @@ PrefabInstance:
       propertyPath: jumpForce
       value: 22
       objectReference: {fileID: 0}
+    - target: {fileID: 9172362809246681540, guid: 5f05f962fbf69bf49941fdf8f19034ab, type: 3}
+      propertyPath: PlayerEngaged
+      value: 
+      objectReference: {fileID: 9172362809748709377}
+    - target: {fileID: 9172362809246681540, guid: 5f05f962fbf69bf49941fdf8f19034ab, type: 3}
+      propertyPath: ScenarioController
+      value: 
+      objectReference: {fileID: 9172362809748709372}
     - target: {fileID: 9172362809246681561, guid: 5f05f962fbf69bf49941fdf8f19034ab, type: 3}
       propertyPath: m_Name
       value: 3P_Player

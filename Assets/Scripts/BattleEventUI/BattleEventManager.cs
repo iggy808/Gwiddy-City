@@ -359,9 +359,9 @@ namespace BattleEvent
 
 		public void EndBattle()
 		{
-			BattleHandler.EndBattleEvent(WasSuccessful);
 			PlayerEngaged engaged = PlayerController.GetComponent<PlayerEngaged>();
 			engaged.battleEngaged = false;
+			BattleHandler.EndBattleEvent(WasSuccessful);
 		}
 	}
 }

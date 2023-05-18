@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 using DanceEvent;
+using BattleEvent;
 
 
 public class ScenarioController : MonoBehaviour
@@ -14,6 +15,9 @@ public class ScenarioController : MonoBehaviour
 	public int CurrentProgressionStage;
 
 	[SerializeField]
+	BattleRequestHandler BattleHandler;
+
+	[SerializeField]
 	DanceRequestSender DanceSender;
 	[SerializeField]
 	animationStateController AnimationInputController;
@@ -21,7 +25,10 @@ public class ScenarioController : MonoBehaviour
 
 	[SerializeField]
 	GameObject Player;
+	[SerializeField]
+	PlayerStats PlayerStats;
 	PlayerMovement PlayerMovement;
+
 	[SerializeField]
 	GameObject OldManObject;
 	[SerializeField]
@@ -142,6 +149,12 @@ public class ScenarioController : MonoBehaviour
                         break;
                     case ScenarioStates.DanceEventTutorial:
                         AnimationInputController.enabled = true;
+						BattleHandler.ActivateBattleEvent(new BattleRequestContext()
+						{
+							Enemy = new Enemy(SpecialEnemies.OldManTut),
+							Player = PlayerStats
+						});
+						/*
                         // Activate a dance event with tutorial intructions and long timer
                         DanceHandler.ActivateDanceEvent(new DanceRequestContext
                         {
@@ -153,6 +166,7 @@ public class ScenarioController : MonoBehaviour
                             TargetObject = OldManObject,
                             IsTutorial = true
                         });
+						*/
                         break;
                     case ScenarioStates.DanceEventTutorialOver:
                         // Enable interact text above old man head
@@ -167,6 +181,7 @@ public class ScenarioController : MonoBehaviour
                         // PUFF OF SMOKE ETC.
                         ParticleHandler.PUFF_O_SMOKE();
                         Debug.Log("OLD MAN GONE, PLAYER CAN MOVE!");
+						PlayerMovement.enabled = true;
                         // Enable the general environmental dance event sender
                         //DanceSender.enabled = true;
                         IsScenarioActive = false;

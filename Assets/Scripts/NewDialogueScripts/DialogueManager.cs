@@ -143,8 +143,11 @@ public class DialogueManager : MonoBehaviour
         // Get rid of dialogue canvas
         animator.SetBool("IsOpen", true);
         dialogueCanvas.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+		if (!(ScenarioController.CurrentScenario.Type == ScenarioType.TutorialOldMan2 && ScenarioController.CurrentState == ScenarioStates.InteractedOnce))
+		{
+        	Cursor.lockState = CursorLockMode.Locked;
+        	Cursor.visible = false;
+		}
         // Display main camera , hide dialogue camera 
         DialogueCamera.enabled = false; MainCamera.enabled = true;
     }
