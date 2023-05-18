@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public enum ScenarioType
 {
 	TutorialOldMan,
+	TutorialOldMan2,
 	None
 }
 
@@ -40,9 +41,20 @@ public class Scenario
 					ScenarioStates.Over
 				};
 				break;
-			case ScenarioType.None:
-				DialogueInteractionCount = 0;
-				break;
+			
+		    // For the Sequencer Tutorial
+			case ScenarioType.TutorialOldMan2:
+				DialogueInteractionCount = 2;
+                States = new List<ScenarioStates>()
+                {
+                    ScenarioStates.NotYetEngaged,
+                    ScenarioStates.InteractedOnce,
+                    ScenarioStates.DanceEventTutorial,
+                    ScenarioStates.DanceEventTutorialOver,
+                    ScenarioStates.InteractedTwice,
+                    ScenarioStates.Over
+                };
+                break;
 			default:
 				break;
 		}

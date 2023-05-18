@@ -7,25 +7,7 @@ using Unity.VisualScripting;
 
 public class DialogueManager : MonoBehaviour
 {
-    /// <summary>
-    /// You can't have an array of queues 
-    /// Best we can do is probably do an array of arrays 
-    /// But even then, we'd have to have specific indecies that cannot be 
-    /// generalized thru this script. We'd have to functions in here to describe
-    /// which texts to pull and display and which to pull from a boolean condition 
-    /// or something like that 
-    /// 
-    /// I think it's best to simply create multiple prefabs containing different dialogues 
-    /// OR 
-    /// we have a another script specific to the NPC to empty the string array 
-    /// hold the dialogues and replace it with desired lines, depending on a boolean
-    /// or integer value depending on where the player is in the story. 
-    /// 
-    /// </summary>
-
-
-
-
+ 
     // Dialogue Canvas Components
     public GameObject dialogueCanvas;
     public TextMeshProUGUI nameText;
@@ -42,15 +24,15 @@ public class DialogueManager : MonoBehaviour
     public GameObject playerCharacter;
 
     // Empty Queue to put a sentence in
-    private Queue<string> sentences;
+    public Queue<string> sentences;
     // Sentence to enqueue
     string sentence;
     // Boolean to figure out if the player skipped passed dialogue
     bool clicked;
     Rigidbody rb;
 
-	[SerializeField]
-	ScenarioController ScenarioController;
+    [SerializeField]
+    ScenarioController ScenarioController;
 
 
     // Start is called before the first frame update
@@ -69,14 +51,6 @@ public class DialogueManager : MonoBehaviour
         animator.SetBool("IsOpen", true);
         nameText.text = dialogue.name;
         characterImage.sprite = dialogue.characterSprite;
-        // Clear the sentences queue if it's not already empty
-        sentences.Clear();
-
-        // Enqueue each sentence into the sentencesHolder
-        foreach(string sentence in dialogue.sentencesHolder)
-        {
-            sentences.Enqueue(sentence);
-        }
 
         // Needs to be called right off the bat to display the sentence
         DisplayNextSentence();
@@ -95,7 +69,7 @@ public class DialogueManager : MonoBehaviour
         // If sentences remain
         // Dequeue to the the next sentence
         sentence = sentences.Dequeue();
-        
+
         // Display the next sentence
         StartCoroutine(TypeSentence(sentence));
     }
@@ -119,13 +93,14 @@ public class DialogueManager : MonoBehaviour
         // If the text is completed, display mouse button
         if (dialogueText.text == sentence)
         {
-            mouseButton.gameObject.SetActive(true); 
+            mouseButton.gameObject.SetActive(true);
         }
         // If the text is not completed, don't display mouse button
         if (dialogueText.text != sentence)
         {
             mouseButton.gameObject.SetActive(false);
         }
+        Debug.Log("Current sentences.Count == " + sentences.Count);
     }
 
     // Coroutine to type the sentence's characters
@@ -135,27 +110,27 @@ public class DialogueManager : MonoBehaviour
         foreach (char letter in sentence.ToCharArray())
         {
             dialogueText.text += letter;
-            yield return new WaitForSeconds(.05f); 
+            yield return new WaitForSeconds(.05f);
         }
     }
 
 
     void EndDialogue()
     {
-		if (!(ScenarioController.CurrentDialogueInteractionCount < ScenarioController.ScenarioTotalInteractionCount))
-		{
-			Debug.Log("PlayerMovement enabled from dialogue manager.");
-        	// Enable player movement if the scenario is over
-			ScenarioController.ProgressScenario();
-        	playerCharacter.GetComponent<PlayerMovement>().enabled = true;
+        if (!(ScenarioController.CurrentDialogueInteractionCount < ScenarioController.ScenarioTotalInteractionCount))
+        {
+            Debug.Log("PlayerMovement enabled from dialogue manager.");
+            // Enable player movement if the scenario is over
+            ScenarioController.ProgressScenario();
+            playerCharacter.GetComponent<PlayerMovement>().enabled = true;
             rb.constraints &= ~RigidbodyConstraints.FreezePositionX | ~RigidbodyConstraints.FreezePositionY | ~RigidbodyConstraints.FreezePositionZ;
             rb.constraints &= ~RigidbodyConstraints.FreezeRotationX | ~RigidbodyConstraints.FreezeRotationY | ~RigidbodyConstraints.FreezeRotationZ;
 
         }
         else
-		{
-			ScenarioController.ProgressScenario();
-		}
+        {
+            ScenarioController.ProgressScenario();
+        }
 
         // Get rid of dialogue canvas
         animator.SetBool("IsOpen", true);
@@ -165,5 +140,67 @@ public class DialogueManager : MonoBehaviour
         // Display main camera , hide dialogue camera 
         DialogueCamera.enabled = false; MainCamera.enabled = true;
     }
-    
+
+    public void OldManTalks(ScenarioType scenarioType, ScenarioStates scenarioStates)
+    {
+        // COLIN: Here is a template for a dialogue line
+        // sentences.Enqueue("\"\"");
+
+        //Debug.Log("Made it into the OldManTalks function");
+        if (scenarioType == ScenarioType.TutorialOldMan)
+        {
+            //Debug.Log("I learned we are in the Tutorial Old Man scenario");
+            if (scenarioStates == ScenarioStates.InteractedOnce)
+            {
+                sentences.Clear();
+                Debug.Log("I learned we've interacted Once");
+                sentences.Enqueue("\"Hello There\"");
+                sentences.Enqueue("\"I am known as Old Man\"");
+                sentences.Enqueue("\"Welcome...to the world of many a name\"");
+                sentences.Enqueue("\"Once known as the the Dance Central...\"");
+                sentences.Enqueue("\"Or sung as DanceTron...\"");
+                sentences.Enqueue("\"Or called The Land Of A Thousand Dances...\"");
+                sentences.Enqueue("\"Or referred to as some other name the developers couldn't decide on\"");
+                sentences.Enqueue("\"BUT!!!\"");
+                sentences.Enqueue("\"Those days are long gone...\"");
+                sentences.Enqueue("\"We are now both trapped in the horrible shadow of...\"");
+                sentences.Enqueue("\"Gwiddy City\"");
+                sentences.Enqueue("\"Yes...'tis an awful name and age for us dancers\"");
+                sentences.Enqueue("\"We are scattered across this dying world, and separated into graceless factions\"");
+                sentences.Enqueue("\"BUT!!\"");
+                sentences.Enqueue("\"YOU ARE THE HERO WE NEED IN THIS DARKEST HOUR\"");
+                sentences.Enqueue("\"YOU WILL DANCE US TO OUR SALVATION!\"");
+                sentences.Enqueue("\"WE ARE FINALLY BLESSED TO BE IN YOUR PRESE-\"");
+                sentences.Enqueue("\"....what?\"");
+                sentences.Enqueue("\"You don't know how to dance?!?!?!\"");
+                sentences.Enqueue("\"Like...\"");
+                sentences.Enqueue("\"Not even a side step?!\"");
+                sentences.Enqueue("\"Or a waltz?\"");
+                sentences.Enqueue("\"You mean to tell me you don't know how to cha cha real smooth?\"");
+                sentences.Enqueue("\"Or mambo?\"");
+                sentences.Enqueue("\"NO WORRIES!!!!\"");
+                sentences.Enqueue("\"I WILL TEACH YOU NOW!!!\"");
+            }
+
+            // Have some text pop up explaining controls.
+            // Probably move it to OldMan/TextPos
+            // Might have to do it in the NPC interactable or do it somewhere else 
+
+
+            if (scenarioStates == ScenarioStates.InteractedTwice)
+            {
+                sentences.Clear();
+                sentences.Enqueue("\"Okay good you're a fast learner\"");
+                sentences.Enqueue("\"From here you must wonder the lengths of Gwiddy City\"");
+                sentences.Enqueue("\"Although in pieces...\"");
+                sentences.Enqueue("\"The world will be moved by your...moves\"");
+                sentences.Enqueue("\"Dance moves. I mean..\"");
+                sentences.Enqueue("\"AND!!!!\"");
+                sentences.Enqueue("\"You will find other Dancers of various creeds and genres\"");
+                sentences.Enqueue("\"Use what I have taught you\"");
+                sentences.Enqueue("\"Dance your way to victory!\"");
+                sentences.Enqueue("\"AND SAVE US ALL!!!\"");
+            }
+        }
+    }
 }

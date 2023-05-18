@@ -19,7 +19,7 @@ public class NPCInteractable : MonoBehaviour
         {
             // Check if it has a DialogueTrigger script...
             // If it does...
-            if (gameObject.TryGetComponent(out DialogueTrigger dialogue)){
+            if (gameObject.TryGetComponent(out DialogueTrigger dialogue) && ScenarioController.CurrentState != ScenarioStates.DanceEventTutorial ){
                 
                 Debug.Log("Dialogue started");
 				// Scenario must prgress state when dialogue is triggered

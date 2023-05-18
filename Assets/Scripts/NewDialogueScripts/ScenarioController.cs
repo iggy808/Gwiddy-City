@@ -33,6 +33,8 @@ public class ScenarioController : MonoBehaviour
 	public bool IsScenarioActive;
 	public bool INSP_CANCELINTROSCENARIO;
 	Rigidbody rb;
+
+	public DialogueManager DialogueManagerAccessor;
 	// Initialize game in tutorial scenario - movement locked and speaking to old man
 	void Awake()
 	{
@@ -83,6 +85,8 @@ public class ScenarioController : MonoBehaviour
 				{
 					case ScenarioStates.InteractedOnce:
 						OldManTextPrompt.SetActive(false);
+						Debug.Log("Made it Here");
+						DialogueManagerAccessor.OldManTalks(ScenarioType.TutorialOldMan, ScenarioStates.InteractedOnce);
 						break;
 					case ScenarioStates.DanceEventTutorial:
 						AnimationInputController.enabled = true;
@@ -105,7 +109,8 @@ public class ScenarioController : MonoBehaviour
 					case ScenarioStates.InteractedTwice:
 						// Disable interact text above old man head
 						OldManTextPrompt.SetActive(false);
-						break;
+                        DialogueManagerAccessor.OldManTalks(ScenarioType.TutorialOldMan, ScenarioStates.InteractedTwice);
+                        break;
 					case ScenarioStates.Over:
 						// PUFF OF SMOKE ETC.
 						ParticleHandler.PUFF_O_SMOKE();
