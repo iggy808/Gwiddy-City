@@ -59416,6 +59416,25 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1531869570 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 664733579314161965, guid: e4c967a7f948b294fbe9fcf19fb108d0, type: 3}
+  m_PrefabInstance: {fileID: 938118717}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1531869574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531869570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d64505ce637e324fbce7d952f309e94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1596005608}
+  audioSource: {fileID: 1714705973}
 --- !u!1001 &1543384541
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -64905,6 +64924,11 @@ MeshCollider:
 --- !u!4 &1596005607 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9172362808593105683, guid: 5f05f962fbf69bf49941fdf8f19034ab, type: 3}
+  m_PrefabInstance: {fileID: 9172362809748709364}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &1596005608 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 9172362808593105692, guid: 5f05f962fbf69bf49941fdf8f19034ab, type: 3}
   m_PrefabInstance: {fileID: 9172362809748709364}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1596868650 stripped
